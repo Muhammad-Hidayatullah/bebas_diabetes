@@ -574,7 +574,8 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
     else:
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
-    return pdf.output(dest="S").encode("utf-8")
+    return pdf.output(dest="S").encode("latin1")
+
 
     
 
@@ -1545,7 +1546,8 @@ def buat_laporan():
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt=f"-", ln=True)
     
-    return pdf.output(dest="S").encode("utf-8")
+    return pdf.output(dest="S").encode("latin1")
+
 
     
 
