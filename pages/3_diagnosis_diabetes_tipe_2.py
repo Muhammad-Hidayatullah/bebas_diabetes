@@ -1671,6 +1671,8 @@ if st.session_state.next == 9:
     
     if st.button("Kembali ke Awal"):
         st.session_state.next = 0
+        st.session_state.hasil_diagnosis = {}
+        awal_pemeriksaan()
         st.success("Anda Berhasil Kembali ke Awal!")
         time.sleep(1)
         st.rerun()
