@@ -1293,6 +1293,7 @@ if st.session_state.next == 8:
                 st.warning("Anda sudah melakukan pemeriksaan hari ini, apakah Anda ingin menggantinya dengan yang terbaru?")
                 if st.form_submit_button("Ya"):
                     st.session_state.lanjut = 2
+                    st.success("Tunggu Sebentar!")
                     db.hapus_pemeriksaan_kesehatan_dan_diagnosis(st.session_state.tanggal_pemeriksaan)
                     st.success("Pemeriksaan sebelumnya berhasil terhapus!")
                     
