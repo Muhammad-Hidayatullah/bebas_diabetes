@@ -1,34 +1,33 @@
 import streamlit as st
-from fpdf import FPDF
+import PyPDF2
+import io
 
-def buat_laporan_riwayat(nama_lengkap):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=16, style="B")
-    pdf.cell(200, 10, txt="Laporan Hasil Pemeriksaan", ln=True, align="C")
-    pdf.ln()
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Nama: {nama_lengkap}", ln=True)
+def main():
+    st.title("PDF Viewer & Downloader")
     
-    return pdf
+    # Input name
+    name = st.text_input("Enter your name:")
+    
+    # File uploader
+    uploaded_file = st.file_uploader("Upload a PDF file", type=["pdf"])
+    
+    if uploaded_file is not None:
+        st.success(f"File '{uploaded_file.name}' uploaded successfully!")
+        
+        # Display PDF
+        if st.button("View PDF"):
+            with io.BytesIO(uploaded_file.read()) as pdf_bytes:
+                pdf_reader = PyPDF2.PdfReader(pdf_bytes)
+                text = "\n".join([page.extract_text() for page in pdf_reader.pages if page.extract_text()])
+                st.text_area("PDF Content:", text, height=300)
+        
+        # Provide download button
+        st.download_button(
+            label="Download PDF",
+            data=uploaded_file.getvalue(),
+            file_name=uploaded_file.name,
+            mime="application/pdf"
+        )
 
-st.title("Generate PDF Report")
-
-# Input data
-nama = st.text_input("Masukkan Nama")
-
-if st.button("Buat Laporan"):
-    pdf = buat_laporan_riwayat(nama)
-    pdf_output = "laporan.pdf"
-    pdf.output(pdf_output)
-
-    # Read PDF as binary
-    with open(pdf_output, "rb") as f:
-        pdf_bytes = f.read()
-
-    st.download_button(
-        label="Unduh Laporan PDF",
-        data=pdf_bytes,
-        file_name="laporan_pemeriksaan.pdf",
-        mime="application/pdf"
-    )
+if __name__ == "__main__":
+    main()
