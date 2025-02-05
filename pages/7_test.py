@@ -1,36 +1,19 @@
 import streamlit as st
-from fpdf import FPDF
-import io
 from streamlit_pdf_viewer import pdf_viewer
 
-# Input for name
-name = st.text_input("Enter your name:")
 
-if name:
-    # Create a PDF in memory using FPDF
-    pdf = FPDF()
-    pdf.add_page()
-    
-    # Set font
-    pdf.set_font("Arial", size=12)
-    
-    # Add text to PDF
-    pdf.cell(200, 10, txt=f"Hello {name}!", ln=True, align='C')
-    
-    # Save PDF to a byte stream
-    pdf_output = io.BytesIO()
-    pdf.output(pdf_output)
-    
-    # Move cursor to the beginning of the PDF file
-    pdf_output.seek(0)
-    
-    # Display the generated PDF
-    pdf_viewer(pdf_output)
-    
-    # Create a download button for the PDF
-    st.download_button(
-        label="Download PDF",
-        data=pdf_output,
-        file_name=f"hello_{name}.pdf",
-        mime="application/pdf"
-    )
+# Declare variable.
+if 'pdf_ref' not in st.session_state:
+    st.session_state.pdf_ref = None
+
+
+# Access the uploaded ref via a key.
+st.file_uploader("Upload PDF file", type=('pdf'), key='pdf')
+
+if st.session_state.pdf:
+    st.session_state.pdf_ref = ss.pdf  # backup
+
+# Now you can access "pdf_ref" anywhere in your app.
+if st.session_state.pdf_ref:
+    binary_data = st.session_state.pdf_ref.getvalue()
+    pdf_viewer(input=binary_data, width=700)
