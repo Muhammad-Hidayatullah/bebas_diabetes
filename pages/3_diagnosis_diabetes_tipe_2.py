@@ -665,7 +665,10 @@ if st.session_state.next == 100:
                         kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
                         total_kolestrol, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, diagnosis_penyakit_tertentu, relasi_penyakit_dan_gejala)
 
-                st.pdf(file_pdf)
+                base64_pdf = b64encode(file_pdf).decode("utf-8")
+                pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
+
+                st.markdown(pdf_display, unsafe_allow_html=True)
 
                 st.write(f"PDF size: {len(file_pdf)} bytes")  # Debugging
 
