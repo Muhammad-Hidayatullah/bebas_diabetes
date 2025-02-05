@@ -1,1 +1,7 @@
 assets/
+.streamlit/
+pages/
+pages_admin/
+style/
+venv/
+*.txt
