@@ -7,6 +7,9 @@ __pycache__/
 .codegpt
 assets/
 .vscode/
+pages_admin/
+pages/
+style/
 .streamlit/
 __pycache__/
 
