@@ -130,7 +130,7 @@ st.write("")
 
 st.markdown(
   """
-      Sumber referensi:
+      **Sumber referensi:**
       
       [1] https://www.alodokter.com/diabetes-tipe-2
       
