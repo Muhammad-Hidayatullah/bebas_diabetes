@@ -1,6 +1,5 @@
 import streamlit as st
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+from fpdf import FPDF
 import io
 from streamlit_pdf_viewer import st_pdf
 
@@ -8,26 +7,30 @@ from streamlit_pdf_viewer import st_pdf
 name = st.text_input("Enter your name:")
 
 if name:
-    # Create a PDF in memory
-    pdf_buffer = io.BytesIO()
-    c = canvas.Canvas(pdf_buffer, pagesize=letter)
+    # Create a PDF in memory using FPDF
+    pdf = FPDF()
+    pdf.add_page()
+    
+    # Set font
+    pdf.set_font("Arial", size=12)
     
     # Add text to PDF
-    c.drawString(100, 750, f"Hello {name}!")
+    pdf.cell(200, 10, txt=f"Hello {name}!", ln=True, align='C')
     
-    # Save the PDF
-    c.save()
+    # Save PDF to a byte stream
+    pdf_output = io.BytesIO()
+    pdf.output(pdf_output)
     
-    # Move buffer cursor to the beginning of the PDF
-    pdf_buffer.seek(0)
+    # Move cursor to the beginning of the PDF file
+    pdf_output.seek(0)
     
     # Display the generated PDF
-    st_pdf(pdf_buffer)
+    st_pdf(pdf_output)
     
     # Create a download button for the PDF
     st.download_button(
         label="Download PDF",
-        data=pdf_buffer,
+        data=pdf_output,
         file_name=f"hello_{name}.pdf",
         mime="application/pdf"
     )
