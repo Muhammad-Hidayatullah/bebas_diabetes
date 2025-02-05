@@ -3,3 +3,4 @@ fpdf
 pandas
 PyPDF2
 streamlit_pdf_viewer
+reportlab
