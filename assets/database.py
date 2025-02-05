@@ -563,7 +563,16 @@ def add_pemeriksaan_laboratorium(id_pemeriksaan, gula_darah_sewaktu, gula_darah_
     conn.commit()
     conn.close()
 
-
+def get_tanggal_terkini(id_pasien):
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    query = "SELECT MAX(tanggal_diagnosis) FROM diagnosis_penyakit WHERE diagnosis_penyakit.id_pasien = %s;"
+    cursor.execute(query, (id_pasien,))
+    tanggal_terkini = cursor.fetchone()
+    conn.close()
+    return tanggal_terkini[0]
+    
+    
 def menambah_id_diagnosis_default():
     
     conn = connect_to_db()
@@ -877,6 +886,7 @@ def hapus_pemeriksaan_kesehatan_dan_diagnosis(tanggal_pemeriksaan):
     cursor.execute(query, (tanggal_pemeriksaan,))
     conn.commit()
     conn.close()
+    
     
 
 def fetch_pemeriksaan_kesehatan():
