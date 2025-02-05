@@ -6,6 +6,8 @@ import time
 from base64 import b64encode
 import re
 import pandas as pd
+
+
 st.html("""
   <style>
     [alt=Logo] {
@@ -16,7 +18,7 @@ st.html("""
 st.logo("assets/logo_diabetes.png", size="large")
 
 #st.title("DIAGNOSIS PENYAKIT DIABETES MELLITUS TIPE 2", anchor=False)
-def variabel_awal():
+def variabel_awal_pasien():
     st.session_state.next = -2
     st.session_state.kode_pasien = ""
     st.session_state.nama = ""
@@ -25,8 +27,6 @@ def variabel_awal():
     st.session_state.tanggal_lahir = datetime.date.today()
     st.session_state.pekerjaan = ""
     st.session_state.email = ""
-    
-    
     # sesuai KTP
     st.session_state.pekerjaan_pekerjaan = [
     "Belum / Tidak Bekerja",
@@ -132,11 +132,14 @@ def variabel_awal():
     ]
 
     
-    
     st.session_state.tanggal_pemeriksaan = datetime.date.today()
     st.session_state.alamat = ""
     st.session_state.jenis_kelamin = "LAKI-LAKI"
     
+    
+    
+    
+def awal_pemeriksaan():
     # Pemeriksaan fisik
     st.session_state.berat_badan = 0.0
     st.session_state.tinggi_badan = 0.0
@@ -185,7 +188,8 @@ if "next" not in st.session_state:
     
 
         
-    variabel_awal()
+    variabel_awal_pasien()
+    awal_pemeriksaan()
     
 if st.session_state.next == -2:
     st.session_state.tanggal_lahir = db.get_tanggal_lahir_pasien("andigunawan01", "andi123")
@@ -321,7 +325,8 @@ if st.session_state.next == 0:
         with col1:
             if st.form_submit_button(label="Logout"):
                 st.session_state.next = -2
-                variabel_awal()
+                variabel_awal_pasien()
+                awal_pemeriksaan()
                 st.rerun()
         
         with col2:
@@ -575,8 +580,6 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
     return pdf.output(dest="S").encode("latin1")
-
-
     
 
    
@@ -665,12 +668,11 @@ if st.session_state.next == 100:
                         kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
                         total_kolestrol, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, diagnosis_penyakit_tertentu, relasi_penyakit_dan_gejala)
 
-                #base64_pdf = b64encode(file_pdf).decode("latin1")
-                #pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="500">'
-                #st.markdown(pdf_display, unsafe_allow_html=True)
-              
-                st.write(f"PDF size: {len(file_pdf)} bytes")  # Debugging
+                #base64_pdf = b64encode(file_pdf).decode("utf-8")
+                #pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
 
+                #st.markdown(pdf_display, unsafe_allow_html=True)
+                
                 
                 st.download_button(
                     label="Download PDF",
@@ -1202,6 +1204,7 @@ def forward_chaining(fakta, aturan):
 if st.session_state.next == 8:
     if "hasil_diagnosis" not in st.session_state:
         st.session_state.hasil_diagnosis = {}
+        
     st.title("Diagnosis Komplikasi Penyakit")
     catatan = False
     with st.form(key="form_hasil_komplikasi"):    
@@ -1225,7 +1228,6 @@ if st.session_state.next == 8:
             if penyakit not in relasi_dict:
                 relasi_dict[penyakit] = []  # Buat list kosong jika penyakit belum ada
             relasi_dict[penyakit].append(gejala)  # Tambahkan gejala ke list penyakit tersebut
-       
        
        
         if st.session_state.gejala_terpilih:
@@ -1280,52 +1282,70 @@ if st.session_state.next == 8:
         if catatan == True:
             st.warning("**Catatan Penting**: Anda Harus Tetap Berkunjung Ke Dokter Spesialis untuk Mendapatkan Pengobatan dan Solusi Lebih Lanjut!")
         
+        
+        
         # Nanti di hapus saja
         if st.form_submit_button("Kembali"):
             st.session_state.next = 6
-            
+            st.session_state.hasil_diagnosis = {}
             st.rerun()
-        
+            
+   
         if st.form_submit_button("Selesai"):
-            
-            st.session_state.next = 9
+            if "lanjut" not in st.session_state or st.session_state.lanjut == 2000:
+                st.session_state.lanjut = 0
+    
+        if st.session_state.lanjut == 0:
+            if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pasien):
+                st.warning("Anda sudah melakukan pemeriksaan hari ini, apakah Anda ingin menggantinya dengan yang terbaru?")
+                if st.form_submit_button("Ya"):
+                    st.session_state.lanjut = 1
+                    db.hapus_pemeriksaan_kesehatan_dan_diagnosis(st.session_state.tanggal_pemeriksaan)
+                    st.success("Pemeriksaan sebelumnya berhasil terhapus!")
+                
+                
+                    
+            if st.session_state.lanjut == 1 or st.session_state.tanggal_pemeriksaan != db.get_tanggal_terkini(st.session_state.kode_pasien):
+                st.session_state.lanjut = 2000
+                st.session_state.next = 9
 
-            id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
-            db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pasien(st.session_state.username_pengguna), st.session_state.risiko_diabetes, datetime.datetime.now())
-            db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
-            db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
-            db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
-            db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
-            
-            
-            if st.session_state.gejala_terpilih is not None:
-                st.session_state.hasil_diagnosis = forward_chaining(st.session_state.gejala_terpilih, relasi_dict)
-                gejala_terpilih = ", ".join(st.session_state.gejala_terpilih)
+                id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
+                db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pasien(st.session_state.username_pengguna), st.session_state.risiko_diabetes, datetime.datetime.now())
+                db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
+                db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
+                db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
+                db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
                 
                 
-                if st.session_state.hasil_diagnosis:
+                if st.session_state.gejala_terpilih is not None:
+                    st.session_state.hasil_diagnosis = forward_chaining(st.session_state.gejala_terpilih, relasi_dict)
+                    gejala_terpilih = ", ".join(st.session_state.gejala_terpilih)
                     
-                    for penyakit, data in st.session_state.hasil_diagnosis.items():
-                        kecocokan = data["tingkat_kecocokan"] * 100
-                        gejala_cocok = ", ".join(data["gejala_cocok"])
-                        gejala_penyakit = ", ".join(data["gejala_penyakit"])
-                        
-                        
-                                    
-                        db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], db.get_id_penyakit(penyakit), gejala_terpilih, gejala_cocok, kecocokan, datetime.date.today())
-                        
-                else:   
-                    st.success("Tidak ada penyakit yang terdeteksi")             
-                    db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, gejala_terpilih, None, None, datetime.date.today())
                     
-            else:
-                db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, None, None, None, datetime.datetime.now())
-            
-            
-            st.success("Pemeriksaan Kesehatan Berhasil dan Telah Tersimpan!")
-            time.sleep(2)
-            
-            st.rerun()
+                    if st.session_state.hasil_diagnosis:
+                        
+                        for penyakit, data in st.session_state.hasil_diagnosis.items():
+                            kecocokan = data["tingkat_kecocokan"] * 100
+                            gejala_cocok = ", ".join(data["gejala_cocok"])
+                            gejala_penyakit = ", ".join(data["gejala_penyakit"])
+                            
+                            
+                                        
+                            db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], db.get_id_penyakit(penyakit), gejala_terpilih, gejala_cocok, kecocokan, datetime.date.today())
+                            
+                    else:   
+                        st.success("Tidak ada penyakit yang terdeteksi")             
+                        db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, gejala_terpilih, None, None, datetime.date.today())
+                        
+                else:
+                    db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, None, None, None, datetime.datetime.now())
+                
+                
+                st.success("Pemeriksaan Kesehatan Berhasil dan Telah Tersimpan!")
+                awal_pemeriksaan()
+                time.sleep(2)
+                
+                st.rerun()
     
 
 
@@ -1546,23 +1566,104 @@ def buat_laporan():
         pdf.cell(200, 10, txt=f"-", ln=True)
     
     return pdf.output(dest="S").encode("latin1")
-
-
     
 
 if st.session_state.next == 9:
 
-    st.subheader("Hasil Akhir")
-   
+    st.title("Hasil Akhir")
+    
+  
+
+    # Display personal data directly using st.write
+    st.subheader("Data Pribadi")
+    st.write("Nama: " + st.session_state.nama_lengkap)
+    st.write("Username: " + st.session_state.username_pengguna)
+    st.write("Tanggal Lahir: " + str(st.session_state.tanggal_lahir))
+    st.write("Tanggal Pemeriksaan: " + str(st.session_state.tanggal_pemeriksaan))
+    st.write("Jenis Kelamin: " + st.session_state.jenis_kelamin)
+    st.write("Alamat: " + st.session_state.alamat)
+    st.write("Pekerjaan: " + st.session_state.pekerjaan)
+    st.write("Email: " + st.session_state.email)
+    st.write("Risiko Diabetes Tipe 2: " + st.session_state.risiko_diabetes)
+
+    # Display "Faktor Tidak Bisa Diubah"
+    st.subheader("Faktor Tidak Bisa Diubah")
+    st.write("Usia di atas 45 tahun: " + st.session_state.usia_di_atas_40_tahun)
+    st.write("Riwayat Keluarga Diabetes: " + st.session_state.riwayat_keluarga_diabetes)
+    st.write("Riwayat Diabetes Gestasional: " + st.session_state.riwayat_diabetes_gestasional)
+    st.write("Riwayat Lahir <2,5 kg atau Prematur: " + st.session_state.riwayat_lahir_di_bawah_2_koma_5_gram)
+
+    # Display "Pola Gaya Hidup"
+    st.subheader("Pola Gaya Hidup")
+    st.write("Konsumsi Alkohol: " + st.session_state.konsumsi_alkohol)
+    st.write("Kurang Aktivitas Fisik: " + st.session_state.kurang_aktivitas)
+    st.write("Kebiasaan Merokok: " + st.session_state.merokok)
+    st.write("Pola Makan Buruk: " + st.session_state.pola_makan_buruk)
+    st.write("Tidur Tidak Berkualitas: " + st.session_state.kurang_tidur)
+
+    # Display "Pemeriksaan Fisik"
+    st.subheader("Pemeriksaan Fisik")
+    st.write("Tinggi Badan: " + str(st.session_state.tinggi_badan) + " cm")
+    st.write("Berat Badan: " + str(st.session_state.berat_badan) + " kg")
+    st.write("Lingkar Perut: " + str(st.session_state.lingkar_perut) + " cm")
+    st.write("Indeks Massa Tubuh: " + str(st.session_state.indeks_massa_tubuh) + " kg/m²")
+
+    # Display "Hasil Tekanan Darah dan Kolesterol Darah"
+    st.subheader("Hasil Tekanan Darah dan Kolesterol Darah")
+    st.write("Tekanan Darah: " + str(st.session_state.tekanan_darah) + " mmHg")
+    st.write("HDL: " + str(st.session_state.HDL) + " mg/dL")
+    st.write("LDL: " + str(st.session_state.LDL) + " mg/dL")
+    st.write("Trigliserida: " + str(st.session_state.trigliserida) + " mg/dL")
+    st.write("Total Kolesterol Darah: " + str(st.session_state.total_kolestrol_darah) + " mg/dL")
+
+    # Display "Hasil Laboratorium"
+    st.subheader("Hasil Laboratorium")
+    st.write("Gula Darah Sewaktu (GDS): " + str(st.session_state.gula_darah_sewaktu) + " mg/dL")
+    st.write("Gula Darah Puasa (GDP): " + str(st.session_state.gula_darah_puasa) + " mg/dL")
+    st.write("Gula Darah 2 Jam Setelah Makan (GD2PP): " + str(st.session_state.gula_darah_2_jam_setelah_makan) + " mg/dL")
+
+    # Display "Diagnosis Komplikasi Penyakit"
+    st.subheader("Diagnosis Komplikasi Penyakit")
+    st.write("Gejala-Gejala Terpilih: ")
+    if st.session_state.gejala_terpilih:
+        for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
+            st.write(f"{i}. {gejala}")
+    else:
+        st.write("-")
+
+    st.write("Komplikasi Penyakit: ")
+    if st.session_state.hasil_diagnosis:
+        for penyakit, data in st.session_state.hasil_diagnosis.items():
+            kecocokan = data["tingkat_kecocokan"] * 100
+            gejala_cocok = "; ".join(data["gejala_cocok"])
+            gejala_penyakit = "; ".join(data["gejala_penyakit"])
+            
+            st.write(f"{penyakit}: {kecocokan:.2f}%")
+            st.write(db.get_penjelasan_penyakit(penyakit))
+            st.write("Gejala yang Cocok: ")
+            for i, gejala in enumerate(gejala_cocok.split("; "), start=1):
+                st.write(f"{i}. {gejala}")
+            
+            st.write("Gejala Penyakit: ")
+            for i, gejala_penyakit in enumerate(gejala_penyakit.split(", "), start=1):
+                st.write(f"{i}. {gejala_penyakit}")
+            
+            st.write("Solusi Penyakit: ")
+            solusi_penyakit = db.get_solusi_penyakit(penyakit).split(";")
+            for i, frasa in enumerate([frasa.strip() for frasa in solusi_penyakit], start=1):
+                st.write(f"{i}. {frasa}")
+    else:
+        st.write("-")
+
+    
+    
+    
     file_pdf = buat_laporan()
     
-    #base64_pdf = b64encode(buat_laporan()).decode("latin1")
-    #pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf"></iframe>'
-    #pdf_display = f'<iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials"></iframe>'
-    
+    #base64_pdf = b64encode(buat_laporan()).decode("utf-8")
+    #pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
     #st.markdown(pdf_display, unsafe_allow_html=True)
-
-  
+    
     st.download_button(
         label="Download PDF",
         data=file_pdf,
