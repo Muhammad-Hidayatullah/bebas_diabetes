@@ -185,9 +185,6 @@ if "sudah_daftar" not in st.session_state:
     
 # inisialisasi session state langkah-langkah pengisian formulir sampai gejala
 if "next" not in st.session_state:
-    
-
-        
     variabel_awal_pasien()
     awal_pemeriksaan()
     
@@ -1340,7 +1337,7 @@ if st.session_state.next == 8:
                 
                 
                 st.success("Pemeriksaan Kesehatan Berhasil dan Telah Tersimpan!")
-                awal_pemeriksaan()
+
                 time.sleep(2)
                 
                 st.rerun()
