@@ -1,19 +1,33 @@
 import streamlit as st
-from streamlit_pdf_viewer import pdf_viewer
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+import io
+from streamlit_pdf_viewer import st_pdf
 
+# Input for name
+name = st.text_input("Enter your name:")
 
-# Declare variable.
-if 'pdf_ref' not in st.session_state:
-    st.session_state.pdf_ref = None
-
-
-# Access the uploaded ref via a key.
-st.file_uploader("Upload PDF file", type=('pdf'), key='pdf')
-
-if st.session_state.pdf:
-    st.session_state.pdf_ref = st.session_state.pdf  # backup
-
-# Now you can access "pdf_ref" anywhere in your app.
-if st.session_state.pdf_ref:
-    binary_data = st.session_state.pdf_ref.getvalue()
-    pdf_viewer(input=binary_data, width=700)
+if name:
+    # Create a PDF in memory
+    pdf_buffer = io.BytesIO()
+    c = canvas.Canvas(pdf_buffer, pagesize=letter)
+    
+    # Add text to PDF
+    c.drawString(100, 750, f"Hello {name}!")
+    
+    # Save the PDF
+    c.save()
+    
+    # Move buffer cursor to the beginning of the PDF
+    pdf_buffer.seek(0)
+    
+    # Display the generated PDF
+    st_pdf(pdf_buffer)
+    
+    # Create a download button for the PDF
+    st.download_button(
+        label="Download PDF",
+        data=pdf_buffer,
+        file_name=f"hello_{name}.pdf",
+        mime="application/pdf"
+    )
