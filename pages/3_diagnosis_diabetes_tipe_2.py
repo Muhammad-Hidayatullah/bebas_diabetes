@@ -669,7 +669,7 @@ if st.session_state.next == 100:
                     f.write(file_pdf)
 
                 with open("report.pdf", "rb") as f:
-                    base64_pdf = base64.b64encode(f.read()).decode("utf-8")
+                    base64_pdf = b64encode(f.read()).decode("utf-8")
 
                 pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
                 st.markdown(pdf_display, unsafe_allow_html=True)
