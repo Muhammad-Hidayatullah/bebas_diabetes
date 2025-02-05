@@ -1559,10 +1559,12 @@ if st.session_state.next == 9:
     file_pdf = buat_laporan()
     
     base64_pdf = b64encode(buat_laporan()).decode("latin1")
-    pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
-    
+    #pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf"></iframe>'
+    pdf_display = f'<iframe src="https://www.w3schools.com" title="W3Schools Free Online Web Tutorials"></iframe>'
     
     st.markdown(pdf_display, unsafe_allow_html=True)
+
+  
     st.download_button(
         label="Download PDF",
         data=file_pdf,
