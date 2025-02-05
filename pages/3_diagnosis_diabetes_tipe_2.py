@@ -669,7 +669,8 @@ if st.session_state.next == 100:
                 pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
 
                 st.markdown(pdf_display, unsafe_allow_html=True)
-                
+                st.write(f"PDF size: {len(file_pdf)} bytes")  # Debugging
+
                 
                 st.download_button(
                     label="Download PDF",
