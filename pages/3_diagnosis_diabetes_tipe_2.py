@@ -1290,23 +1290,21 @@ if st.session_state.next == 8:
             st.session_state.hasil_diagnosis = {}
             st.rerun()
             
-   
-        if st.form_submit_button("Selesai"):
-            if "lanjut" not in st.session_state or st.session_state.lanjut == 2000:
+        if "lanjut" not in st.session_state:
                 st.session_state.lanjut = 0
-    
-        if st.session_state.lanjut == 0:
+          
+        if st.form_submit_button("Selesai"):
+                st.session_state.lanjut = 1
+        if st.session_state.lanjut == 1:
             if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pasien):
                 st.warning("Anda sudah melakukan pemeriksaan hari ini, apakah Anda ingin menggantinya dengan yang terbaru?")
                 if st.form_submit_button("Ya"):
-                    st.session_state.lanjut = 1
+                    st.session_state.lanjut = 2
                     db.hapus_pemeriksaan_kesehatan_dan_diagnosis(st.session_state.tanggal_pemeriksaan)
                     st.success("Pemeriksaan sebelumnya berhasil terhapus!")
-                
-                
                     
-            if st.session_state.lanjut == 1 or st.session_state.tanggal_pemeriksaan != db.get_tanggal_terkini(st.session_state.kode_pasien):
-                st.session_state.lanjut = 2000
+            if st.session_state.lanjut == 2 or st.session_state.tanggal_pemeriksaan != db.get_tanggal_terkini(st.session_state.kode_pasien):
+                st.session_state.lanjut = 0
                 st.session_state.next = 9
 
                 id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
