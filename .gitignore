@@ -3,6 +3,13 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+.codegpt
+assets/
+.vscode/
+.streamlit/
+__pycache__/
+
 # C extensions
 *.so
 
