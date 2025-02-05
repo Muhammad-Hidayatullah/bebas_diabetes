@@ -1,7 +1,7 @@
 import streamlit as st
 from fpdf import FPDF
 import io
-from streamlit_pdf_viewer import st_pdf
+from streamlit_pdf_viewer import pdf_viewer
 
 # Input for name
 name = st.text_input("Enter your name:")
@@ -25,7 +25,7 @@ if name:
     pdf_output.seek(0)
     
     # Display the generated PDF
-    st_pdf(pdf_output)
+    pdf_viewer(pdf_output)
     
     # Create a download button for the PDF
     st.download_button(
