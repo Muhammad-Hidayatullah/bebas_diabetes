@@ -505,7 +505,7 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
             pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
         
     else:            
-        pdf.cell(200, 10, txt="-", ln=True)
+        pdf.cell(200, 10, txt="--", ln=True)
         
     pdf.ln()
     
@@ -513,14 +513,10 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
     pdf.cell(75, 10, txt="Komplikasi Penyakit", ln=True)
     pdf.set_font("Arial", size=10)
     if diagnosis_penyakit_tertentu is not None:
-        for index, row in diagnosis_penyakit_tertentu.iterrows():
-            
-    
-            
-            
+        for index, row in diagnosis_penyakit_tertentu.iterrows():  
             if row['Nama Penyakit'] is None:
                 pdf.set_font("Arial", size=10)
-                pdf.cell(200, 10, txt=f"-", ln=True)
+                pdf.cell(200, 10, txt=f"--", ln=True)
             else:
                 pdf.set_font("Arial", size=10, style="B")
                 pdf.cell(200, 10, txt=f"{row['Nama Penyakit']} : {row['Persentase Kecocokan']:.2f}%", ln=True)
