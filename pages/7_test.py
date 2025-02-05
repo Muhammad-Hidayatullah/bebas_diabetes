@@ -11,7 +11,7 @@ if 'pdf_ref' not in st.session_state:
 st.file_uploader("Upload PDF file", type=('pdf'), key='pdf')
 
 if st.session_state.pdf:
-    st.session_state.pdf_ref = ss.pdf  # backup
+    st.session_state.pdf_ref = st.session_state.pdf  # backup
 
 # Now you can access "pdf_ref" anywhere in your app.
 if st.session_state.pdf_ref:
