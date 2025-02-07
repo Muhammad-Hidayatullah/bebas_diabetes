@@ -551,7 +551,7 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
                     gejala_penyakit = relasi_penyakit_dan_gejala[row['Nama Penyakit']]
                     
                     for i, gejala in enumerate(gejala_penyakit, start=1):
-                        pdf.cell(200, 10, txt=f"{i}: {gejala}", ln=True)
+                        pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
         
                 #Solusi
                 pdf.set_font("Arial", size=10, style="B")
@@ -1525,7 +1525,7 @@ def buat_laporan():
             
             pisah_gejala_penyakit = gejala_penyakit.split(", ")
             for i, gejala_penyakit in enumerate(pisah_gejala_penyakit, start=1):
-                pdf.cell(200, 10, txt=f"{i}: {gejala_penyakit}", ln=True)
+                pdf.cell(200, 10, txt=f"{i}. {gejala_penyakit}", ln=True)
             
             
       
