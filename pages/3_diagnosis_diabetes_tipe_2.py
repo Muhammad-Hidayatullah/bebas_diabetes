@@ -141,15 +141,15 @@ def variabel_awal_pasien():
     
 def awal_pemeriksaan():
     # Pemeriksaan fisik
-    st.session_state.berat_badan = 0.0
-    st.session_state.tinggi_badan = 0.0
-    st.session_state.lingkar_perut = 0.0
+    st.session_state.berat_badan = None
+    st.session_state.tinggi_badan = None
+    st.session_state.lingkar_perut = None
     
     # Faktor Tidak Bisa Diubah
     st.session_state.usia_di_atas_40_tahun = "TIDAK"
     st.session_state.riwayat_keluarga_diabetes = "TIDAK"
     st.session_state.riwayat_diabetes_gestasional = "TIDAK"
-    st.session_state.riwayat_lahir_di_bawah_2_koma_5_gram = "TIDAK"
+    st.session_state.riwayat_lahir_berat_badan_lahir_rendah = "TIDAK"
     
     # Kebiasaan Hidup
     st.session_state.konsumsi_alkohol = "TIDAK"
@@ -160,16 +160,16 @@ def awal_pemeriksaan():
     
     
     # Pemeriksaan Lab
-    st.session_state.gula_darah_sewaktu = 0.0
-    st.session_state.gula_darah_puasa = 0.0
-    st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+    st.session_state.gula_darah_sewaktu = None
+    st.session_state.gula_darah_puasa = None
+    st.session_state.gula_darah_2_jam_setelah_makan = None
     st.session_state.tekanan_darah = "0/0"
     st.session_state.sistole, st.session_state.diastole = st.session_state.tekanan_darah.split("/")
-    st.session_state.HDL = 0.0
-    st.session_state.LDL = 0.0
-    st.session_state.trigliserida = 0.0
-    st.session_state.total_kolestrol = 0.0
-    st.session_state.total_kolestrol_darah = 0.0 # rumusnya: LDL + HDL + 1/5 Trigliserida
+    st.session_state.HDL = None
+    st.session_state.LDL = None
+    st.session_state.trigliserida = None
+    st.session_state.total_kolestrol = None
+    st.session_state.total_kolestrol_darah = None # rumusnya: LDL + HDL + 1/5 Trigliserida
     
     # Risiko
     st.session_state.risiko_diabetes = "RENDAH"
@@ -770,8 +770,6 @@ if st.session_state.next == 1:
         st.session_state.usia = (st.session_state.tanggal_pemeriksaan - st.session_state.tanggal_lahir).days
         st.session_state.usia = st.session_state.usia // 360
         
-
-        st.write(st.session_state.usia, "tahun")
         
         if st.session_state.usia > 40:
             st.session_state.usia_di_atas_40_tahun = "YA"
@@ -793,7 +791,7 @@ if st.session_state.next == 1:
         else:
             st.session_state.riwayat_diabetes_gestasional = "TIDAK"
             
-        st.session_state.riwayat_lahir_berat_badan_lahir_rendah = st.radio("Riwayat Lahir <2,5 kg atau terlahir prematur", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.riwayat_lahir_di_bawah_2_koma_5_gram))
+        st.session_state.riwayat_lahir_berat_badan_lahir_rendah = st.radio("Riwayat Lahir <2,5 kg atau terlahir prematur", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.riwayat_lahir_berat_badan_lahir_rendah))
         
         
         
@@ -803,7 +801,7 @@ if st.session_state.next == 1:
         if jenis_kelamin == "PEREMPUAN" and st.session_state.riwayat_diabetes_gestasional == "YA":
             st.session_state.faktor_risiko_1 = st.session_state.faktor_risiko_1 + 1
             st.session_state.daftar_faktor_risiko_1.append("Riwayat Melahirkan Bayi > 4 kg atau Terkena Diabetes Mellitus Gestasional")
-        if st.session_state.riwayat_lahir_di_bawah_2_koma_5_gram == "YA":
+        if st.session_state.riwayat_lahir_berat_badan_lahir_rendah == "YA":
             st.session_state.faktor_risiko_1 = st.session_state.faktor_risiko_1 + 1
             st.session_state.daftar_faktor_risiko_1.append("Riwayat Lahir di bawah 2,5 kg")
     
@@ -837,21 +835,7 @@ if st.session_state.next == 2:
         st.session_state.pola_makan_buruk = st.radio("Pola Makan Buruk (Tinggi gula, garam, dan lemak; rendah serat; serta jarang makan sayur dan buah)", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.pola_makan_buruk))
         st.session_state.kurang_tidur = st.radio("Kurang tidur/gangguan tidur/tidur tidak berkualitas < 6 jam", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.kurang_tidur))
         
-        if st.session_state.konsumsi_alkohol == "YA":
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            st.session_state.daftar_faktor_risiko_2.append("Konsumsi Alkohol")
-        if st.session_state.kurang_aktivitas == "YA":
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            st.session_state.daftar_faktor_risiko_2.append("Kurang Aktivitas")
-        if st.session_state.merokok == "YA":
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            st.session_state.daftar_faktor_risiko_2.append("Aktif Merokok")
-        if st.session_state.pola_makan_buruk == "YA":
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            st.session_state.daftar_faktor_risiko_2.append("Pola Makan Buruk (Tinggi gula, garam, dan lemak; rendah serat; serta jarang makan sayur dan buah)")
-        if st.session_state.kurang_tidur == "YA":
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            st.session_state.daftar_faktor_risiko_2.append("Kurang tidur/gangguan tidur/tidur tidak berkualitas < 6 jam")
+        
         
         st.markdown("---")
         
@@ -862,27 +846,7 @@ if st.session_state.next == 2:
         
         
         
-        st.session_state.indeks_massa_tubuh = 0.0
-        if st.session_state.berat_badan == 0.0 or st.session_state.tinggi_badan == 0.0:
-            st.session_state.indeks_massa_tubuh = 0.0
-        else:
-            st.session_state.indeks_massa_tubuh = st.session_state.berat_badan/((st.session_state.tinggi_badan) ** 2) * 10000
-            st.session_state.indeks_massa_tubuh = round(st.session_state.indeks_massa_tubuh, 1)
-            
-        if st.session_state.indeks_massa_tubuh > 25.0:
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            kelebihan_berat_badan = "Kelebihan Berat Badan: " + str(st.session_state.indeks_massa_tubuh) + " kg/m2"
-            st.session_state.daftar_faktor_risiko_2.append(kelebihan_berat_badan)
-            
-        if st.session_state.jenis_kelamin == "PEREMPUAN" and st.session_state.lingkar_perut >= 80.0:
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            obesitas_sentral = "Obesitas Sentral: " + str(st.session_state.lingkar_perut) + " cm"
-            st.session_state.daftar_faktor_risiko_2.append(obesitas_sentral)
-            
-        if st.session_state.jenis_kelamin == "LAKI-LAKI" and st.session_state.lingkar_perut >= 90.0:
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            obesitas_sentral = "Obesitas Sentral: " + str(st.session_state.lingkar_perut) + " cm"
-            st.session_state.daftar_faktor_risiko_2.append(obesitas_sentral)
+        
         
         
         st.markdown("---")
@@ -892,42 +856,16 @@ if st.session_state.next == 2:
         st.session_state.tekanan_darah = st.text_input("Tekanan Darah (mmHg): ", value=st.session_state.tekanan_darah)
         
         cek_tekanan_darah = 0
-            
         st.session_state.HDL = st.number_input("HDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.HDL)
+        
         st.session_state.LDL = st.number_input("LDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.LDL)
+        
         st.session_state.trigliserida = st.number_input("Trigliserida (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.trigliserida)
+        
         st.session_state.total_kolestrol = st.number_input("Total Kolestrol Darah (mg/dL) (Kosongkan saja apabila HDL, LDL, dan trigliserida terisi): ", min_value=0.0, max_value=999.0, value=st.session_state.total_kolestrol)
         
         
-        st.session_state.total_kolestrol_darah = st.session_state.HDL + st.session_state.LDL + (st.session_state.trigliserida/5.0)
         
-
-        
-        #Jika total kolestrol darah tinggi > 240.0
-        
-        if st.session_state.total_kolestrol_darah > 240.0 or st.session_state.total_kolestrol > 240.0 or (st.session_state.HDL != 0 and st.session_state.HDL <= 35.0 or st.session_state.LDL >= 100.0 or st.session_state.trigliserida >= 250.0):
-            st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
-            
-            disiplidemia = "Disiplidemia: "
-            if st.session_state.total_kolestrol_darah > 0:
-                st.session_state.total_kolestrol = st.session_state.total_kolestrol_darah
-                disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " +str(st.session_state.total_kolestrol) + " mg/dL dengan rumus Total Kolestrol = HDL + LDL + Trigliserida/5, "
-            else:
-                disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL"
-                
-             
-        
-        #Jika mengalami disiplidemia dengan HDL <= 35 dan/atau LDL >= 100 dan/atau trigliserida ≥  250.0
-            
-            
-            if st.session_state.HDL <= 35.0 and st.session_state.total_kolestrol_darah > 0.0:
-                disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL, "
-            if st.session_state.LDL >= 100.0:
-                disiplidemia = disiplidemia + "LDL = " + str(st.session_state.LDL) + " mg/dL, "
-            if st.session_state.trigliserida >= 250.0:
-                disiplidemia = disiplidemia + "dan Trigliserida = " + str(st.session_state.trigliserida) + " mg/dL "
-            
-            st.session_state.daftar_faktor_risiko_2.append(disiplidemia)
 
         col1, col2 = st.columns(2)
         
@@ -937,7 +875,105 @@ if st.session_state.next == 2:
                 st.session_state.next = 1
                 st.rerun()
         with col2:
+            
             if st.form_submit_button("Next"):
+                
+                
+                if st.session_state.konsumsi_alkohol == "YA":
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    st.session_state.daftar_faktor_risiko_2.append("Konsumsi Alkohol")
+                if st.session_state.kurang_aktivitas == "YA":
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    st.session_state.daftar_faktor_risiko_2.append("Kurang Aktivitas")
+                if st.session_state.merokok == "YA":
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    st.session_state.daftar_faktor_risiko_2.append("Aktif Merokok")
+                if st.session_state.pola_makan_buruk == "YA":
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    st.session_state.daftar_faktor_risiko_2.append("Pola Makan Buruk (Tinggi gula, garam, dan lemak; rendah serat; serta jarang makan sayur dan buah)")
+                if st.session_state.kurang_tidur == "YA":
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    st.session_state.daftar_faktor_risiko_2.append("Kurang tidur/gangguan tidur/tidur tidak berkualitas < 6 jam")
+                
+                
+        
+                st.session_state.indeks_massa_tubuh = 0.0
+                if st.session_state.berat_badan is None:
+                    st.session_state.berat_badan = 0.0
+                if st.session_state.tinggi_badan is None:
+                    st.session_state.tinggi_badan = 0.0
+                    
+                if st.session_state.berat_badan == 0.0 or st.session_state.tinggi_badan == 0.0:
+                    st.session_state.indeks_massa_tubuh = 0.0
+                else:
+                    st.session_state.indeks_massa_tubuh = st.session_state.berat_badan/((st.session_state.tinggi_badan) ** 2) * 10000
+                    st.session_state.indeks_massa_tubuh = round(st.session_state.indeks_massa_tubuh, 1)
+                    
+                if st.session_state.indeks_massa_tubuh > 25.0:
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    kelebihan_berat_badan = "Kelebihan Berat Badan: " + str(st.session_state.indeks_massa_tubuh) + " kg/m2"
+                    st.session_state.daftar_faktor_risiko_2.append(kelebihan_berat_badan)
+                    
+                if st.session_state.jenis_kelamin == "PEREMPUAN" and st.session_state.lingkar_perut >= 80.0:
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    obesitas_sentral = "Obesitas Sentral: " + str(st.session_state.lingkar_perut) + " cm"
+                    st.session_state.daftar_faktor_risiko_2.append(obesitas_sentral)
+                    
+                if st.session_state.lingkar_perut is None:
+                    st.session_state.lingkar_perut = 0.0
+                    
+                if st.session_state.jenis_kelamin == "LAKI-LAKI" and st.session_state.lingkar_perut >= 90.0:
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    obesitas_sentral = "Obesitas Sentral: " + str(st.session_state.lingkar_perut) + " cm"
+                    st.session_state.daftar_faktor_risiko_2.append(obesitas_sentral)
+                        
+                
+                
+                if st.session_state.HDL is None:
+                    st.session_state.HDL = 0.0
+                if st.session_state.LDL is None:
+                    st.session_state.LDL = 0.0
+        
+                if st.session_state.trigliserida is None:
+                    st.session_state.trigliserida = 0.0
+                
+                if st.session_state.total_kolestrol is None:
+                    st.session_state.total_kolestrol = 0.0
+                
+                st.session_state.total_kolestrol_darah = st.session_state.HDL + st.session_state.LDL + (st.session_state.trigliserida/5.0)
+            
+                
+                #Jika total kolestrol darah tinggi > 240.0
+                
+                if st.session_state.total_kolestrol_darah > 240.0 or st.session_state.total_kolestrol > 240.0 or (st.session_state.HDL != 0 and st.session_state.HDL <= 35.0 or st.session_state.LDL >= 100.0 or st.session_state.trigliserida >= 250.0):
+                    st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
+                    
+                    disiplidemia = "Disiplidemia: "
+                    if st.session_state.total_kolestrol_darah > 0:
+                        st.session_state.total_kolestrol = st.session_state.total_kolestrol_darah
+                        disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " +str(st.session_state.total_kolestrol) + " mg/dL dengan rumus Total Kolestrol = HDL + LDL + Trigliserida/5, "
+                    else:
+                        disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL"
+                        
+                    
+                
+                #Jika mengalami disiplidemia dengan HDL <= 35 dan/atau LDL >= 100 dan/atau trigliserida ≥  250.0
+                    
+                    
+                    if st.session_state.HDL <= 35.0 and st.session_state.total_kolestrol_darah > 0.0:
+                        disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL, "
+                    if st.session_state.LDL >= 100.0:
+                        disiplidemia = disiplidemia + "LDL = " + str(st.session_state.LDL) + " mg/dL, "
+                    if st.session_state.trigliserida >= 250.0:
+                        disiplidemia = disiplidemia + "dan Trigliserida = " + str(st.session_state.trigliserida) + " mg/dL "
+                    
+                    st.session_state.daftar_faktor_risiko_2.append(disiplidemia)
+                
+                
+                
+                
+                
+                
                 
                 if cek_validasi_tekanan_darah(st.session_state.tekanan_darah) == False or st.session_state.tekanan_darah == "":
                     cek_tekanan_darah = 1
@@ -1021,6 +1057,15 @@ if st.session_state.next == 4:
             st.rerun()
             
         if st.form_submit_button("Lanjut"):
+            
+            if st.session_state.gula_darah_sewaktu is None:
+                st.session_state.gula_darah_sewaktu = 0.0
+            
+            if st.session_state.gula_darah_puasa is None:
+                st.session_state.gula_darah_puasa = 0.0
+            if st.session_state.gula_darah_2_jam_setelah_makan is None:
+                st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+            
             
             st.session_state.next = 5
             st.rerun()
@@ -1387,7 +1432,7 @@ def buat_laporan():
         ["Usia di atas 45 tahun: ", st.session_state.usia_di_atas_40_tahun],
         ["Riwayat Keluarga Diabetes: ", st.session_state.riwayat_keluarga_diabetes],
         ["Riwayat Diabetes Gestasional: ", st.session_state.riwayat_diabetes_gestasional],
-        ["Riwayat Lahir <2,5 kg atau Prematur: ", st.session_state.riwayat_lahir_di_bawah_2_koma_5_gram ],
+        ["Riwayat Lahir <2,5 kg atau Prematur: ", st.session_state.riwayat_lahir_berat_badan_lahir_rendah ],
     ]
     
     
@@ -1487,7 +1532,7 @@ def buat_laporan():
             pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
         
     else:            
-        pdf.cell(200, 10, txt="-", ln=True)
+        pdf.cell(200, 10, txt="--", ln=True)
         
     pdf.ln()
     
@@ -1583,7 +1628,7 @@ if st.session_state.next == 9:
     st.write("Usia di atas 45 tahun: " + st.session_state.usia_di_atas_40_tahun)
     st.write("Riwayat Keluarga Diabetes: " + st.session_state.riwayat_keluarga_diabetes)
     st.write("Riwayat Diabetes Gestasional: " + st.session_state.riwayat_diabetes_gestasional)
-    st.write("Riwayat Lahir <2,5 kg atau Prematur: " + st.session_state.riwayat_lahir_di_bawah_2_koma_5_gram)
+    st.write("Riwayat Lahir <2,5 kg atau Prematur: " + st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
 
     # Display "Pola Gaya Hidup"
     st.subheader("Pola Gaya Hidup")
@@ -1621,7 +1666,7 @@ if st.session_state.next == 9:
         for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
             st.write(f"{i}. {gejala}")
     else:
-        st.write("-")
+        st.write("--")
 
     st.write("Komplikasi Penyakit: ")
     if st.session_state.hasil_diagnosis:
@@ -1645,7 +1690,7 @@ if st.session_state.next == 9:
             for i, frasa in enumerate([frasa.strip() for frasa in solusi_penyakit], start=1):
                 st.write(f"{i}. {frasa}")
     else:
-        st.write("-")
+        st.write("--")
 
     
     
