@@ -1003,7 +1003,7 @@ def get_diagnosis_penyakit(id_pasien):
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan, diagnosis_penyakit.tanggal_diagnosis
+    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
     FROM diagnosis_penyakit
     LEFT JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien
     LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit
