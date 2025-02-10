@@ -1671,8 +1671,9 @@ if st.session_state.next == 9:
             kecocokan = data["tingkat_kecocokan"] * 100
             gejala_cocok = "; ".join(data["gejala_cocok"])
             gejala_penyakit = "; ".join(data["gejala_penyakit"])
-            
-            st.write(f"{penyakit}: {kecocokan:.2f}%")
+            st.write("")
+            st.write("")
+            st.write(f"**{penyakit}: {kecocokan:.2f}%**")
             st.write(db.get_penjelasan_penyakit(penyakit))
             st.write("Gejala yang Cocok: ")
             for i, gejala in enumerate(gejala_cocok.split("; "), start=1):
