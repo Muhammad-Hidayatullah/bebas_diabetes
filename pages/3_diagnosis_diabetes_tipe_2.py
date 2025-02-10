@@ -1608,8 +1608,6 @@ if st.session_state.next == 9:
 
     st.title("Hasil Akhir")
     
-  
-
     # Display personal data directly using st.write
     st.subheader("Data Pribadi")
     st.write("Nama: " + st.session_state.nama_lengkap)
@@ -1660,14 +1658,14 @@ if st.session_state.next == 9:
 
     # Display "Diagnosis Komplikasi Penyakit"
     st.subheader("Diagnosis Komplikasi Penyakit")
-    st.write("Gejala-Gejala Terpilih: ")
+    st.write("**Gejala-Gejala Terpilih: **")
     if st.session_state.gejala_terpilih:
         for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
             st.write(f"{i}. {gejala}")
     else:
         st.write("--")
 
-    st.write("Komplikasi Penyakit: ")
+    st.write("**Komplikasi Penyakit:** ")
     if st.session_state.hasil_diagnosis:
         for penyakit, data in st.session_state.hasil_diagnosis.items():
             kecocokan = data["tingkat_kecocokan"] * 100
@@ -1680,11 +1678,11 @@ if st.session_state.next == 9:
             for i, gejala in enumerate(gejala_cocok.split("; "), start=1):
                 st.write(f"{i}. {gejala}")
             
-            st.write("Gejala Penyakit: ")
-            for i, gejala_penyakit in enumerate(gejala_penyakit.split(", "), start=1):
+            st.write("**Gejala Penyakit:** ")
+            for i, gejala_penyakit in enumerate(gejala_penyakit.split("; "), start=1):
                 st.write(f"{i}. {gejala_penyakit}")
             
-            st.write("Solusi Penyakit: ")
+            st.write("**Solusi Penyakit:** ")
             solusi_penyakit = db.get_solusi_penyakit(penyakit).split(";")
             for i, frasa in enumerate([frasa.strip() for frasa in solusi_penyakit], start=1):
                 st.write(f"{i}. {frasa}")
