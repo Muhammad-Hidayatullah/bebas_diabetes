@@ -27,9 +27,6 @@ table_style = """
             background-color: #4CAF50;
             color: white;
         }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
         tr:hover {
             background-color: #ddd;
         }
