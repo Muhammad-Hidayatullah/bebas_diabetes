@@ -961,11 +961,11 @@ if st.session_state.next == 2:
                     
                     
                     if st.session_state.HDL <= 35.0 and st.session_state.total_kolestrol_darah > 0.0:
-                        disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL, "
+                        disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL "
                     if st.session_state.LDL >= 100.0:
-                        disiplidemia = disiplidemia + "LDL = " + str(st.session_state.LDL) + " mg/dL, "
+                        disiplidemia = disiplidemia + "LDL = " + str(st.session_state.LDL) + " mg/dL "
                     if st.session_state.trigliserida >= 250.0:
-                        disiplidemia = disiplidemia + "dan Trigliserida = " + str(st.session_state.trigliserida) + " mg/dL "
+                        disiplidemia = disiplidemia + "Trigliserida = " + str(st.session_state.trigliserida) + " mg/dL "
                     
                     st.session_state.daftar_faktor_risiko_2.append(disiplidemia)
                 
