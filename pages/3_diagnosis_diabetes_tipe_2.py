@@ -626,7 +626,10 @@ if st.session_state.next == 100:
         st.write("--")
     else:
         df_diagnosis_penyakit = pd.DataFrame(df_diagnosis_penyakit)
-        st.write(df_diagnosis_penyakit)
+
+        tabel_diagnosis_penyakit_html = df_diagnosis_penyakit.to_html(index=False, escape=False)
+        st.markdown(tabel_style + tabel_diagnosis_penyakit_html, unsafe_allow_html=True)
+        #st.write(df_diagnosis_penyakit)
         
         
         #Opsi untu hapus atau unduh
