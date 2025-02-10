@@ -679,7 +679,7 @@ if st.session_state.next == 100:
         
         
         diagnosis_penyakit_tertentu = df_diagnosis_penyakit_tertentu.iloc[:, 3:]
-        diagnosis_penyakit_tertentu = diagnosis_penyakit_tertentu.drop("Gejala Terpilih", axis=1)
+        
         
         #Relasi Penyakit dan Gejala
         data_relasi = db.fetch_relasi_nama_penyakit_dan_nama_gejala()
