@@ -1658,7 +1658,7 @@ if st.session_state.next == 9:
 
     # Display "Diagnosis Komplikasi Penyakit"
     st.subheader("Diagnosis Komplikasi Penyakit")
-    st.write("**Gejala-Gejala Terpilih: **")
+    st.write("**Gejala-Gejala Terpilih:** ")
     if st.session_state.gejala_terpilih:
         for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
             st.write(f"{i}. {gejala}")
