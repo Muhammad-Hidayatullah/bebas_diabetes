@@ -3,9 +3,9 @@ import pandas as pd
 
 # Sample DataFrame
 data = {
-    "Name": ["Alice", "Bob", "Charlie"],
-    "Age": [25, 30, 35],
-    "City": ["New York", "Los Angeles", "Chicago"]
+    "Name": ["Alice", "Bob", "Charlie", "Don"],
+    "Age": [25, 30, 35, 34],
+    "City": ["New York", "Los Angeles", "Chicago", "Santiago"]
 }
 df = pd.DataFrame(data)
 
