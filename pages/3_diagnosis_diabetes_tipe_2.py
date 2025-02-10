@@ -639,7 +639,7 @@ if st.session_state.next == 100:
     
         #tanggal_pemeriksaan = pd.to_datetime(tanggal_pemeriksaan)
         df_pemeriksaan_kesehatan_pasien_tertentu = df_pemeriksaan_kesehatan_pasien.loc[df_pemeriksaan_kesehatan_pasien["Tanggal Pemeriksaan"] == tanggal_pemeriksaan]
-        st.write(df_pemeriksaan_kesehatan_pasien_tertentu)
+      
         
         if not df_pemeriksaan_kesehatan_pasien_tertentu.empty:
             row = df_pemeriksaan_kesehatan_pasien_tertentu.iloc[0]  # Get first row safely
@@ -670,7 +670,7 @@ if st.session_state.next == 100:
 
         
         df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit.loc[df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal_pemeriksaan]
-        st.write(df_diagnosis_penyakit_tertentu)
+       
 
         
         row = df_diagnosis_penyakit_tertentu.iloc[0]  # Get first
