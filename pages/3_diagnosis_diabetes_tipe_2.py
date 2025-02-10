@@ -588,6 +588,7 @@ if st.session_state.next == 100:
             border-collapse: collapse;
             font-family: Arial, sans-serif;
             font-size: 16px;
+            margin: auto;
         }
         th, td {
             border: 1px solid #ddd;
