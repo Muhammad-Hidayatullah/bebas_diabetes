@@ -1671,8 +1671,7 @@ if st.session_state.next == 9:
             kecocokan = data["tingkat_kecocokan"] * 100
             gejala_cocok = "; ".join(data["gejala_cocok"])
             gejala_penyakit = "; ".join(data["gejala_penyakit"])
-            st.write("")
-            st.write("")
+            
             st.write(f"**{penyakit}: {kecocokan:.2f}%**")
             st.write(db.get_penjelasan_penyakit(penyakit))
             st.write("Gejala yang Cocok: ")
@@ -1687,6 +1686,9 @@ if st.session_state.next == 9:
             solusi_penyakit = db.get_solusi_penyakit(penyakit).split(";")
             for i, frasa in enumerate([frasa.strip() for frasa in solusi_penyakit], start=1):
                 st.write(f"{i}. {frasa}")
+
+            st.write("")
+            st.write("")
     else:
         st.write("--")
 
