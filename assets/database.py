@@ -593,7 +593,7 @@ def menambah_id_diagnosis_default():
     conn.close()
     return new_id
 
-def fetch_diagnosis_penyakit():
+def fetch_diagnosis_penyakit_admin():
     conn = connect_to_db()
     query = """
     SELECT diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan, diagnosis_penyakit.tanggal_diagnosis  
@@ -908,7 +908,7 @@ def fetch_pemeriksaan_kesehatan_pasien(id_pemeriksaan):
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
+    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
     JOIN pemeriksaan_faktor_permanen ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_faktor_permanen.id_pemeriksaan
     JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien
@@ -1003,7 +1003,7 @@ def get_diagnosis_penyakit(id_pasien):
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT diagnosis_penyakit.tanggal_diagnosis, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
+    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
     FROM diagnosis_penyakit
     LEFT JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien
     LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit
@@ -1036,26 +1036,20 @@ def get_diagnosis_penyakit(id_pasien):
     return df 
 
 
-def cek_get_diagnosis_penyakit(id_pasien):
-    
+
+
+
+
+def hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal):
     conn = connect_to_db()
-    cursor = conn.cursor(dictionary=True)
-    query = """
-    SELECT diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan, diagnosis_penyakit.tanggal_diagnosis
-    FROM diagnosis_penyakit
-    LEFT JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien
-    LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit
-    WHERE diagnosis_penyakit.id_pasien = %s;
-    """ 
-    cursor.execute(query, (id_pasien,))
-    result = cursor.fetchall()
+    query = "DELETE FROM pemeriksaan_kesehatan WHERE id_pasien = %s AND tanggal_pemeriksaan = %s"
+    cursor = conn.cursor()
+    cursor.execute(query, (id_pasien, tanggal))
+    conn.commit()
+    query = "DELETE FROM diagnosis_penyakit WHERE id_pasien = %s AND tanggal_diagnosis = %s"
+    cursor.execute(query, (id_pasien, tanggal))
+    conn.commit()
     conn.close()
- 
-
-    return result
-
-
-
 
 def laporan_kesehatan_pdf(id_pasien):
     conn = connect_to_db()
