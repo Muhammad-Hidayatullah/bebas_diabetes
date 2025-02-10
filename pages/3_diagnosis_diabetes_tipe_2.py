@@ -579,12 +579,46 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
 if st.session_state.next == 100:
     st.title("Riwayat Pengguna")
     st.subheader("Riwayat Pemeriksaan Kesehatan")
+
+
+    tabel_style = """
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+"""
+
+# Convert DataFrame to HTML and display in Streamlit
+    
     df_pemeriksaan_kesehatan_pasien = db.fetch_pemeriksaan_kesehatan_pasien(st.session_state.kode_pasien)
     if df_pemeriksaan_kesehatan_pasien is None:
         st.write("--")
     else:
+
+
+        
         df_pemeriksaan_kesehatan_pasien = pd.DataFrame(df_pemeriksaan_kesehatan_pasien)
-        st.write(df_pemeriksaan_kesehatan_pasien)
+
+        tabel_pemeriksaan_kesehatan_pasien_html = df_pemeriksaan_kesehatan_pasien.to_html(index=False, escape=False)
+        st.markdown(tabel_style + tabel_pemeriksaan_kesehatan_pasien_html, unsafe_allow_html=True)
+        
+        #st.write(df_pemeriksaan_kesehatan_pasien)
 
     st.subheader("Riwayat Diagnosis Penyakit")
     df_diagnosis_penyakit = db.get_diagnosis_penyakit(st.session_state.kode_pasien)
