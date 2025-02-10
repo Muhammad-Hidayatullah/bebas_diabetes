@@ -1346,7 +1346,7 @@ if st.session_state.next == 8:
                 st.session_state.next = 9
 
                 id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
-                db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pasien(st.session_state.username_pengguna), st.session_state.risiko_diabetes, datetime.datetime.now())
+                db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pasien(st.session_state.username_pengguna), st.session_state.risiko_diabetes, st.session_state.tanggal_pemeriksaan)
                 db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
                 db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
                 db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
@@ -1367,14 +1367,14 @@ if st.session_state.next == 8:
                             
                             
                                         
-                            db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], db.get_id_penyakit(penyakit), gejala_terpilih, gejala_cocok, kecocokan, datetime.date.today())
+                            db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], db.get_id_penyakit(penyakit), gejala_terpilih, gejala_cocok, kecocokan, st.session_state.tanggal_pemeriksaan)
                             
                     else:   
                         st.success("Tidak ada penyakit yang terdeteksi")             
-                        db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, gejala_terpilih, None, None, datetime.date.today())
+                        db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, gejala_terpilih, None, None, st.session_state.tanggal_pemeriksaan)
                         
                 else:
-                    db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, None, None, None, datetime.datetime.now())
+                    db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pasien[0], None, None, None, None, st.session_state.tanggal_pemeriksaan)
                 
                 
                 st.success("Pemeriksaan Kesehatan Berhasil dan Telah Tersimpan!")
