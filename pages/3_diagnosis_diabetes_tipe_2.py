@@ -1485,9 +1485,9 @@ def buat_laporan():
         
         ["Parameter", "Hasil", "Nilai Normal"],
         ["Tekanan Darah: ", str(st.session_state.tekanan_darah)+" mmHg", " <140/90 mmHg"],
-        ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >=40 mg/dL"],
-        ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <=100 mg/dL"],
-        ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <=150 mg/dL"],
+        ["HDL: ", str(st.session_state.HDL)+" mg/dL", " >=40 mg/dL"],
+        ["LDL: ", str(st.session_state.LDL)+" mg/dL", " <=100 mg/dL"],
+        ["Trigliserida: ", str(st.session_state.trigliserida)+" mg/dL", " <=150 mg/dL"],
         ["Total Kolestrol Darah: ", str(st.session_state.total_kolestrol_darah)+" mg/dL", " <=240 mg/dL"],
     ]
    
