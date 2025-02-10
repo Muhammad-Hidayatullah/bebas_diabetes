@@ -762,11 +762,10 @@ if st.session_state.next == 1:
     st.session_state.daftar_faktor_risiko_1 = []
     
     with st.form(key="form_faktor_tidak_bisa_diubah"):
-        st.subheader("Faktor Tidak Bisa Diubah")
-
-
-        #st.session_state.usia = st.session_state.tanggal_lahir - st.session_state.tanggal_pemeriksaan
+        st.subheader("Tanggal Pemeriksaan")
+        st.session_state.tanggal_pemeriksaan = st.date_input("Masukkan tanggal pemeriksaan", min_value = datetime.date(1900, 1, 1), max_value = st.session_state.tanggal_pemeriksaan, value=st.session_state.tanggal_pemeriksaan)
         
+        st.subheader("Faktor Tidak Bisa Diubah")
         st.session_state.usia = (st.session_state.tanggal_pemeriksaan - st.session_state.tanggal_lahir).days
         st.session_state.usia = st.session_state.usia // 360
         
