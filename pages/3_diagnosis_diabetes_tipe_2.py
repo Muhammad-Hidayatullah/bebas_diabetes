@@ -8,14 +8,7 @@ import re
 import pandas as pd
 
 
-st.html("""
-  <style>
-    [alt=Logo] {
-      height: 6rem;
-    }
-  </style>
-        """)
-st.logo("assets/logo_diabetes.png", size="large")
+
 
 #st.title("DIAGNOSIS PENYAKIT DIABETES MELLITUS TIPE 2", anchor=False)
 def variabel_awal_pasien():
@@ -572,54 +565,19 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
     else:
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
-    return pdf.output(dest="S").encode("latin1")
+    
     
 
    
 if st.session_state.next == 100:
     st.title("Riwayat Pengguna")
     st.subheader("Riwayat Pemeriksaan Kesehatan")
-
-
-    tabel_style = """
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-            margin: auto;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:hover {
-            background-color: #ddd;
-        }
-    </style>
-"""
-
-# Convert DataFrame to HTML and display in Streamlit
-    
     df_pemeriksaan_kesehatan_pasien = db.fetch_pemeriksaan_kesehatan_pasien(st.session_state.kode_pasien)
     if df_pemeriksaan_kesehatan_pasien is None:
         st.write("--")
     else:
-
-
-        
         df_pemeriksaan_kesehatan_pasien = pd.DataFrame(df_pemeriksaan_kesehatan_pasien)
-
-        tabel_pemeriksaan_kesehatan_pasien_html = df_pemeriksaan_kesehatan_pasien.to_html(index=False, escape=False)
-        st.markdown(tabel_style + tabel_pemeriksaan_kesehatan_pasien_html, unsafe_allow_html=True)
-        
-        #st.write(df_pemeriksaan_kesehatan_pasien)
+        st.write(df_pemeriksaan_kesehatan_pasien)
 
     st.subheader("Riwayat Diagnosis Penyakit")
     df_diagnosis_penyakit = db.get_diagnosis_penyakit(st.session_state.kode_pasien)
@@ -627,10 +585,7 @@ if st.session_state.next == 100:
         st.write("--")
     else:
         df_diagnosis_penyakit = pd.DataFrame(df_diagnosis_penyakit)
-
-        tabel_diagnosis_penyakit_html = df_diagnosis_penyakit.to_html(index=False, escape=False)
-        st.markdown(tabel_style + tabel_diagnosis_penyakit_html, unsafe_allow_html=True)
-        #st.write(df_diagnosis_penyakit)
+        st.write(df_diagnosis_penyakit)
         
         
         #Opsi untu hapus atau unduh
@@ -640,9 +595,10 @@ if st.session_state.next == 100:
     
         #tanggal_pemeriksaan = pd.to_datetime(tanggal_pemeriksaan)
         df_pemeriksaan_kesehatan_pasien_tertentu = df_pemeriksaan_kesehatan_pasien.loc[df_pemeriksaan_kesehatan_pasien["Tanggal Pemeriksaan"] == tanggal_pemeriksaan]
-      
+        
         
         if not df_pemeriksaan_kesehatan_pasien_tertentu.empty:
+            st.write(df_pemeriksaan_kesehatan_pasien_tertentu)
             row = df_pemeriksaan_kesehatan_pasien_tertentu.iloc[0]  # Get first row safely
             risiko_diabetes = row["Risiko Diabetes"]
             usia_di_atas_40_tahun = row["Usia Di Atas 40 Tahun"]
@@ -671,7 +627,7 @@ if st.session_state.next == 100:
 
         
         df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit.loc[df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal_pemeriksaan]
-       
+        st.write(df_diagnosis_penyakit_tertentu)
 
         
         row = df_diagnosis_penyakit_tertentu.iloc[0]  # Get first
@@ -679,7 +635,7 @@ if st.session_state.next == 100:
         
         
         diagnosis_penyakit_tertentu = df_diagnosis_penyakit_tertentu.iloc[:, 3:]
-        
+        diagnosis_penyakit_tertentu = diagnosis_penyakit_tertentu.drop("Gejala Terpilih", axis=1)
         
         #Relasi Penyakit dan Gejala
         data_relasi = db.fetch_relasi_nama_penyakit_dan_nama_gejala()
@@ -804,6 +760,10 @@ if st.session_state.next == 1:
         st.session_state.tanggal_pemeriksaan = st.date_input("Masukkan tanggal pemeriksaan", min_value = datetime.date(1900, 1, 1), max_value = st.session_state.tanggal_pemeriksaan, value=st.session_state.tanggal_pemeriksaan)
         
         st.subheader("Faktor Tidak Bisa Diubah")
+
+
+        #st.session_state.usia = st.session_state.tanggal_lahir - st.session_state.tanggal_pemeriksaan
+        
         st.session_state.usia = (st.session_state.tanggal_pemeriksaan - st.session_state.tanggal_lahir).days
         st.session_state.usia = st.session_state.usia // 360
         
@@ -1523,9 +1483,9 @@ def buat_laporan():
         
         ["Parameter", "Hasil", "Nilai Normal"],
         ["Tekanan Darah: ", str(st.session_state.tekanan_darah)+" mmHg", " <140/90 mmHg"],
-        ["HDL: ", str(st.session_state.HDL)+" mg/dL", " >=40 mg/dL"],
-        ["LDL: ", str(st.session_state.LDL)+" mg/dL", " <=100 mg/dL"],
-        ["Trigliserida: ", str(st.session_state.trigliserida)+" mg/dL", " <=150 mg/dL"],
+        ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >=40 mg/dL"],
+        ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <=100 mg/dL"],
+        ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <=150 mg/dL"],
         ["Total Kolestrol Darah: ", str(st.session_state.total_kolestrol_darah)+" mg/dL", " <=240 mg/dL"],
     ]
    
@@ -1646,6 +1606,8 @@ if st.session_state.next == 9:
 
     st.title("Hasil Akhir")
     
+  
+
     # Display personal data directly using st.write
     st.subheader("Data Pribadi")
     st.write("Nama: " + st.session_state.nama_lengkap)
@@ -1710,23 +1672,20 @@ if st.session_state.next == 9:
             gejala_cocok = "; ".join(data["gejala_cocok"])
             gejala_penyakit = "; ".join(data["gejala_penyakit"])
             
-            st.write(f"**{penyakit}: {kecocokan:.2f}%**")
-            st.write("Penjelasan Penyakit: "+ db.get_penjelasan_penyakit(penyakit))
-            st.write("Gejala yang Cocok: ")
+            st.write(f"{penyakit}: {kecocokan:.2f}%")
+            st.write(db.get_penjelasan_penyakit(penyakit))
+            st.write("**Gejala yang Cocok:** ")
             for i, gejala in enumerate(gejala_cocok.split("; "), start=1):
                 st.write(f"{i}. {gejala}")
             
             st.write("**Gejala Penyakit:** ")
-            for i, gejala_penyakit in enumerate(gejala_penyakit.split("; "), start=1):
+            for i, gejala_penyakit in enumerate(gejala_penyakit.split(", "), start=1):
                 st.write(f"{i}. {gejala_penyakit}")
             
             st.write("**Solusi Penyakit:** ")
             solusi_penyakit = db.get_solusi_penyakit(penyakit).split(";")
             for i, frasa in enumerate([frasa.strip() for frasa in solusi_penyakit], start=1):
                 st.write(f"{i}. {frasa}")
-
-            st.write("")
-            st.write("")
     else:
         st.write("--")
 
