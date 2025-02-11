@@ -6,7 +6,6 @@ st.title("Artikel")
 
 
 df_artikel = db.fetch_artikel()
-st.write("Hello")
 # Display each article's metadata in its own box
 for index, article in df_artikel.iterrows():
     with st.container():  # Create a container for each article
