@@ -8,7 +8,7 @@ if "logged_in" not in st.session_state:
     st.session_state.username = ""
     
 if not st.session_state.logged_in:
-    st.title("Halaman Login Admin")
+    st.title("Login Admin")
     
     # Input username dan password hanya terlihat jika belum login
     input_username = st.text_input("Masukkan username admin:")
