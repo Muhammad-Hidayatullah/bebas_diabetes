@@ -17,7 +17,7 @@ for index, article in df_artikel.iterrows():
                 <img src="{article['link_gambar']}" alt="Empty" width="600" height="400">
                 <p></p>
                 <p><strong>Nama Website:</strong> <a href="{article['nama_website']}" target="_blank">{article['nama_website']}</a></p>
-                <p><strong>Nama Penulis:</strong> {article['nama_penulis']}</p>
+                <p><strong>Disadur Dari:</strong> {article['nama_penulis']}</p>
                 <p><strong>Tahun:</strong> {article['tanggal_artikel']}</p>
                 <p><a href="{article['link_artikel']}" target="_blank">Link ke Artikel</a></p>
             </div>
