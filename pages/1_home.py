@@ -24,14 +24,14 @@ pg_bg_img = """
 st.markdown(pg_bg_img, unsafe_allow_html=True)
 
 
-col1, col2 = st.columns([8, 3])
+col1, col2 = st.columns([9, 3])
 
 with col1:
     st.title("SELAMAT DATANG!")
 
 with col2:
     st.markdown(
-        '<a href="https://bebas-diabetes.streamlit.app/login_pengguna" target="_self" style="font-size:16px;">Login Disini</a>',
+        '<a href="https://bebas-diabetes.streamlit.app/login_pengguna" target="_self" style="font-size:20px;">Login Disini</a>',
         unsafe_allow_html=True
     )
     
