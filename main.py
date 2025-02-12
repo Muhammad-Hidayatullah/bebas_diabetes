@@ -69,7 +69,7 @@ bantuan = st.Page(
 test = st.Page(
     page="pages/8_test.py",
     title = "Test",
-    icon = ":material/quiz:"
+    icon = ":material/quiz:",
 )
 
 login_pengguna = st.Page(
