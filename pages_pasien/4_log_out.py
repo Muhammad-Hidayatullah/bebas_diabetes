@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+import time
 def variabel_awal_pasien():
     st.session_state.next = -2
     st.session_state.kode_pasien = ""
@@ -162,8 +163,10 @@ def awal_pemeriksaan():
 st.title("Logout")
 
 if st.button("Log Out"):
+    st.success("Anda Berhasil Logout")
     st.session_state.masuk_website = None
     st.session_state.logged_in_pengguna = False
     variabel_awal_pasien()
     awal_pemeriksaan()
+    time.sleep(2)
     st.rerun()
