@@ -2,12 +2,7 @@ import streamlit as st
 from assets import database as db
 
 
-col1, col2 = st.columns([9, 1])
-with col2:
-    st.markdown(
-        '<a href="https://your-login-page.com" target="_blank" style="font-size:16px; color:blue; text-decoration:none;">Login Disini</a>',
-        unsafe_allow_html=True
-    )
+
 
 
 pg_bg_img = """
@@ -29,22 +24,17 @@ pg_bg_img = """
 st.markdown(pg_bg_img, unsafe_allow_html=True)
 
 
-st.markdown(
-    """
-    <style>
-    .top-right {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 20px;
-    }
-    </style>
-    <a href="https://bebas-diabetes.streamlit.app/login_pengguna" class="top-right">Login Disini</a>
-    """,
-    unsafe_allow_html=True
-)
+col1, col2 = st.columns([9, 1])
 
-st.title("SELAMAT DATANG!")
+with col1:
+    st.title("SELAMAT DATANG!")
+
+with col2:
+    st.markdown(
+        '<a href="https://your-login-page.com" target="_blank" style="font-size:16px; color:blue;">Login Disini</a>',
+        unsafe_allow_html=True
+    )
+    
 col1, col2 = st.columns(2)
 
 with col1:
