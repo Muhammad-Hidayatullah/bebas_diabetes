@@ -229,7 +229,7 @@ def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal
     else:
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
-    return bytes(pdf.output())
+    return pdf.output(dest="S").encode("latin1")
     
 
 style_tabel = """
