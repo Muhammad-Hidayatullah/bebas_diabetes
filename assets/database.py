@@ -1128,22 +1128,4 @@ def laporan_kesehatan_pdf(id_pasien):
 
 
 
-'''
-# Streamlit interface
-st.title("Memasukkan Data ke dalam Basis Data")
-
-# User input fields
-username = st.text_input("Username")
-name = st.text_input("Name")
-password = st.text_input("Password", type="password")
-
-# Insert button
-if st.button("Insert User"):
-    if username and name and password:
-        insert_user(username, name, password)
-    else:
-        st.warning("Please fill in all fields.")
-
-
-'''
 
