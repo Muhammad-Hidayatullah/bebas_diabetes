@@ -31,7 +31,7 @@ with col1:
 
 with col2:
     st.markdown(
-        '<a href="https://your-login-page.com" target="_blank" style="font-size:16px; color:blue;">Login Disini</a>',
+        '<a href="https://bebas-diabetes.streamlit.app/login_pengguna" target="_self" style="font-size:16px;">Login Disini</a>',
         unsafe_allow_html=True
     )
     
