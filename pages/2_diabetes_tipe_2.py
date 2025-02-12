@@ -2,7 +2,7 @@ import streamlit as st
 from assets import database as db
 
 
-col1, col2 = st.columns([8, 2])
+col1, col2 = st.columns([8, 1])
 with col1:
   st.title("Informasi Tentang Diabetes Tipe 2")
 with col2:
