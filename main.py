@@ -45,25 +45,25 @@ informasi_diabetes_tipe_2 = st.Page(
 
 
 admin = st.Page(
-    page="pages/4_login_admin.py",
+    page="pages/3_login_admin.py",
     title="Admin",
     icon=":material/diagnosis:",
 )
 
 artikel = st.Page(
-    page="pages/5_artikel.py",
+    page="pages/4_artikel.py",
     title="Artikel",
     icon=":material/library_books:",
 )
 
 bantuan = st.Page(
-    page="pages/6_bantuan.py",
+    page="pages/5_bantuan.py",
     title="Bantuan",
     icon=":material/help:",
 )
 
 login_pengguna = st.Page(
-    page="pages/7_login_pengguna.py",
+    page="pages/6_login_pengguna.py",
     title = "Login Pengguna",
     icon = ":material/login:",
 )
