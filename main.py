@@ -66,11 +66,7 @@ bantuan = st.Page(
     icon=":material/help:",
 )
 
-test = st.Page(
-    page="pages/8_test.py",
-    title = "Test",
-    icon = ":material/quiz:",
-)
+
 
 login_pengguna = st.Page(
     page="pages/7_login_pengguna.py",
@@ -162,7 +158,7 @@ if "masuk_website" not in st.session_state:
 
 if st.session_state.masuk_website == None:
     st.session_state.pg = st.navigation(pages=[home_website, informasi_diabetes_tipe_2, diagnosis_diabetes_tipe_2, 
-                                               artikel, admin, bantuan, login_pengguna, test])
+                                               artikel, admin, bantuan, login_pengguna])
     st.session_state.pg.run()
     
 if st.session_state.masuk_website == "Admin":
