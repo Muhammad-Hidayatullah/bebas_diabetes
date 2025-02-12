@@ -358,7 +358,7 @@ def buat_laporan():
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt=f"-", ln=True)
     
-    return bytes(pdf.output())
+    return pdf.output(dest="S").encode("latin1")
 
 
 if st.session_state.lanjut_pemeriksaan == 1:
