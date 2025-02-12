@@ -11,7 +11,7 @@ st.markdown(
         font-size: 16px;
     }
     </style>
-    <a href="https://your-login-page.com" class="top-right">Login Disini</a>
+    <a href="https://bebas-diabetes.streamlit.app/login_pengguna" class="top-right">Login Disini</a>
     """,
     unsafe_allow_html=True
 )
