@@ -1,6 +1,21 @@
 import streamlit as st
 from assets import database as db
 
+st.markdown(
+    """
+    <style>
+    .top-right {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 16px;
+    }
+    </style>
+    <a href="https://your-login-page.com" class="top-right">Login Disini</a>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("SELAMAT DATANG!")
 col1, col2 = st.columns(2)
 
