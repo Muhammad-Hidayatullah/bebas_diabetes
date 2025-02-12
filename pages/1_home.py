@@ -8,7 +8,7 @@ st.markdown(
         position: absolute;
         top: 10px;
         right: 10px;
-        font-size: 16px;
+        font-size: 20px;
     }
     </style>
     <a href="https://bebas-diabetes.streamlit.app/login_pengguna" class="top-right">Login Disini</a>
