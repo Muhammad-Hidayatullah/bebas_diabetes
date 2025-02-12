@@ -1,8 +1,15 @@
 import streamlit as st
 from assets import database as db
 
-st.title("Informasi Tentang Diabetes Tipe 2")
 
+col1, col2 = st.columns([8, 2])
+with col1:
+  st.title("Informasi Tentang Diabetes Tipe 2")
+with col2:
+  st.markdown(
+        '<a href="https://bebas-diabetes.streamlit.app/login_pengguna" target="_self" style="font-size:20px;">Login Disini</a>',
+        unsafe_allow_html=True
+  )
 kiri, tengah, kanan = st.columns(3)
 
 with tengah:
