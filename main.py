@@ -42,11 +42,7 @@ informasi_diabetes_tipe_2 = st.Page(
     icon=":material/glucose:",
 )
 
-diagnosis_diabetes_tipe_2 = st.Page(
-    page="pages/3_diagnosis_diabetes_tipe_2.py",
-    title="Diagnosis Diabetes Tipe 2",
-    icon=":material/diagnosis:",
-)
+
 
 admin = st.Page(
     page="pages/4_login_admin.py",
@@ -155,7 +151,7 @@ if "masuk_website" not in st.session_state:
     st.session_state.masuk_website = None
 
 if st.session_state.masuk_website == None:
-    st.session_state.pg = st.navigation(pages=[home_website, informasi_diabetes_tipe_2, diagnosis_diabetes_tipe_2, 
+    st.session_state.pg = st.navigation(pages=[home_website, informasi_diabetes_tipe_2, 
                                                artikel, admin, bantuan, login_pengguna])
     st.session_state.pg.run()
     
