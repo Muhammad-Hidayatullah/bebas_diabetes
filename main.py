@@ -67,11 +67,10 @@ bantuan = st.Page(
 )
 
 
-
 login_pengguna = st.Page(
     page="pages/7_login_pengguna.py",
     title = "Login Pengguna",
-    icon = ":material/login:"
+    icon = ":material/login:",
 )
 
 
