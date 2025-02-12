@@ -12,6 +12,23 @@ st.html("""
         """)
 st.logo("assets/logo_diabetes.png", size="large")
 
+
+
+pg_bg_img = """
+<style> 
+
+[data-testid="stSidebar"]{
+    background-image: url("https://images.unsplash.com/photo-1581159186721-b68b78da4ec9?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+}
+</style>
+
+"""
+
+st.markdown(pg_bg_img, unsafe_allow_html=True)
+
+
+
 home_website = st.Page(
     page="pages/1_home.py",
     title="Home",
@@ -49,9 +66,45 @@ bantuan = st.Page(
     icon=":material/help:",
 )
 
+test = st.Page(
+    page="pages/8_test.py",
+    title = "Test",
+    icon = ":material/quiz:"
+)
+
+login_pengguna = st.Page(
+    page="pages/7_login_pengguna.py",
+    title = "Login Pengguna",
+    icon = ":material/login:"
+)
 
 
+#Halaman untuk Pasien
+data_pasien = st.Page(
+    page="pages_pasien/1_data_pasien.py",
+    title="Data Pasien",
+    icon=":material/account_circle:",
+)
 
+pemeriksaan_kesehatan = st.Page(
+    page="pages_pasien/2_pemeriksaan_kesehatan.py",
+    title = "Pemeriksaan Faktor Risiko",
+    icon=":material/medical_services:",
+)
+
+riwayat = st.Page(
+    page="pages_pasien/3_riwayat.py",
+    title="Riwayat",
+    icon=":material/history:",
+)
+
+log_out = st.Page(
+    page="pages_pasien/4_log_out.py",
+    title="Log Out",
+    icon=":material/logout:",
+)
+
+#Halaman untuk admin
 home_website_admin = st.Page(
     page="pages_admin/1_home_admin.py",
     title="Home",
@@ -101,19 +154,28 @@ halaman_log_out = st.Page(
 )
 
 
-if "masuk_website_admin" not in st.session_state:
-    st.session_state.masuk_website_admin = None
 
-if st.session_state.masuk_website_admin == None:
+
+
+if "masuk_website" not in st.session_state:
+    st.session_state.masuk_website = None
+
+if st.session_state.masuk_website == None:
     st.session_state.pg = st.navigation(pages=[home_website, informasi_diabetes_tipe_2, diagnosis_diabetes_tipe_2, 
-                                               artikel, admin, bantuan])
+                                               artikel, admin, bantuan, login_pengguna, test])
     st.session_state.pg.run()
     
-if st.session_state.masuk_website_admin == True:
+if st.session_state.masuk_website == "Admin":
     st.session_state.pg = st.navigation(pages=[home_website_admin, halaman_admin, halaman_penyakit,
                                                halaman_gejala, halaman_relasi_dan_gejala, 
                                                halaman_pasien, halaman_artikel, halaman_log_out])
     st.session_state.pg.run()
+    
+
+if st.session_state.masuk_website == "Pengguna":
+    st.session_state.pg = st.navigation(pages=[data_pasien, pemeriksaan_kesehatan, riwayat, log_out])
+    st.session_state.pg.run()
+
 
 
 
