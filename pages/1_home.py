@@ -24,7 +24,7 @@ pg_bg_img = """
 st.markdown(pg_bg_img, unsafe_allow_html=True)
 
 
-col1, col2 = st.columns([8, 1])
+col1, col2 = st.columns([8, 3])
 
 with col1:
     st.title("SELAMAT DATANG!")
