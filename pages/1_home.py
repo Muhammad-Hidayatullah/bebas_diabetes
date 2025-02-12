@@ -1,6 +1,15 @@
 import streamlit as st
 from assets import database as db
 
+
+col1, col2 = st.columns([9, 1])
+with col2:
+    st.markdown(
+        '<a href="https://your-login-page.com" target="_blank" style="font-size:16px; color:blue; text-decoration:none;">Login Disini</a>',
+        unsafe_allow_html=True
+    )
+
+
 pg_bg_img = """
 <style> 
 [data-testid="stAppViewContainer"]{
