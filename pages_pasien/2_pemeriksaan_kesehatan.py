@@ -356,7 +356,7 @@ def buat_laporan():
             
     else:
         pdf.set_font("Arial", size=10)
-        pdf.cell(200, 10, txt=f"-", ln=True)
+        pdf.cell(200, 10, txt=f"--", ln=True)
     
     return pdf.output(dest="S").encode("latin1")
 
