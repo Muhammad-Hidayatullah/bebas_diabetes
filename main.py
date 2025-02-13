@@ -101,11 +101,7 @@ home_website_admin = st.Page(
     icon=":material/home:",
 )   
 
-halaman_admin = st.Page(
-    page="pages_admin/2_admin.py",
-    title="Admin",
-    icon=":material/shield_person:",
-)  
+
 
 halaman_penyakit = st.Page(
     page="pages_admin/3_penyakit.py",
@@ -156,7 +152,7 @@ if st.session_state.masuk_website == None:
     st.session_state.pg.run()
     
 if st.session_state.masuk_website == "Admin":
-    st.session_state.pg = st.navigation(pages=[home_website_admin, halaman_admin, halaman_penyakit,
+    st.session_state.pg = st.navigation(pages=[halaman_admin, halaman_penyakit,
                                                halaman_gejala, halaman_relasi_dan_gejala, 
                                                halaman_pasien, halaman_artikel, halaman_log_out])
     st.session_state.pg.run()
