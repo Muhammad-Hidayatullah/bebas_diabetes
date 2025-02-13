@@ -57,14 +57,10 @@ if st.session_state.lanjut == 0:
         st.write("Tanggal Lahir     : " + str(st.session_state.tanggal_lahir))
 
 
-        
-
-        
         if "update_data" not in st.session_state:
             st.session_state.update_data = 0
 
-        
-            
+    
         if st.form_submit_button(label="Update Data"):
             st.session_state.update_data = 1
                 
@@ -92,10 +88,11 @@ if st.session_state.lanjut == 2:
         email = st.text_input("Masukkan email baru: ", value=st.session_state.email)
         
 
-        pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(st.session_state.pekerjaan))
-        if pekerjaan == "Lainnya"":
+        pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(st.session_state.pekerjaan)) 
+        if pekerjaan == "Lainnya":
             pekerjaan_lainnya = st.text_input("Pekerjaan: ")
             pekerjaan = pekerjaan_lainnya
+        
         tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now(), value=st.session_state.tanggal_lahir)
         
         
