@@ -92,7 +92,10 @@ if st.session_state.lanjut == 2:
         email = st.text_input("Masukkan email baru: ", value=st.session_state.email)
         
 
-        pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(st.session_state.pekerjaan)) 
+        pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(st.session_state.pekerjaan))
+        if pekerjaan == "Lainnya":
+            pekerjaan_lainnya = st.text_input("Pekerjaan: ")
+            pekerjaan = pekerjaan_lainnya
         tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now(), value=st.session_state.tanggal_lahir)
         
         
