@@ -89,6 +89,7 @@ if st.session_state.lanjut == 2:
         
 
         pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(st.session_state.pekerjaan)) 
+        st.write(pekerjaan)
         if pekerjaan == "Lainnya":
             pekerjaan_lainnya = st.text_input("Pekerjaan: ")
             pekerjaan = pekerjaan_lainnya
