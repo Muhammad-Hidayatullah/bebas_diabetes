@@ -25,7 +25,7 @@ if "lanjut" not in st.session_state:
     
 if st.session_state.lanjut == 0:
     with st.form("form_data_pasien"):
-        st.title("Data Pasien")
+        
         
         if "data_pasien" not in st.session_state:
             st.session_state.data_pasien = []
@@ -45,7 +45,7 @@ if st.session_state.lanjut == 0:
         
         
         
-        
+        st.title("Data Pasien")
         st.write("Kode Pasien       : " + st.session_state.kode_pasien)
         st.write("Username          : " + st.session_state.username_pengguna)
         st.write("Password          : " + len(st.session_state.password_pengguna) * "*")
@@ -56,6 +56,8 @@ if st.session_state.lanjut == 0:
         st.write("Pekerjaan         : " + st.session_state.pekerjaan)
         st.write("Tanggal Lahir     : " + str(st.session_state.tanggal_lahir))
 
+
+        
 
         
         if "update_data" not in st.session_state:
@@ -151,17 +153,4 @@ if st.session_state.lanjut == 2:
             time.sleep(2)
             st.rerun()
         
-        
-
-
-
-
-
-
-
-
-
-
-
-
     
