@@ -15,7 +15,7 @@ df_pemeriksaan_kesehatan = db.fetch_pemeriksaan_kesehatan()
 st.write(df_pemeriksaan_kesehatan)
 
 st.subheader("HASIL DIAGNOSIS KOMPLIKASI")
-df_diagnosis_penyakit = db.fetch_diagnosis_penyakit()
+df_diagnosis_penyakit = db.fetch_diagnosis_penyakit_admin()
 st.write(df_diagnosis_penyakit)
 
 
