@@ -559,7 +559,7 @@ if st.session_state.lanjut_pemeriksaan == 2:
             st.success("Anda Tidak Memiliki Faktor Risiko dan Risiko Rendah Terkena Diabetes Mellitus Tipe 2")
             
         if st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2:
-            st.warning("Anda Memiliki 1 atau 2 Faktor Risiko dan Risiko Menengah Terkena Diabetes Mellitus Tipe 2")
+            st.warning("Anda Memiliki 1 atau 2 Faktor Risiko dan Risiko Sedang Terkena Diabetes Mellitus Tipe 2")
             
         if st.session_state.total_faktor_risiko >= 3:
             st.error("Anda Memiliki Faktor Risiko ≥3 dan Risiko Tinggi Terkena Diabetes Mellitus Tipe 2")
@@ -622,8 +622,8 @@ if st.session_state.lanjut_pemeriksaan == 4:
         elif (140 <= st.session_state.gula_darah_sewaktu < 200.0 or 
             100 <= st.session_state.gula_darah_puasa < 126.0 or 
             140 <= st.session_state.gula_darah_2_jam_setelah_makan < 200.0) and st.session_state.total_faktor_risiko == 0:
-            st.warning("Risiko menengah, tidak ada faktor risiko namun gula sudah masuk ke dalam level prediabetes. Disarankan untuk mengikuti Tes Toleransi Glukosa Oral (TTGO) dan berkonsultasi dengan dokter")
-            st.session_state.risiko_diabetes = "MENENGAH"
+            st.warning("Risiko sedang, tidak ada faktor risiko namun gula sudah masuk ke dalam level prediabetes. Disarankan untuk mengikuti Tes Toleransi Glukosa Oral (TTGO) dan berkonsultasi dengan dokter")
+            st.session_state.risiko_diabetes = "SEDANG"
 
         elif (st.session_state.gula_darah_sewaktu < 140.0 and 
             st.session_state.gula_darah_puasa < 100.0 and 
@@ -640,8 +640,8 @@ if st.session_state.lanjut_pemeriksaan == 4:
             st.warning("Risiko tinggi, gula darah sudah mencapai level prediabetes. Disarankan untuk mengikuti Tes Toleransi Glukosa Oral (TTGO) dan berkonsultasi dengan dokter")     
             st.session_state.risiko_diabetes = "TINGGI"
         elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2:
-            st.success("Risiko menengah, gula darah normal namun terdapat faktor risiko")
-            st.session_state.risiko_diabetes = "MENENGAH"
+            st.success("Risiko sedang, gula darah normal namun terdapat faktor risiko")
+            st.session_state.risiko_diabetes = "SEDANG"
              
         # Faktor Risiko Lebih Dari 2
         if (st.session_state.gula_darah_sewaktu >= 200.0 or st.session_state.gula_darah_puasa >= 126.0 or st.session_state.gula_darah_2_jam_setelah_makan >= 200.0) and st.session_state.total_faktor_risiko >= 3:
@@ -654,8 +654,8 @@ if st.session_state.lanjut_pemeriksaan == 4:
             st.session_state.risiko_diabetes = "TINGGI"
         elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and st.session_state.total_faktor_risiko >= 3:
             st.write("Diagnosis:")
-            st.warning("Risiko menengah, gula darah normal namun banyak faktor risiko lebih dari atau sama dengan 3 yang dapat menyebabkan Diabetes Mellitus Tipe di masa yang akan datang")
-            st.session_state.risiko_diabetes = "MENENGAH"
+            st.warning("Risiko sedang, gula darah normal namun banyak faktor risiko lebih dari atau sama dengan 3 yang dapat menyebabkan Diabetes Mellitus Tipe di masa yang akan datang")
+            st.session_state.risiko_diabetes = "SEDANG"
         
         st.write("")
              
