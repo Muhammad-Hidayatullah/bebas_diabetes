@@ -4,15 +4,20 @@ import time
 
 st.subheader("PENYAKIT")
 penyakit_df = db.fetch_penyakit()
-st.dataframe(penyakit_df)
+penyakit_df_html = penyakit_df.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + penyakit_df_html, unsafe_allow_html=True)
 
 st.subheader("GEJALA")
 gejala_df = db.fetch_gejala()
-st.dataframe(gejala_df)
+gejala_df_html = gejala_df.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + gejala_df_html, unsafe_allow_html=True)
 
 st.subheader("RELASI PENYAKIT DAN GEJALA")
 df_relasi_penyakit_dan_gejala = db.fetch_relasi_penyakit_dan_gejala_full()
-st.dataframe(df_relasi_penyakit_dan_gejala)
+relasi_penyakit_dan_gejala_df_html = df_relasi_penyakit_dan_gejala.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + relasi_penyakit_dan_gejala_df_html, unsafe_allow_html=True)
+
+
 pilihan_relasi = st.selectbox("Pilih Opsi untuk Relasi Penyakit dan Gejala: ", options=["Tambah Relasi", "Update Relasi", "Hapus Relasi"])
 
 df_penyakit = db.fetch_penyakit()
