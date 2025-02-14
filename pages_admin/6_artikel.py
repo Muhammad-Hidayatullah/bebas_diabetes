@@ -4,7 +4,9 @@ import time
 
 st.subheader("ARTIKEL")
 df_artikel = db.fetch_artikel()
-st.dataframe(df_artikel)
+
+df_artikel_html = df_artikel.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + df_artikel_html, unsafe_allow_html=True)
 
 pilihan_artikel = st.selectbox("Pilih Opsi untuk Artikel", ("Tambah", "Update", "Hapus"))
 
