@@ -5,7 +5,8 @@ import time
 
 st.subheader("GEJALA")
 gejala_df = db.fetch_gejala()
-st.dataframe(gejala_df)
+gejala_df_html = gejala_df.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + gejala_df_html, unsafe_allow_html=True)
 
 pilihan_gejala = st.selectbox("Pilih Opsi untuk Gejala: ", options=["Tambah Gejala", "Update Gejala", "Hapus Gejala"])
 
