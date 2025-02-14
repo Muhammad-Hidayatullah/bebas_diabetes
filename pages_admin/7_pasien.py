@@ -8,15 +8,19 @@ from fpdf import FPDF
 
 st.subheader("DATA PASIEN")
 df_pasien = db.fetch_pasien()
-st.write(df_pasien)
+df_pasien_html = df_pasien.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + df_pasien_html, unsafe_allow_html=True)
 
-st.subheader("PEMERIKSAAN KESEHATAN")
+#st.subheader("PEMERIKSAAN KESEHATAN")
 df_pemeriksaan_kesehatan = db.fetch_pemeriksaan_kesehatan()
-st.write(df_pemeriksaan_kesehatan)
+#df_pemeriksaan_kesehatan_html = df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
+#st.markdown(st.session_state.style_tabel + df_pemeriksaan_kesehatan_html, unsafe_allow_html=True)
 
-st.subheader("HASIL DIAGNOSIS KOMPLIKASI")
+
+#st.subheader("HASIL DIAGNOSIS KOMPLIKASI")
 df_diagnosis_penyakit = db.fetch_diagnosis_penyakit_admin()
-st.write(df_diagnosis_penyakit)
+#df_diagnosis_penyakit_html = df_diagnosis_penyakit.to_html(index=False, escape=False)
+#st.markdown(st.session_state.style_tabel + df_diagnosis_penyakit_html, unsafe_allow_html=True)
 
 
 
