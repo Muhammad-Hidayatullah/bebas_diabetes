@@ -4,8 +4,8 @@ import time
 
 st.subheader("PENYAKIT")
 penyakit_df = db.fetch_penyakit()
-st.dataframe(penyakit_df)
-
+penyakit_df_html = penyakit_df.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + penyakit_df_html, unsafe_allow_html=True)
 
 pilihan_penyakit = st.selectbox("Pilih Opsi untuk Penyakit", options=["Tambah Penyakit", "Update Penyakit", "Hapus Penyakit"])
 
