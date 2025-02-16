@@ -104,37 +104,37 @@ home_website_admin = st.Page(
 
 
 halaman_penyakit = st.Page(
-    page="pages_admin/3_penyakit.py",
+    page="pages_admin/2_penyakit.py",
     title="Penyakit",
     icon=":material/microbiology:",
 )
 
 halaman_gejala = st.Page(
-    page="pages_admin/4_gejala.py",
+    page="pages_admin/3_gejala.py",
     title="Gejala",
     icon=":material/symptoms:",
 )
 
 halaman_relasi_dan_gejala = st.Page(
-    page="pages_admin/5_relasi_penyakit_dan_gejala.py",
+    page="pages_admin/4_relasi_penyakit_dan_gejala.py",
     title="Relasi Penyakit dan Gejala",
     icon=":material/fact_check:",
 )
 
 halaman_artikel = st.Page(
-    page="pages_admin/6_artikel.py",
+    page="pages_admin/5_artikel.py",
     title="Artikel",
     icon=":material/article:",
 )
 
 halaman_pasien = st.Page(
-    page="pages_admin/7_pasien.py",
+    page="pages_admin/6_pasien.py",
     title="Pasien",
     icon=":material/patient_list:",
 )
 
 halaman_log_out = st.Page(
-    page="pages_admin/8_log_out.py",
+    page="pages_admin/7_log_out.py",
     title="Log Out",
     icon=":material/logout:"
 )
