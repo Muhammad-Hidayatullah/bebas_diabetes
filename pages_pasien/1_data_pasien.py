@@ -62,7 +62,7 @@ if st.session_state.lanjut == 0:
 
         st.write("")
         st.write("")
-        st.write("")
+
         if st.form_submit_button(label="Update Data"):
             st.session_state.update_data = 1
                 
