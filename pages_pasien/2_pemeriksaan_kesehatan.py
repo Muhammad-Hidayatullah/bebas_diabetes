@@ -286,11 +286,15 @@ def buat_laporan():
     if st.session_state.gejala_terpilih:
         for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
             pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
+        if i >= 18 and i <= 24:
+            pdf.ln(120)
         
     else:            
         pdf.cell(200, 10, txt="--", ln=True)
         
-    pdf.ln()
+    pdf.ln(5)
+    if pdf.get_y() > 220:
+        pdf.ln(200)
     
     pdf.set_font("Arial", size=13, style="B")
     pdf.cell(75, 10, txt="Komplikasi Penyakit", ln=True)
@@ -308,7 +312,10 @@ def buat_laporan():
             
             pdf.set_font("Arial", size=10)
             pdf.cell(200, 10, txt=f"{db.get_penjelasan_penyakit(penyakit)}", ln=True)
-            
+
+            pdf.ln(5)
+            if pdf.get_y() > 220:
+                pdf.ln(200)
             pdf.set_font("Arial", size=10, style="B")
             pdf.cell(200, 10, txt=f"Gejala yang Cocok", ln=True)
             
@@ -319,7 +326,9 @@ def buat_laporan():
                 
                 pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
             
-           
+            pdf.ln(5)
+            if pdf.get_y() > 220:
+                pdf.ln(200)
             pdf.set_font("Arial", size=10, style="B")
             pdf.cell(200, 10, txt=f"Gejala Penyakit", ln=True)
             pdf.set_font("Arial", size=10)
@@ -329,14 +338,14 @@ def buat_laporan():
                 pdf.cell(200, 10, txt=f"{i}. {gejala_penyakit}", ln=True)
             
             
-      
+            pdf.ln(5)
+            if pdf.get_y() > 220:
+                pdf.ln(200)
             pdf.set_font("Arial", size=10, style="B")
             pdf.cell(200, 10, txt=f"Solusi Penyakit", ln=True)
             pdf.set_font("Arial", size=10)
             
             # Loop untuk menampilkan dengan nomor urut
-            
-        
             solusi_penyakit = db.get_solusi_penyakit(penyakit)
             solusi_penyakit = solusi_penyakit.split(";")
 
@@ -350,9 +359,9 @@ def buat_laporan():
             for i, frasa in enumerate(daftar_solusi, start=1):
                 pdf.cell(200, 10, txt=f"{i}. {frasa}", ln=True)
                
-    
-        
             pdf.ln(10)
+            if pdf.get_y() > 220:
+                pdf.ln(200)
             
     else:
         pdf.set_font("Arial", size=10)
