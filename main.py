@@ -78,7 +78,7 @@ data_pasien = st.Page(
 
 pemeriksaan_kesehatan = st.Page(
     page="pages_pasien/2_pemeriksaan_kesehatan.py",
-    title = "Pemeriksaan Faktor Risiko",
+    title = "Pemeriksaan Tingkat Risiko dan Komplikasi",
     icon=":material/medical_services:",
 )
 
