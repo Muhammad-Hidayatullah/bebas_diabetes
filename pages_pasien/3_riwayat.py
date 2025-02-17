@@ -266,7 +266,7 @@ if df_pemeriksaan_kesehatan_pasien is None:
     st.write("--")
 else:
     df_pemeriksaan_kesehatan_pasien = pd.DataFrame(df_pemeriksaan_kesehatan_pasien)
-    lihat_df_pemeriksaan_kesehatan = df_pemeriksaan_kesehatan_pasien
+    lihat_df_pemeriksaan_kesehatan = df_pemeriksaan_kesehatan_pasien.copy()
     
     lihat_df_pemeriksaan_kesehatan.drop(columns=["ID Pemeriksaan", "ID Pasien", "Nama Pasien"], inplace=True)
     
@@ -281,7 +281,7 @@ if df_diagnosis_penyakit is None:
 else:
     df_diagnosis_penyakit = pd.DataFrame(df_diagnosis_penyakit)
     
-    lihat_df_diagnosis_penyakit = df_diagnosis_penyakit
+    lihat_df_diagnosis_penyakit = df_diagnosis_penyakit.copy()
     
     lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID Pasien", "Nama Pasien", "Gejala Terpilih"], inplace = True)
     tabel_html_diagnosis_penyakit = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
