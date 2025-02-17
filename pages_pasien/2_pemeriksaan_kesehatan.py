@@ -575,24 +575,20 @@ if st.session_state.lanjut_pemeriksaan == 3:
         st.session_state.gula_darah_2_jam_setelah_makan = st.number_input("Gula Darah 2 Jam Setelah Makan (mg/dL): ", min_value=0.0, max_value=1000.0, value=st.session_state.gula_darah_2_jam_setelah_makan)
 
         
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.form_submit_button("Kembali"):
-                
-                st.session_state.lanjut_pemeriksaan = 2
-                st.rerun()
+        if st.form_submit_button("Lanjut"):
+            if st.session_state.gula_darah_sewaktu is None:
+                st.session_state.gula_darah_sewaktu = 0.0
+            if st.session_state.gula_darah_puasa is None:
+                st.session_state.gula_darah_puasa = 0.0
+            if st.session_state.gula_darah_2_jam_setelah_makan is None:
+                st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+    
+            st.session_state.lanjut_pemeriksaan = 4
+            st.rerun()
+        if st.form_submit_button("Kembali"):
             
-        with col2:
-            if st.form_submit_button("Lanjut"):
-                if st.session_state.gula_darah_sewaktu is None:
-                    st.session_state.gula_darah_sewaktu = 0.0
-                if st.session_state.gula_darah_puasa is None:
-                    st.session_state.gula_darah_puasa = 0.0
-                if st.session_state.gula_darah_2_jam_setelah_makan is None:
-                    st.session_state.gula_darah_2_jam_setelah_makan = 0.0
-        
-                st.session_state.lanjut_pemeriksaan = 4
-                st.rerun()
+            st.session_state.lanjut_pemeriksaan = 2
+            st.rerun()
 
 if st.session_state.lanjut_pemeriksaan == 4:
     with st.form(key="form_tingkat_risiko"):
