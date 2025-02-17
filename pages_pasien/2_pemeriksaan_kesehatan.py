@@ -654,7 +654,7 @@ if st.session_state.lanjut_pemeriksaan == 4:
             st.session_state.risiko_diabetes = "TINGGI"
         elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and st.session_state.total_faktor_risiko >= 3:
             st.write("Diagnosis:")
-            st.warning("Risiko sedang, gula darah normal namun banyak faktor risiko lebih dari atau sama dengan 3 yang dapat menyebabkan Diabetes Mellitus Tipe di masa yang akan datang")
+            st.warning("Risiko sedang, gula darah normal namun banyak faktor risiko lebih dari atau sama dengan 3 yang dapat menyebabkan Diabetes Mellitus 2 Tipe di masa yang akan datang")
             st.session_state.risiko_diabetes = "SEDANG"
         
         st.write("")
