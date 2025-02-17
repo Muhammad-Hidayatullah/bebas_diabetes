@@ -131,36 +131,37 @@ if "logged_in_pengguna" not in st.session_state:
     st.session_state.username = ""
     variabel_awal_pasien()
     
-if not st.session_state.logged_in_pengguna:
-    st.title("Halaman Login Pengguna")
-    
-    # Input username dan password hanya terlihat jika belum login
-    st.session_state.username_pengguna = st.text_input("Masukkan username:")
-    input_password = st.text_input("Masukkan password:", type="password")
-    
-    if st.button(label="Login"):
-        # Validasi login
+with st.form("login-pasien"):
+    if not st.session_state.logged_in_pengguna:
+        st.title("Halaman Login Pengguna")
         
-        if db.check_pengguna(st.session_state.username_pengguna, input_password) == True:
+        # Input username dan password hanya terlihat jika belum login
+        st.session_state.username_pengguna = st.text_input("Masukkan username:")
+        input_password = st.text_input("Masukkan password:", type="password")
+        
+        if st.form_submit_button(label="Login"):
+            # Validasi login
             
-            st.session_state.logged_in_pengguna = True
-            st.session_state.masuk_website = "Pengguna"
-            st.success(f"Login berhasil! Selamat datang, {st.session_state.username_pengguna}.")
-            time.sleep(2)
+            if db.check_pengguna(st.session_state.username_pengguna, input_password) == True:
+                
+                st.session_state.logged_in_pengguna = True
+                st.session_state.masuk_website = "Pengguna"
+                st.success(f"Login berhasil! Selamat datang, {st.session_state.username_pengguna}.")
+                time.sleep(2)
+                st.rerun()
+                
+            else:
+                st.error("Username atau password salah.")
+            
+        st.write("")
+        st.write("")
+        st.write("")
+        st.write("")
+            
+        st.write("Belum memiliki akun? Klik tombol registrasi di bawah ini!")
+        if st.form_submit_button(label="Registrasi"):
+            st.session_state.logged_in_pengguna = "Registrasi"
             st.rerun()
-            
-        else:
-            st.error("Username atau password salah.")
-            
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    
-    st.write("Belum memiliki akun? Klik tombol registrasi di bawah ini!")
-    if st.button(label="Registrasi"):
-        st.session_state.logged_in_pengguna = "Registrasi"
-        st.rerun()
 
 
 def validasi_email_regex(email):
@@ -170,50 +171,51 @@ def validasi_email_regex(email):
 def validasi_password(password):
     return len(password) >= 7  # Minimum length of 6 characters
 
-if st.session_state.logged_in_pengguna == "Registrasi":
-    st.title("Registrasi")
-    st.write("Silahkan lakukan registrasi")
-    st.session_state.username_pengguna = ""
-    st.session_state.username_pengguna = st.text_input("Masukkan username: ")
-    password_pengguna = ""
-    password_pengguna = st.text_input("Masukkan password: ", type="password")
-    
-    
-    st.session_state.nama = st.text_input("Nama Lengkap: ", value=st.session_state.nama)
-    jenis_kelamin = st.radio("Jenis Kelamin", ("LAKI-LAKI", "PEREMPUAN"), horizontal=True, index=("LAKI-LAKI", "PEREMPUAN").index(st.session_state.jenis_kelamin))
-    tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now())
-    
-    
-    pekerjaan = st.selectbox("Pekerjaan: ", options=st.session_state.pekerjaan_pekerjaan)
-    if pekerjaan == "Lainnya":
-        pekerjaan_lainnya = st.text_input("Pekerjaan: ")
-        pekerjaan = pekerjaan_lainnya
-    
-    
-    email = st.text_input("Masukkan email: ", value=st.session_state.email)
-    
-    alamat = st.text_input("Alamat Tempat Tinggal: ", value=st.session_state.alamat)
+with st.form("registrasi-pasien"):
+    if st.session_state.logged_in_pengguna == "Registrasi":
+        st.title("Registrasi")
+        st.write("Silahkan lakukan registrasi")
+        st.session_state.username_pengguna = ""
+        st.session_state.username_pengguna = st.text_input("Masukkan username: ")
+        password_pengguna = ""
+        password_pengguna = st.text_input("Masukkan password: ", type="password")
+        
+        
+        st.session_state.nama = st.text_input("Nama Lengkap: ", value=st.session_state.nama)
+        jenis_kelamin = st.radio("Jenis Kelamin", ("LAKI-LAKI", "PEREMPUAN"), horizontal=True, index=("LAKI-LAKI", "PEREMPUAN").index(st.session_state.jenis_kelamin))
+        tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now())
+        
+        
+        pekerjaan = st.selectbox("Pekerjaan: ", options=st.session_state.pekerjaan_pekerjaan)
+        if pekerjaan == "Lainnya":
+            pekerjaan_lainnya = st.text_input("Pekerjaan: ")
+            pekerjaan = pekerjaan_lainnya
+        
+        
+        email = st.text_input("Masukkan email: ", value=st.session_state.email)
+        
+        alamat = st.text_input("Alamat Tempat Tinggal: ", value=st.session_state.alamat)
 
-    
-    if st.button(label="Registrasi"):
-        cek_validasi_data_pasien = db.check_data_registrasi_pasien(st.session_state.username_pengguna, email, password_pengguna, st.session_state.nama, alamat)
-            
-        if cek_validasi_data_pasien == True:
-            st.success("Data valid.")
-            db.add_pasien(db.menambah_id_pasien_default(), st.session_state.username_pengguna, password_pengguna, st.session_state.nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir)
-            time.sleep(2)
+        
+        if st.form_submit_button(label="Registrasi"):
+            cek_validasi_data_pasien = db.check_data_registrasi_pasien(st.session_state.username_pengguna, email, password_pengguna, st.session_state.nama, alamat)
+                
+            if cek_validasi_data_pasien == True:
+                st.success("Data valid.")
+                db.add_pasien(db.menambah_id_pasien_default(), st.session_state.username_pengguna, password_pengguna, st.session_state.nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir)
+                time.sleep(2)
+                st.session_state.logged_in_pengguna = False
+                st.rerun()
+                
+        st.write("")
+        st.write("")
+        st.write("")
+        st.write("")
+        
+        st.write("Sudah memiliki akun? Klik tombol Login di bawah ini!")
+        if st.form_submit_button(label="Login"):
             st.session_state.logged_in_pengguna = False
             st.rerun()
-            
-    st.write("")
-    st.write("")
-    st.write("")
-    st.write("")
-    
-    st.write("Sudah memiliki akun? Klik tombol Login di bawah ini!")
-    if st.button(label="Login"):
-        st.session_state.logged_in_pengguna = False
-        st.rerun()
 
 
     
