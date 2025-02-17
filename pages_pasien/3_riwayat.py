@@ -283,7 +283,7 @@ else:
     
     lihat_df_diagnosis_penyakit = df_diagnosis_penyakit
     
-    lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID Pasien", "Nama Pasien", "Gejala Terpilih"])
+    lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID Pasien", "Nama Pasien", "Gejala Terpilih"], inplace = True)
     tabel_html_diagnosis_penyakit = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
 
     st.markdown(style_tabel + tabel_html_diagnosis_penyakit, unsafe_allow_html=True)
