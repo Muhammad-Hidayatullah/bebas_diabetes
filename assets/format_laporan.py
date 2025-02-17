@@ -163,7 +163,9 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
         pdf.cell(200, 10, txt="--", ln=True)
         
     pdf.ln(5)
-    
+    if pdf.get_y() > 220:
+        pdf.ln(200)
+        
     pdf.set_font("Arial", size=13, style="B")
     pdf.cell(75, 10, txt="Komplikasi Penyakit", ln=True)
     pdf.set_font("Arial", size=10)
@@ -178,13 +180,12 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
                 pdf.set_font("Arial", size=10)
                 pdf.cell(200, 10, txt=f"{db.get_penjelasan_penyakit(row['Nama Penyakit'])}", ln=True)
             
+            if pdf.get_y() > 220:
+                pdf.ln(200)
+                
             pdf.set_font("Arial", size=10, style="B")
             pdf.cell(200, 10, txt=f"Gejala yang Cocok", ln=True)
-            
-            
             pdf.set_font("Arial", size=10)
-            
-            
             daftar_gejala = row['Gejala Cocok']
             if daftar_gejala is None:
                 pdf.cell(200, 10, txt=f"-", ln=True)
@@ -195,6 +196,9 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
                     pdf.cell(200, 10, txt=f"{i}. {gejala_cocok}", ln=True)
                 
             pdf.ln(5)
+            if pdf.get_y() > 220:
+                pdf.ln(200)
+                
             pdf.set_font("Arial", size=10, style="B")
             pdf.cell(200, 10, txt=f"Gejala Penyakit", ln=True)
             pdf.set_font("Arial", size=10)
@@ -210,6 +214,8 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
         
                 #Solusi
                 pdf.ln(5)
+                if pdf.get_y() > 220:
+                    pdf.ln(200)
                 pdf.set_font("Arial", size=10, style="B")
                 pdf.cell(200, 10, txt=f"Solusi Penyakit", ln=True)
                 pdf.set_font("Arial", size=10)
@@ -224,6 +230,8 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
                 for i, frasa in enumerate(daftar_solusi, start=1):
                     pdf.cell(200, 10, txt=f"{i}. {frasa}", ln=True)
                 pdf.ln(10)
+                if pdf.get_y() > 220:
+                    pdf.ln(200)
                 
         pdf.set_font("Arial", size=10, style="B")
         pdf.cell(200, 10, txt=f"Catatan Penting: Anda Tetap Harus Mengunjungi Dokter Untuk Mendapatkan Penanganan yang Tepat", ln=True)
