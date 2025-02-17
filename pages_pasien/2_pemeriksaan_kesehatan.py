@@ -362,10 +362,12 @@ def buat_laporan():
             pdf.ln(10)
             if pdf.get_y() > 220:
                 pdf.ln(200)
+            pdf.cell(200, 10, txt=f"Catatan Penting: Anda Tetap Harus Mengunjungi Dokter Untuk Mendapatkan Penanganan yang Tepat", ln=True)
             
     else:
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt=f"--", ln=True)
+        
     
     return pdf.output(dest="S").encode("latin1")
 
