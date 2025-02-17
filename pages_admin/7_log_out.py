@@ -7,7 +7,7 @@ if st.button("Logout"):
     # Kode untuk melakukan logout
     # Kembali ke menu awal
     st.session_state.masuk_website = None
-    st.session_state.logged_in_admin = False
+    st.session_state.logged_in_pengguna = False
     
     #mengosongkan username
     st.session_state.username = ""
