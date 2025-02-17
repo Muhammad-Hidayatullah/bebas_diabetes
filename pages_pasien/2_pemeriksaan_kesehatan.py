@@ -669,15 +669,14 @@ if st.session_state.lanjut_pemeriksaan == 4:
         if st.session_state.gula_darah_2_jam_setelah_makan < 140.0:
             st.success("Gula Darah 2 Jam Setelah Makan Anda Aman di <140 mg/dL!")
         
-        
+    
+        if st.form_submit_button("Lanjut Pemeriksaan Komplikasi"):
+            st.session_state.lanjut_pemeriksaan = 5
+            st.rerun()
         if st.form_submit_button("Kembali"):
             st.session_state.lanjut_pemeriksaan = 3
             st.rerun()
             
-        if st.form_submit_button("Lanjut Pemeriksaan Komplikasi"):
-            st.session_state.lanjut_pemeriksaan = 5
-            st.rerun()
-
 if st.session_state.lanjut_pemeriksaan == 5:
     with st.form(key="form_pemeriksaan_komplikasi"):
         st.subheader("Piih Gejala yang Anda Alami")
