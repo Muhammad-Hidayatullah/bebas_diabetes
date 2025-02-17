@@ -271,8 +271,7 @@ else:
     lihat_df_pemeriksaan_kesehatan.drop(columns=["ID Pemeriksaan", "ID Pasien", "Nama Pasien"], inplace=True)
     
     tabel_html_pemeriksaan_kesehatan_pasien = lihat_df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
-    st.write("Cek")
-    st.write(df_pemeriksaan_kesehatan_pasien)
+
     st.markdown(style_tabel + tabel_html_pemeriksaan_kesehatan_pasien, unsafe_allow_html=True)
 
 st.subheader("Riwayat Diagnosis Penyakit")
@@ -287,6 +286,9 @@ else:
     lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID Pasien", "Nama Pasien", "Gejala Terpilih"], inplace = True)
     tabel_html_diagnosis_penyakit = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
 
+    st.write("Cek")
+    st.write(df_diagnosis_penyakit)
+      
     st.markdown(style_tabel + tabel_html_diagnosis_penyakit, unsafe_allow_html=True)
     
     
