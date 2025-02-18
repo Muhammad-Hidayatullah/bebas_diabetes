@@ -343,14 +343,41 @@ def fetch_admin():
     conn.close()
     return df
 
-
 def fetch_pasien():
     conn = connect_to_db()
-    query = "SELECT * FROM pasien;"
-    df = pd.read_sql(query, conn)
+    cursor = conn.cursor(dictionary=True)
+    query = """
+    SELECT * FROM pasien;
+    """ 
+    cursor.execute(query)
+    result = cursor.fetchall()
     conn.close()
-    
-    return df
+    if not result:
+        return None
+
+    # Convert result to Pandas DataFrame
+    df = pd.DataFrame(result)
+
+    # Column renaming dictionary
+    ganti_header = {
+        "id_pasien": "ID Pasien",
+        "username": "Username",
+        "password": "Password",
+        "nama_pasien": "Nama Pasien",
+        "jenis_kelamin": "Jenis Kelamin",
+        "alamat": "Alamat",
+        "email": "Email",
+        "pekerjaan": "Pekerjaan",
+        "tanggal_lahir": "Tanggal Lahir"
+    }
+
+    # Rename columns
+    df.rename(columns=ganti_header, inplace=True)
+
+    return df 
+
+
+
 
 
 def update_pengguna(username, password, nama_pasien, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, username_lama):
@@ -595,12 +622,26 @@ def menambah_id_diagnosis_default():
 
 def fetch_diagnosis_penyakit_admin():
     conn = connect_to_db()
+    
     query = """
-    SELECT diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan, diagnosis_penyakit.tanggal_diagnosis  
+    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, diagnosis_penyakit.gejala_terpilih, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
     FROM diagnosis_penyakit
-    JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien;
+    LEFT JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien
+    LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit;
     """
+    
     df = pd.read_sql(query, conn)
+    ganti_header = {
+        "id_diagnosis": "ID Diagnosis",
+        "id_pasien": "ID Pasien",
+        "nama_pasien": "Nama Pasien",
+        "gejala_terpilih": "Gejala Terpilih",
+        "nama_penyakit": "Nama Penyakit",
+        "gejala_cocok": "Gejala Cocok",
+        "persentase_kecocokan": "Persentase Kecocokan",
+        "tanggal_diagnosis": "Tanggal Diagnosis"
+    }
+    df.rename(columns=ganti_header, inplace=True)
     return df
 
 def insert_diagnosis_penyakit(id_diagnosis, id_pasien, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis):
@@ -891,6 +932,7 @@ def hapus_pemeriksaan_kesehatan_dan_diagnosis(tanggal_pemeriksaan):
 
 def fetch_pemeriksaan_kesehatan():
     conn = connect_to_db()
+    cursor = conn.cursor(dictionary=True)
     query = """
     SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
@@ -900,9 +942,50 @@ def fetch_pemeriksaan_kesehatan():
     JOIN pemeriksaan_fisik ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_fisik.id_pemeriksaan
     JOIN pemeriksaan_laboratorium ON pemeriksaan_laboratorium.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan;
     """
-    df = pd.read_sql(query, conn)
+    cursor.execute(query)
+    result = cursor.fetchall()
     conn.close()
-    return df
+    if not result:
+        return None
+
+    # Convert result to Pandas DataFrame
+    df = pd.DataFrame(result)
+    
+    ganti_header = {
+        "tanggal_pemeriksaan": "Tanggal Pemeriksaan",
+        "id_pemeriksaan": "ID Pemeriksaan",
+        "id_pasien": "ID Pasien",
+        "nama_pasien": "Nama Pasien",
+        "risiko_diabetes": "Risiko Diabetes",
+        "usia_di_atas_40_tahun": "Usia di Atas 40 Tahun",
+        "riwayat_keluarga_diabetes": "Riwayat Keluarga Diabetes",
+        "riwayat_diabetes_gestasional": "Riwayat Diabetes Gestasional",
+        "riwayat_lahir_berat_badan_lahir_rendah": "Riwayat Lahir Berat Badan Lahir Rendah",
+        "konsumsi_alkohol": "Konsumsi Alkohol",
+        "kurang_aktivitas": "Kurang Aktivitas",
+        "merokok": "Merokok",
+        "pola_makan_buruk": "Pola Makan Buruk",
+        "kurang_tidur": "Kurang Tidur",
+        "berat_badan": "Berat Badan",
+        "tinggi_badan": "Tinggi Badan",
+        "lingkar_perut": "Lingkar Perut",
+        "indeks_massa_tubuh": "Indeks Massa Tubuh",
+        "gula_darah_sewaktu": "Gula Darah Sewaktu",
+        "gula_darah_puasa": "Gula Darah Puasa",
+        "gula_darah_2_jam_setelah_makan": "Gula Darah 2 Jam Setelah Makan",
+        "tekanan_darah": "Tekanan Darah",
+        "HDL": "HDL",
+        "LDL": "LDL",
+        "trigliserida": "Trigliserida",
+        "total_kolestrol": "Total Kolestrol"
+    }
+    
+    df.rename(columns=ganti_header, inplace=True)
+    
+    # Convert DataFrame back to a list of dictionaries
+    return df  # Returns as a list of dictio
+
+
 
 def fetch_pemeriksaan_kesehatan_pasien(id_pemeriksaan):
     conn = connect_to_db()
@@ -1037,9 +1120,6 @@ def get_diagnosis_penyakit(id_pasien):
 
 
 
-
-
-
 def hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal):
     conn = connect_to_db()
     query = "DELETE FROM pemeriksaan_kesehatan WHERE id_pasien = %s AND tanggal_pemeriksaan = %s"
@@ -1050,82 +1130,4 @@ def hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal):
     cursor.execute(query, (id_pasien, tanggal))
     conn.commit()
     conn.close()
-
-def laporan_kesehatan_pdf(id_pasien):
-    conn = connect_to_db()
-    query = "SELECT pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.riwayat_keluarga_diabetes, pemeriksaan_kesehatan.berat_badan, pemeriksaan_kesehatan.tinggi_badan, pemeriksaan_kesehatan.konsumsi_alkohol, pemeriksaan_kesehatan.kurang_aktivitas, pemeriksaan_kesehatan.lingkar_perut, pemeriksaan_kesehatan.merokok, pemeriksaan_kesehatan.kurang_buah_dan_sayur, pemeriksaan_kesehatan.gula_berlebihan, pemeriksaan_kesehatan.gula_darah_sewaktu, pemeriksaan_kesehatan.gula_darah_puasa, pemeriksaan_kesehatan.gula_darah_2_setelah_makan, pemeriksaan_kesehatan.tekanan_darah, pemeriksaan_kesehatan.HDL, pemeriksaan_kesehatan.LDL, pemeriksaan_kesehatan.trigliserida, analisa_hasil.`gejala-gejala`, penyakit.nama_penyakit FROM pemeriksaan_kesehatan JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien JOIN analisa_hasil ON pemeriksaan_kesehatan.id_pasien = analisa_hasil.id_pasien JOIN penyakit ON analisa_hasil.id_penyakit = penyakit.id_penyakit WHERE pemeriksaan_kesehatan.id_pasien = %s;"
-    
-    query = """
-    SELECT pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.tanggal_pemeriksaan, riwayat_penyakit.hipertensi, riwayat_penyakit.penyakit_jantung, riwayat_penyakit.stroke, riwayat_penyakit.dislipidemia, riwayat_penyakit.penyakit_ginjal, riwayat_penyakit.obesitas, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.kurang_buah_dan_sayur, kebiasaan_hidup.gula_berlebihan, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, hasil_laboratorium.gula_darah_sewaktu, hasil_laboratorium.gula_darah_puasa, hasil_laboratorium.gula_darah_2_jam_setelah_makan, hasil_laboratorium.tekanan_darah, hasil_laboratorium.HDL, hasil_laboratorium.LDL, hasil_laboratorium.trigliserida
-    FROM pemeriksaan_kesehatan
-    JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien
-    JOIN riwayat_penyakit ON pemeriksaan_kesehatan.id_pemeriksaan = riwayat_penyakit.id_pemeriksaan
-    JOIN kebiasaan_hidup ON pemeriksaan_kesehatan.id_pemeriksaan = kebiasaan_hidup.id_pemeriksaan
-    JOIN pemeriksaan_fisik ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan
-    JOIN hasil_laboratorium ON pemeriksaan_kesehatan.id_pemeriksaan = hasil_laboratorium.id_pemeriksaan
-    WHERE pemeriksaan_kesehatan.id_pasien = %s;
-    """
-    df = pd.read_sql(query, conn, params=(id_pasien,))
-    return df
-    
-    
-    return df
-    pdf = FPDF()
-    pdf.add_page()
-    
-    
-    pdf.image("assets/logo_diabetes.png", x=10, y=8, w=30)  # Adjust x, y, and w for logo position and size
-    pdf.image("assets/puskesmas_pkc_taman_sari.jpeg", x=170, y=8, w=30)
-    
-    # Menambahkan judul
-    pdf.set_font("Arial", size=14, style="B")
-    pdf.cell(200, 15, txt="HASIL AKHIR", ln=True, align='C')
-    
-    # Data Pasien
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt="", ln=True)
-   
-    pdf.cell(200, 10, txt="Data Pasien", ln=True)
-    pdf.cell(200, 10, txt=f"Nama: {st.session_state.nama}", ln=True)
-    pdf.cell(200, 10, txt=f"Umur: {st.session_state.umur}", ln=True)
-    pdf.cell(200, 10, txt=f"Pekerjaan: {st.session_state.pekerjaan}", ln=True)
-    pdf.cell(200, 10, txt=f"Berat Badan: {st.session_state.berat_badan}", ln=True)
-    pdf.cell(200, 10, txt=f"Tinggi Badan: {st.session_state.tinggi_badan}", ln=True)
-    pdf.cell(200, 10, txt=f"Tanggal: {st.session_state.tanggal}", ln=True)
-    pdf.cell(200, 10, txt=f"Alamat: {st.session_state.alamat}", ln=True)
-    pdf.cell(200, 10, txt=f"Jenis Kelamin: {st.session_state.jenis_kelamin}", ln=True)
-    pdf.cell(200, 10, txt=f"Riwayat Keluarga Diabetes: {st.session_state.riwayat_keluarga_diabetes}", ln=True)
-    
-    # Pola Hidup
-    pdf.cell(200, 10, txt="Pola Hidup", ln=True)
-    pdf.cell(200, 10, txt=f"Konsumsi Alkohol: {st.session_state.konsumsi_alkohol}", ln=True)
-    pdf.cell(200, 10, txt=f"Kurang Aktivitas: {st.session_state.kurang_aktivitas}", ln=True)
-    pdf.cell(200, 10, txt=f"Lingkar Perut: {st.session_state.lingkar_perut}", ln=True)
-    pdf.cell(200, 10, txt=f"Merokok: {st.session_state.merokok}", ln=True)
-    pdf.cell(200, 10, txt=f"Kurang Buah dan Sayur: {st.session_state.kurang_buah_sayur}", ln=True)
-    pdf.cell(200, 10, txt=f"Gula Berlebihan: {st.session_state.gula_berlebihan}", ln=True)
-    
-    # Medical Check Up
-    pdf.cell(200, 10, txt="Medical Check Up", ln=True)
-    pdf.cell(200, 10, txt=f"Gula Darah Sewaktu (GDS): {st.session_state.gula_darah_sewaktu}", ln=True)
-    pdf.cell(200, 10, txt=f"Gula Darah Puasa (GDP): {st.session_state.gula_darah_puasa}", ln=True)
-    pdf.cell(200, 10, txt=f"Gula Darah 2 Jam Setelah Makan (GD2PP): {st.session_state.gula_darah_2_jam_setelah_makan}", ln=True)
-    pdf.cell(200, 10, txt=f"Tekanan Darah: {st.session_state.tekanan_darah}", ln=True)
-    
-    # Gejala-Gejala cari cara
-    pdf.cell(200, 10, txt="Gejala-Gejala", ln=True)
-    #for i in gejala_terpilih:
-        #pdf.cell(200, 10, txt=f"{i}: {nama_gejala(i)}", ln=True)
-    
-    # Menyimpan PDF
-    pdf_output = io.BytesIO()
-    pdf_output.write(pdf.output(dest='S').encode('latin1 '))
-    pdf_output.seek(0)  # Move to the beginning of the BytesIO buffer
-    
-    #return pdf_output
-
-
-
-
-
 
