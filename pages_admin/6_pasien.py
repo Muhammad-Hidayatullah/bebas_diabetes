@@ -289,6 +289,7 @@ if pilihan_yang_ingin_dilakukan == "Hasil":
         row = df_diagnosis_penyakit_tertentu.head(1)
         
         gejala_terpilih = row["Gejala Terpilih"].iloc[0]
+        nama_pasien = row["Nama Pasien"].iloc[0]
        
       
 
@@ -324,7 +325,7 @@ if pilihan_yang_ingin_dilakukan == "Hasil":
             st.download_button(
                 label="Download PDF",
                 data=file_pdf,
-                file_name = "Laporan Kesehatan_"+st.session_state.nama_lengkap+ "_"+str(tanggal)+".pdf",
+                file_name = "Laporan Kesehatan_"+nama_pasien+ "_"+str(tanggal)+".pdf",
                 mime="application/pdf"
             )
             
