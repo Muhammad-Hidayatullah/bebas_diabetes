@@ -5,22 +5,25 @@ import datetime
 import re
 import pandas as pd
 from fpdf import FPDF
+from assets import format_laporan as fl
 
 st.subheader("DATA PASIEN")
 df_pasien = db.fetch_pasien()
 df_pasien_html = df_pasien.to_html(index=False, escape=False)
 st.markdown(st.session_state.style_tabel + df_pasien_html, unsafe_allow_html=True)
 
-#st.subheader("PEMERIKSAAN KESEHATAN")
+st.subheader("PEMERIKSAAN KESEHATAN")
 df_pemeriksaan_kesehatan = db.fetch_pemeriksaan_kesehatan()
-#df_pemeriksaan_kesehatan_html = df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
-#st.markdown(st.session_state.style_tabel + df_pemeriksaan_kesehatan_html, unsafe_allow_html=True)
+df_pemeriksaan_kesehatan_html = df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + df_pemeriksaan_kesehatan_html, unsafe_allow_html=True)
 
 
-#st.subheader("HASIL DIAGNOSIS KOMPLIKASI")
+st.subheader("HASIL DIAGNOSIS KOMPLIKASI")
 df_diagnosis_penyakit = db.fetch_diagnosis_penyakit_admin()
-#df_diagnosis_penyakit_html = df_diagnosis_penyakit.to_html(index=False, escape=False)
-#st.markdown(st.session_state.style_tabel + df_diagnosis_penyakit_html, unsafe_allow_html=True)
+lihat_df_diagnosis_penyakit = df_diagnosis_penyakit.copy()
+lihat_df_diagnosis_penyakit.drop(columns=["Gejala Terpilih"], inplace=True)
+df_diagnosis_penyakit_html = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + df_diagnosis_penyakit_html, unsafe_allow_html=True)
 
 
 
@@ -170,34 +173,34 @@ if pilihan_yang_ingin_dilakukan == "Pasien":
             
     if pilihan_pasien == "Update":
         st.subheader("Update Data Pasien")
-        id_pasien = st.selectbox("Pilih ID Pasien: ", options=df_pasien["id_pasien"], index=0)
+        id_pasien = st.selectbox("Pilih ID Pasien: ", options=df_pasien["ID Pasien"], index=0)
         
-        username_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "username"].values[0]
+        username_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Username"].values[0]
         username = st.text_input("Masukkan username baru: ", value=username_default)
         
-        password_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "password"].values[0]
+        password_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Password"].values[0]
         password = st.text_input("Masukkan password baru: ", type= "password", value=password_default)
         
-        nama_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "nama_pasien"].values[0]
+        nama_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Nama Pasien"].values[0]
         nama = st.text_input("Masukkan nama lengkap baru: ", value=nama_default)
         
-        jenis_kelamin_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "jenis_kelamin"].values[0]
+        jenis_kelamin_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Jenis Kelamin"].values[0]
         jenis_kelamin = st.radio("Jenis Kelamin: ", ("LAKI-LAKI", "PEREMPUAN"), horizontal=True, index=("LAKI-LAKI", "PEREMPUAN").index(jenis_kelamin_default))
         
         
-        alamat_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "alamat"].values[0]
+        alamat_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Alamat"].values[0]
         alamat = st.text_input("Masukkan alamat baru: ", value=alamat_default)
         
-        email_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "email"].values[0]
+        email_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Email"].values[0]
         email = st.text_input("Masukkan email baru: ", value=email_default)
         
-        pekerjaan_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "pekerjaan"].values[0]
+        pekerjaan_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Pekerjaan"].values[0]
         pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(pekerjaan_default)) 
         if pekerjaan == "Lainnya":
             pekerjaan_lainnya = st.text_input("Masukkan pekerjaan baru: ")
             pekerjaan = pekerjaan_lainnya
         
-        tanggal_lahir_default = df_pasien.loc[df_pasien["id_pasien"] == id_pasien, "tanggal_lahir"].values[0]
+        tanggal_lahir_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Tanggal Lahir"].values[0]
         tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now(), value=tanggal_lahir_default)
 
         if st.button("Update"):
@@ -209,7 +212,7 @@ if pilihan_yang_ingin_dilakukan == "Pasien":
                 st.rerun()
     if pilihan_pasien == "Hapus":
         st.subheader("Hapus Data Pasien")
-        id_pasien = st.selectbox("Pilih ID Pasien: ", options=df_pasien["id_pasien"], index=0)
+        id_pasien = st.selectbox("Pilih ID Pasien: ", options=df_pasien["ID Pasien"], index=0)
         
         if st.button("Hapus"):
             hapus_data_pasien = db.hapus_data_pasien(id_pasien)
@@ -219,259 +222,125 @@ if pilihan_yang_ingin_dilakukan == "Pasien":
         st.write("**Catatan Penting**: Apabila data pasien dihapus maka hasil diagnosisnya juga akan terhapus")
 
 
-
-
-def buat_laporan_riwayat(nama_lengkap, username_pengguna, tanggal_lahir, tanggal_pemeriksaan, jenis_kelamin, alamat,
-                 pekerjaan, email, risiko_diabetes, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
-                 riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
-                 kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
-                 total_kolestrol_darah, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, gejala_terpilih, diagnosis_penyakit_tertentu, relasi_penyakit_dan_gejala):
-    pdf = FPDF()
-    pdf.add_page()
-    
-    pdf.image("assets/logo_diabetes.png", x=10, y=8, w=30)  # Adjust x, y, and w for logo position and size
-    pdf.image("assets/puskesmas_pkc_taman_sari.jpeg", x=170, y=8, w=30)
-    
-    # Menambahkan judul
-    pdf.set_font("Arial", size=18, style="B")
-    pdf.cell(200, 15, txt="LAPORAN HASIL PEMERIKSAAN ", ln=True, align='C')
-    
-    pdf.ln() 
-    
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Data Pasien", ln=True)
-    pdf.set_font("Arial", size=10)
-    
-
-    data_pribadi = [
-        ['Nama: ', nama_lengkap],
-        ["Username: ", username_pengguna],
-        ["Tanggal Lahir: ", str(tanggal_lahir)],
-        ["Tanggal Pemeriksaan", str(tanggal_pemeriksaan)],
-        ['Jenis Kelamin: ', jenis_kelamin],
-        ['Alamat: ', alamat],
-        ['Pekerjaan: ', pekerjaan],
-        ['Email: ', email],
-        ["Risiko Diabetes Tipe 2: ", risiko_diabetes]
-    ]
-    for row in data_pribadi:
-        pdf.cell(75, 10, row[0], 1)  # First column
-        pdf.cell(120, 10, row[1], 1)  # Second column
-        pdf.ln()  # Move to the next line
-
-      # Return PDF as a string
-    pdf.ln()    
-    
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Faktor Tidak Bisa Diubah", ln=True)
-    pdf.set_font("Arial", size=10)
-    
-    pola_gaya_hidup = [
-        ["Usia di atas 45 tahun: ", usia_di_atas_40_tahun],
-        ["Riwayat Keluarga Diabetes: ", riwayat_keluarga_diabetes],
-        ["Riwayat Diabetes Gestasional: ", riwayat_diabetes_gestasional],
-        ["Riwayat Lahir <2,5 kg atau Prematur: ", riwayat_lahir_di_bawah_2_koma_5_gram],
-    ]
-    
-    
-    for row in pola_gaya_hidup:
-        pdf.cell(75, 10, row[0], 1)  # First column
-        pdf.cell(120, 10, row[1], 1)  # Second column
-        pdf.ln()
-    
-    pdf.ln()
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Pola Gaya Hidup", ln=True)
-    pdf.set_font("Arial", size=10)
-    pola_gaya_hidup = [
-        ["Konsumsi Alkohol: ", konsumsi_alkohol],
-        ["Kurang Aktivitas Fisik: ", kurang_aktivitas],
-        ["Kebiasaan Merokok: ", merokok],
-        ["Pola Makan Buruk : ", pola_makan_buruk],
-        ["Tidur Tidak Berkualitas: ", kurang_tidur],
-        
-    ]
-    for row in pola_gaya_hidup:
-        pdf.cell(75, 10, row[0], 1)  # First column
-        pdf.cell(120, 10, row[1], 1)  # Second column
-        pdf.ln()
-    
-    pdf.ln()
-    
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Pemeriksaan Fisik", ln=True)
-    pdf.set_font("Arial", size=10)
-    
-    pemeriksaan_fisik = [
-        ["Parameter", "Hasil", "Nilai Normal"],
-        ["Tinggi Badan: ", str(tinggi_badan)+" cm", "-"],
-        ["Berat Badan: ", str(berat_badan)+" kg", "-"],
-        ["Lingkar Perut: ", str(lingkar_perut)+" cm", " Pria <90cm , Wanita <80cm"],
-        ["Indeks Massa Tubuh: ", str(indeks_massa_tubuh)+" kg/m2", " <25 kg/m2"],
-    ]
-    
-    for row in pemeriksaan_fisik:
-        pdf.cell(50, 10, row[0], 1)  # First column
-        pdf.cell(50, 10, row[1], 1)
-        pdf.cell(60, 10, row[2], 1)# Second column
-        pdf.ln()
-    
-    pdf.ln()
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Hasil Tekanan Darah dan Kolestrol Darah", ln=True)
-    pdf.set_font("Arial", size=10)
-    hasil_laboratorium = [
-        
-        ["Parameter", "Hasil", "Nilai Normal"],
-        ["Tekanan Darah: ", str(tekanan_darah)+ " mmHg", " <140/90 mmHg"],
-        ["HDL : ", str(HDL)+" mg/dL", " >=40 mg/dL"],
-        ["LDL : ", str(LDL)+" mg/dL", " <=100 mg/dL"],
-        ["Trigliserida : ", str(trigliserida)+" mg/dL", " <=150 mg/dL"],
-        ["Total Kolestrol Darah: ", str(total_kolestrol_darah)+" mg/dL", " <=240 mg/dL"],
-    ]
-   
-    
-    for row in hasil_laboratorium:
-        pdf.cell(50, 10, row[0], 1)  # First column
-        pdf.cell(50, 10, row[1], 1) # Second column
-        pdf.cell(50, 10, row[2], 1)
-        pdf.ln()
-    
-    pdf.ln()
-    
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Hasil Laboratorium", ln=True)
-    pdf.set_font("Arial", size=10)
-    hasil_laboratorium = [
-        ["Parameter", "Nilai", "Nilai Normal"],
-        ["Gula Darah Sewaktu (GDS): ", str(gula_darah_sewaktu)+" mg/dL", " <140 mg/dL"],
-        ["Gula Darah Puasa (GDP): ", str(gula_darah_puasa)+" mg/dL", " <100 mg/dL"],
-        ["Gula Darah 2 Jam Setelah Makan (GD2PP): ", str(gula_darah_2_jam_setelah_makan)+" mg/dL", " <140 mg/dL"],
-
-    ]
-    
-    for row in hasil_laboratorium:
-        pdf.cell(90, 10, row[0], 1)
-        pdf.cell(50, 10, row[1], 1) 
-        pdf.cell(50, 10, row[2], 1) 
-        pdf.ln()
-    
-    pdf.ln(120)
-    
-    
-    
-    pdf.set_font("Arial", size=18, style="B")
-    pdf.cell(75, 10, txt="Diagnosis Komplikasi Penyakit", ln=True)
-    
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Gejala-Gejala Terpilih", ln=True)
-    pdf.set_font("Arial", size=10)
-    
-    if gejala_terpilih:
-        daftar_gejala_terpilih = gejala_terpilih.split(", ")
-        for i, gejala in enumerate(daftar_gejala_terpilih, start=1):
-            pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
-        
-    else:            
-        pdf.cell(200, 10, txt="--", ln=True)
-        
-    pdf.ln()
-    
-    pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Komplikasi Penyakit", ln=True)
-    pdf.set_font("Arial", size=10)
-    if diagnosis_penyakit_tertentu is not None:
-        for index, row in diagnosis_penyakit_tertentu.iterrows():  
-            if row['Nama Penyakit'] is None:
-                pdf.set_font("Arial", size=10)
-                pdf.cell(200, 10, txt=f"--", ln=True)
-            else:
-                pdf.set_font("Arial", size=10, style="B")
-                pdf.cell(200, 10, txt=f"{row['Nama Penyakit']} : {row['Persentase Kecocokan']:.2f}%", ln=True)
-                pdf.set_font("Arial", size=10)
-                pdf.cell(200, 10, txt=f"{db.get_penjelasan_penyakit(row['Nama Penyakit'])}", ln=True)
-            
-            pdf.set_font("Arial", size=10, style="B")
-            pdf.cell(200, 10, txt=f"Gejala yang Cocok", ln=True)
-            
-            
-            pdf.set_font("Arial", size=10)
-            
-            
-            daftar_gejala = row['Gejala Cocok']
-            if daftar_gejala is None:
-                pdf.cell(200, 10, txt=f"-", ln=True)
-            else:
-                daftar_gejala = daftar_gejala.split(", ")
-            
-                for i, gejala_cocok in enumerate(daftar_gejala, start=1):
-                    pdf.cell(200, 10, txt=f"{i}. {gejala_cocok}", ln=True)
-                
-        
-            pdf.set_font("Arial", size=10, style="B")
-            pdf.cell(200, 10, txt=f"Gejala Penyakit", ln=True)
-            pdf.set_font("Arial", size=10)
-            
-            if row['Nama Penyakit'] is None:
-                pdf.cell(200, 10, txt=f"-", ln=True)
-            else:
-                if relasi_penyakit_dan_gejala is not None:
-                    gejala_penyakit = relasi_penyakit_dan_gejala[row['Nama Penyakit']]
-                    
-                    for i, gejala in enumerate(gejala_penyakit, start=1):
-                        pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
-        
-                #Solusi
-                pdf.set_font("Arial", size=10, style="B")
-                pdf.cell(200, 10, txt=f"Solusi Penyakit", ln=True)
-                pdf.set_font("Arial", size=10)
-                
-                solusi_penyakit = db.get_solusi_penyakit(row['Nama Penyakit'])
-                solusi_penyakit = solusi_penyakit.split(";")
-                daftar_solusi = []
-                for frasa in solusi_penyakit:
-                    daftar_solusi.append(frasa.strip())
-
-                # Loop untuk menampilkan dengan nomor urut
-                for i, frasa in enumerate(daftar_solusi, start=1):
-                    pdf.cell(200, 10, txt=f"{i}. {frasa}", ln=True)
-                
-                pdf.ln(50)
-    else:
-        pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
-    
-    return bytes(pdf.output())
-
-
-
 if pilihan_yang_ingin_dilakukan == "Hasil":
     
     pilihan = st.selectbox("Pilih yang ingin dilakukan", options=["Unduh Hasil", "Update Hasil", "Hapus Hasil"])
     
-    id_pasien = st.selectbox("Pilih ID pasien", options=df_pemeriksaan_kesehatan["id_pasien"].unique(), index=0)
-    tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["id_pasien"] == id_pasien, "tanggal_pemeriksaan"], index=0)
+    id_pasien = st.selectbox("Pilih ID pasien", options=df_pemeriksaan_kesehatan["ID Pasien"].unique(), index=0)
+    tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["ID Pasien"] == id_pasien, "Tanggal Pemeriksaan"], index=0)
     
-    df_pemeriksaan_kesehatan_tertentu = df_pemeriksaan_kesehatan[(df_pemeriksaan_kesehatan["id_pasien"] == id_pasien) & (df_pemeriksaan_kesehatan["tanggal_pemeriksaan"] == tanggal)]
-    df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["id_pasien"] == id_pasien) & (df_diagnosis_penyakit["tanggal_diagnosis"] == tanggal)]
+    df_pasien_tertentu = df_pasien[df_pasien["ID Pasien"] == id_pasien]
     
-    st.write(df_pemeriksaan_kesehatan_tertentu)
-    st.write(df_diagnosis_penyakit_tertentu)
-        
+    df_pemeriksaan_kesehatan_pasien_tertentu = df_pemeriksaan_kesehatan[(df_pemeriksaan_kesehatan["ID Pasien"] == id_pasien) & (df_pemeriksaan_kesehatan["Tanggal Pemeriksaan"] == tanggal)]
+    df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["ID Pasien"] == id_pasien) & (df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal)]
+    
+    
     if pilihan == "Unduh Hasil":
         st.subheader("Unduh Laporan Kesehatan")
         
-    
-    if pilihan == "Update Hasil":
-        st.subheader("Update Laporan Kesehatan")
+        if not df_diagnosis_penyakit_tertentu.empty:
+            row = df_pasien_tertentu.iloc[0]
+            username = row["Username"]
+            nama_pasien = row["Nama Pasien"]
+            jenis_kelamin = row["Jenis Kelamin"]
+            alamat = row["Alamat"]
+            email = row["Email"]
+            pekerjaan = row["Pekerjaan"]
+            tanggal_lahir = row["Tanggal Lahir"]
+            
+            
         
-    
-    if pilihan == "Hapus Hasil":
-        st.subheader("Hapus Laporan Kesehatan")
-        if st.button("Hapus"):
-            db.hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal)
-            st.success("Data Berhasil Terhapus")
-            time.sleep(2)
-            st.rerun()
-            st.write("Hello")
+        
+        
+        if not df_pemeriksaan_kesehatan_pasien_tertentu.empty:
+        
+            row = df_pemeriksaan_kesehatan_pasien_tertentu.iloc[0]  # Get first row safely
+            risiko_diabetes = row["Risiko Diabetes"]
+            usia_di_atas_40_tahun = row["Usia di Atas 40 Tahun"]
+            riwayat_keluarga_diabetes = row["Riwayat Keluarga Diabetes"]
+            riwayat_diabetes_gestasional = row["Riwayat Diabetes Gestasional"]
+            riwayat_lahir_di_bawah_2_koma_5_gram = row["Riwayat Lahir Berat Badan Lahir Rendah"]
+            konsumsi_alkohol = row["Konsumsi Alkohol"]
+            kurang_aktivitas = row["Kurang Aktivitas"]
+            merokok = row["Merokok"]
+            pola_makan_buruk = row["Pola Makan Buruk"]
+            kurang_tidur = row["Kurang Tidur"]
+            tinggi_badan = str(row["Tinggi Badan"])
+            berat_badan = str(row["Berat Badan"])
+            lingkar_perut = str(row["Lingkar Perut"])
+            indeks_massa_tubuh = str(row["Indeks Massa Tubuh"])
+            gula_darah_sewaktu = str(row["Gula Darah Sewaktu"])
+            gula_darah_puasa = str(row["Gula Darah Puasa"])
+            gula_darah_2_jam_setelah_makan = str(row["Gula Darah 2 Jam Setelah Makan"])
+            tekanan_darah = str(row["Tekanan Darah"])
+            HDL = str(row["HDL"])
+            LDL = str(row["LDL"])
+            trigliserida = str(row["Trigliserida"])
+            total_kolestrol = str(row["Total Kolestrol"])
+                        
+            
+        else:
+            st.write("Tidak ada data untuk tanggal yang dipilih.")
+            
+        df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit.loc[df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal]
+
+
+
+        row = df_diagnosis_penyakit_tertentu.head(1)
+        
+        gejala_terpilih = row["Gejala Terpilih"].iloc[0]
+       
+      
+
+        diagnosis_penyakit_tertentu = df_diagnosis_penyakit_tertentu.iloc[:, 3:]
+
+
+
+        #diagnosis_penyakit_tertentu = diagnosis_penyakit_tertentu.drop("Gejala Terpilih", axis=1)
+
+        #Relasi Penyakit dan Gejala
+        data_relasi = db.fetch_relasi_nama_penyakit_dan_nama_gejala()
+        relasi_penyakit_dan_gejala = {}
+        for penyakit, gejala in data_relasi:
+            if penyakit not in relasi_penyakit_dan_gejala:
+                relasi_penyakit_dan_gejala[penyakit] = []  # Buat list kosong jika penyakit belum ada
+            relasi_penyakit_dan_gejala[penyakit].append(gejala) 
+
+        
+
+        if st.button("Unduh Laporan"):
+            file_pdf = fl.buat_laporan_riwayat(id_pasien, nama_pasien, username, tanggal_lahir, tanggal, jenis_kelamin, alamat,
+                    pekerjaan, email, risiko_diabetes, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
+                    riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
+                    kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
+                    total_kolestrol, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, gejala_terpilih, df_diagnosis_penyakit_tertentu, relasi_penyakit_dan_gejala)
+
+            #base64_pdf = b64encode(file_pdf).decode("utf-8")
+            #pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
+
+            #st.markdown(pdf_display, unsafe_allow_html=True)
+            
+            
+            st.download_button(
+                label="Download PDF",
+                data=file_pdf,
+                file_name = "Laporan Kesehatan_"+st.session_state.nama_lengkap+ "_"+str(tanggal)+".pdf",
+                mime="application/pdf"
+            )
+            
+            
+            
+        if pilihan == "Update Hasil":
+            st.subheader("Update Laporan Kesehatan")
+            
+        
+        if pilihan == "Hapus Hasil":
+            st.subheader("Hapus Laporan Kesehatan")
+            if st.button("Hapus"):
+                db.hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal)
+                st.success("Data Berhasil Terhapus")
+                time.sleep(2)
+                st.rerun()
+                st.write("Hello")
     
     
