@@ -144,7 +144,8 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
     pdf.ln(120)
     
     
-    
+    pdf.set_font("Arial", size=10, style="B")
+    pdf.cell(100, 10, txt=f"Catatan Penting: Anda Tetap Harus Mengunjungi Dokter Untuk Mendapatkan Penanganan yang Tepat", ln=True)
     pdf.set_font("Arial", size=18, style="B")
     pdf.cell(75, 10, txt="Diagnosis Komplikasi Penyakit", ln=True)
     
@@ -152,7 +153,7 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
     pdf.cell(75, 10, txt="Gejala-Gejala Terpilih", ln=True)
     pdf.set_font("Arial", size=10)
     
-    if gejala_terpilih:
+    if gejala_terpilih is not None:
         daftar_gejala_terpilih = gejala_terpilih.split("; ")
         for i, gejala in enumerate(daftar_gejala_terpilih, start=1):
             pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
@@ -232,14 +233,12 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
                 pdf.ln(10)
                 if pdf.get_y() > 220:
                     pdf.ln(200)
-                
-        pdf.set_font("Arial", size=10, style="B")
-        pdf.cell(200, 10, txt=f"Catatan Penting: Anda Tetap Harus Mengunjungi Dokter Untuk Mendapatkan Penanganan yang Tepat", ln=True)
+            
         
     else:
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
-    return pdf.output(dest="S").encode("latin1")
+    return bytes(pdf.output())
 
 
