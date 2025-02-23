@@ -97,7 +97,7 @@ if st.session_state.lanjut == 2:
         
         
         col1, col2 = st.columns(2)
-        
+        validation_errors = False
         with col1:
             if st.form_submit_button(label="Kembali"):
                 st.session_state.lanjut = 0
