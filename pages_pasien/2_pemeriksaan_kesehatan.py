@@ -277,7 +277,7 @@ def buat_laporan():
     pdf.ln(120)
 
     pdf.set_font("Arial", size=10, style="B")
-        pdf.cell(200, 10, txt=f"Catatan Penting: Anda Tetap Harus Mengunjungi Dokter Untuk Mendapatkan Penanganan yang Tepat", ln=True)
+    pdf.cell(200, 10, txt=f"Catatan Penting: Anda Tetap Harus Mengunjungi Dokter Untuk Mendapatkan Penanganan yang Tepat", ln=True)
     pdf.set_font("Arial", size=18, style="B")
     pdf.cell(75, 10, txt="Diagnosis Komplikasi Penyakit", ln=True)
     
