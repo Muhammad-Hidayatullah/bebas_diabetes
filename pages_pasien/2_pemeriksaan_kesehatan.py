@@ -414,7 +414,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
         
         st.session_state.total_kolestrol = st.number_input("Total Kolestrol Darah (mg/dL) (Kosongkan saja apabila HDL, LDL, dan trigliserida terisi): ", min_value=0.0, max_value=999.0, value=st.session_state.total_kolestrol)
         
-        if st.form_submit_button("Next"):
+        if st.form_submit_button("Lanjut"):
             if st.session_state.konsumsi_alkohol == "YA":
                 st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
                 st.session_state.daftar_faktor_risiko_2.append("Konsumsi Alkohol")
