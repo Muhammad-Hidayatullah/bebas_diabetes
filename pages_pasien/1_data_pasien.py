@@ -137,13 +137,13 @@ if st.session_state.lanjut == 2:
                     validation_errors.append("Alamat tidak boleh kosong.")
 
                 # Display validation errors
-                if validation_errors:
-                    for error in validation_errors:
-                        st.error(error)
-                else:
-                    update_data_berhasil = True
-                    db.update_pengguna(username, password, nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, st.session_state.username_pengguna)
-                    
+        if validation_errors:
+            for error in validation_errors:
+                st.error(error)
+        else:
+            update_data_berhasil = True
+            db.update_pengguna(username, password, nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, st.session_state.username_pengguna)
+            
                     
             
         if update_data_berhasil == True:
