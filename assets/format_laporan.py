@@ -20,7 +20,7 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
     pdf.set_font("Arial", size=18, style="B")
     pdf.cell(200, 15, txt="LAPORAN HASIL PEMERIKSAAN ", ln=True, align='C')
     
-    pdf.ln() 
+    pdf.ln(5) 
     
     pdf.set_font("Arial", size=13, style="B")
     pdf.cell(75, 10, txt="Data Pasien", ln=True)
