@@ -162,6 +162,7 @@ def buat_laporan():
     
 
     data_pribadi = [
+        ['Kode Pasien: ', st.session_state.kode_pasien],
         ['Nama: ', st.session_state.nama_lengkap],
         ["Username: ", st.session_state.username_pengguna],
         ["Tanggal Lahir: ", str(st.session_state.tanggal_lahir)],
