@@ -123,9 +123,6 @@ def validasi_email_regex(email):
     regex = r'^[a-zA-Z0-9_.+-]+@gmail\.com$'
     return re.match(regex, email) is not None
 
-pilihan_yang_ingin_dilakukan = st.selectbox("Pilih Opsi: ", ("Pasien", "Hasil"))
-
-
 pilihan_pasien = st.selectbox("Opsi Yang Ingin Dilakukan Pada Data Pasien: ", ("Tambah", "Update", "Hapus"))
 if pilihan_pasien == "Tambah":
     st.subheader("Tambah Data Pasien")
