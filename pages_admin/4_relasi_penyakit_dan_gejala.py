@@ -2,6 +2,7 @@ import streamlit as st
 from assets import database as db
 import time
 
+st.title("RELASI PENYAKIT DAN GEJALA")
 st.subheader("PENYAKIT")
 penyakit_df = db.fetch_penyakit()
 penyakit_df_html = penyakit_df.to_html(index=False, escape=False)
