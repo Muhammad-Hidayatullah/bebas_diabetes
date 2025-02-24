@@ -159,7 +159,7 @@ if st.session_state.masuk_website == None:
     
 if st.session_state.masuk_website == "Admin":
     st.session_state.pg = st.navigation(pages=[home_website_admin, halaman_penyakit, halaman_gejala, halaman_relasi_dan_gejala, 
-                                               halaman_pasien, hasil_laporan, halaman_artikel, halaman_log_out])
+                                               halaman_pasien, halaman_laporan, halaman_artikel, halaman_log_out])
     st.session_state.pg.run()
     
 
