@@ -7,6 +7,7 @@ import pandas as pd
 from fpdf import FPDF
 from assets import format_laporan as fl
 
+st.title("PASIEN")
 st.subheader("DATA PASIEN")
 df_pasien = db.fetch_pasien()
 df_pasien_html = df_pasien.to_html(index=False, escape=False)
