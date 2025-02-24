@@ -133,6 +133,12 @@ halaman_pasien = st.Page(
     icon=":material/patient_list:",
 )
 
+halaman_laporan = st.Page(
+    page="pages_admin/7_laporan.py",
+    title="Laporan",
+    icon=":material/summarize:"
+)
+
 halaman_log_out = st.Page(
     page="pages_admin/8_log_out.py",
     title="Log Out",
@@ -153,7 +159,7 @@ if st.session_state.masuk_website == None:
     
 if st.session_state.masuk_website == "Admin":
     st.session_state.pg = st.navigation(pages=[home_website_admin, halaman_penyakit, halaman_gejala, halaman_relasi_dan_gejala, 
-                                               halaman_pasien, halaman_artikel, halaman_log_out])
+                                               halaman_pasien, hasil_laporan, halaman_artikel, halaman_log_out])
     st.session_state.pg.run()
     
 
