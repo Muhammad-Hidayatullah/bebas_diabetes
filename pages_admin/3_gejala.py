@@ -3,7 +3,7 @@ from assets import database as db
 import time
 
 
-st.subheader("GEJALA")
+st.title("GEJALA")
 gejala_df = db.fetch_gejala()
 gejala_df_html = gejala_df.to_html(index=False, escape=False)
 st.markdown(st.session_state.style_tabel + gejala_df_html, unsafe_allow_html=True)
