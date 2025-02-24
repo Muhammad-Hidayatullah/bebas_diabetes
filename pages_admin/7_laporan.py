@@ -9,7 +9,7 @@ from assets import format_laporan as fl
 
 df_pasien = db.fetch_pasien()
 
-
+st.title("LAPORAN")
 st.subheader("PEMERIKSAAN KESEHATAN")
 df_pemeriksaan_kesehatan = db.fetch_pemeriksaan_kesehatan()
 df_pemeriksaan_kesehatan_html = df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
