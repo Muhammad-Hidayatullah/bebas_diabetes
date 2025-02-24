@@ -2,7 +2,7 @@ import streamlit as st
 from assets import database as db
 import time
 
-st.subheader("ARTIKEL")
+st.title("ARTIKEL")
 df_artikel = db.fetch_artikel()
 
 df_artikel_html = df_artikel.to_html(index=False, escape=False)
