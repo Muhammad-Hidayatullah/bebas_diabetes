@@ -2,7 +2,7 @@ import streamlit as st
 from assets import database as db
 import time
 
-st.subheader("PENYAKIT")
+st.title("PENYAKIT")
 penyakit_df = db.fetch_penyakit()
 penyakit_df_html = penyakit_df.to_html(index=False, escape=False)
 st.markdown(st.session_state.style_tabel + penyakit_df_html, unsafe_allow_html=True)
