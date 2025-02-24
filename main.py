@@ -134,7 +134,7 @@ halaman_pasien = st.Page(
 )
 
 halaman_log_out = st.Page(
-    page="pages_admin/7_log_out.py",
+    page="pages_admin/8_log_out.py",
     title="Log Out",
     icon=":material/logout:"
 )
