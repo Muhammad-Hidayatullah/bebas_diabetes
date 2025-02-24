@@ -7,25 +7,34 @@ import pandas as pd
 from fpdf import FPDF
 from assets import format_laporan as fl
 
-df_pasien = db.fetch_pasien()
 
+df_pasien = db.fetch_pasien()
 st.title("LAPORAN")
+
 st.subheader("PEMERIKSAAN KESEHATAN")
 df_pemeriksaan_kesehatan = db.fetch_pemeriksaan_kesehatan()
-df_pemeriksaan_kesehatan_html = df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
-st.markdown(st.session_state.style_tabel + df_pemeriksaan_kesehatan_html, unsafe_allow_html=True)
+lihat_df_pemeriksaan_kesehatan_html = df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
+st.markdown(st.session_state.style_tabel + lihat_df_pemeriksaan_kesehatan_html, unsafe_allow_html=True)
 
 
 st.subheader("HASIL DIAGNOSIS KOMPLIKASI")
 df_diagnosis_penyakit = db.fetch_diagnosis_penyakit_admin()
 lihat_df_diagnosis_penyakit = df_diagnosis_penyakit.copy()
+
+rows_per_page = st.selectbox("Tampilkan baris:", [10, 20, 50], index=0)
 lihat_df_diagnosis_penyakit.drop(columns=["Gejala Terpilih"], inplace=True)
+lihat_df_diagnosis_penyakit = lihat_df_diagnosis_penyakit.head(rows_per_page)
+
 df_diagnosis_penyakit_html = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
 st.markdown(st.session_state.style_tabel + df_diagnosis_penyakit_html, unsafe_allow_html=True)
 
 
+# Show table with selected number of rows
+
+
     
-pilihan = st.selectbox("Pilih yang ingin dilakukan", options=["Unduh Hasil", "Update Hasil", "Hapus Hasil"])
+pilihan = st.selectbox("Pilih yang ingin dilakukan", options=["Unduh Hasil", "Hapus Hasil"])
+
 id_pasien = st.selectbox("Pilih ID pasien", options=df_pemeriksaan_kesehatan["ID Pasien"].unique(), index=0)
 tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["ID Pasien"] == id_pasien, "Tanggal Pemeriksaan"], index=0)
 
@@ -36,7 +45,6 @@ df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["I
 
 
 if pilihan == "Unduh Hasil":
-    st.subheader("Unduh Laporan Kesehatan")
     
     if not df_diagnosis_penyakit_tertentu.empty:
         row = df_pasien_tertentu.iloc[0]
@@ -89,9 +97,8 @@ if pilihan == "Unduh Hasil":
     row = df_diagnosis_penyakit_tertentu.head(1)
     
     gejala_terpilih = row["Gejala Terpilih"].iloc[0]
-    nama_pasien = row["Nama Pasien"].iloc[0]
-   
-  
+    nama_pasien_terpilih = row["Nama Pasien"].iloc[0]
+    
 
     diagnosis_penyakit_tertentu = df_diagnosis_penyakit_tertentu.iloc[:, 3:]
 
@@ -125,23 +132,15 @@ if pilihan == "Unduh Hasil":
         st.download_button(
             label="Download PDF",
             data=file_pdf,
-            file_name = "Laporan Kesehatan_"+nama_pasien+ "_"+str(tanggal)+".pdf",
+            file_name = "Laporan Kesehatan_"+nama_pasien_terpilih+ "_"+str(tanggal)+".pdf",
             mime="application/pdf"
         )
-        
-        
-        
-    if pilihan == "Update Hasil":
-        st.subheader("Update Laporan Kesehatan")
-        
-    
-    if pilihan == "Hapus Hasil":
-        st.subheader("Hapus Laporan Kesehatan")
-        if st.button("Hapus"):
-            db.hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal)
-            st.success("Data Berhasil Terhapus")
-            time.sleep(2)
-            st.rerun()
-            st.write("Hello")
-    
-    
+
+
+if pilihan == "Hapus Hasil":
+    if st.button("Hapus"):
+        db.hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal)
+        st.success("Data Berhasil Terhapus")
+        time.sleep(2)
+        st.rerun()
+        st.write("Hello")
