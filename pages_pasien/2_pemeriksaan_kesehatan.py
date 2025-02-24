@@ -154,8 +154,7 @@ def buat_laporan():
     pdf.set_font("Arial", size=18, style="B")
     pdf.cell(200, 15, txt="LAPORAN HASIL PEMERIKSAAN ", ln=True, align='C')
     
-    pdf.ln() 
-    
+
     pdf.set_font("Arial", size=13, style="B")
     pdf.cell(75, 10, txt="Data Pasien", ln=True)
     pdf.set_font("Arial", size=10)
