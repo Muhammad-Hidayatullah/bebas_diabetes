@@ -92,7 +92,7 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
         ["Tinggi Badan: ", str(tinggi_badan)+" cm", "-"],
         ["Berat Badan: ", str(berat_badan)+" kg", "-"],
         ["Lingkar Perut: ", str(lingkar_perut)+" cm", " Pria <90cm , Wanita <80cm"],
-        ["Indeks Massa Tubuh: ", str(indeks_massa_tubuh)+" kg/m2", " <25 kg/m2"],
+        ["Indeks Massa Tubuh: ", str(indeks_massa_tubuh)+" kg/m2", " <=23 kg/m2"],
     ]
     
     for row in pemeriksaan_fisik:
