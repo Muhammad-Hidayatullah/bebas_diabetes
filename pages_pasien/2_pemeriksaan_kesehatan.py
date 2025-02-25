@@ -450,14 +450,16 @@ if st.session_state.lanjut_pemeriksaan == 1:
                 st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
                 kelebihan_berat_badan = "Kelebihan Berat Badan: " + str(st.session_state.indeks_massa_tubuh) + " kg/m2"
                 st.session_state.daftar_faktor_risiko_2.append(kelebihan_berat_badan)
+
+            if st.session_state.lingkar_perut is None:
+                st.session_state.lingkar_perut = 0.0
                 
             if st.session_state.jenis_kelamin == "PEREMPUAN" and st.session_state.lingkar_perut >= 80.0:
                 st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
                 obesitas_sentral = "Obesitas Sentral: " + str(st.session_state.lingkar_perut) + " cm"
                 st.session_state.daftar_faktor_risiko_2.append(obesitas_sentral)
                 
-            if st.session_state.lingkar_perut is None:
-                st.session_state.lingkar_perut = 0.0
+            
                 
             if st.session_state.jenis_kelamin == "LAKI-LAKI" and st.session_state.lingkar_perut >= 90.0:
                 st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
