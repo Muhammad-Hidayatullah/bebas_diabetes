@@ -40,12 +40,7 @@ col1, col2 = st.columns(2)
 with col1:
  
     st.image("./assets/dokter_pria.jpg", width=300)
-    st.subheader("Disclaimer")
-    st.write(
-    """
-    Seluruh data dari faktor risiko dan gejala dari sistem ini beracuan pada Buku Pedoman Pengeolaan dan Pencegahan Diabetes Mellitus Tipe 2 Dewasa di Indonesia tahun 2021 yang diterbitkan oleh PB Perkeni serta studi pustaka lainnya. 
-    Sistem pakar ini dirancang bukan untuk pengganti peran dokter namun hanya untuk menganalisa faktor risiko serta komplikasi diabetes tipe 2 yang diderita.
-    """)
+    
 
 with col2:
     text = """
@@ -57,6 +52,12 @@ with col2:
     """
     st.markdown(text, unsafe_allow_html=True)
 
+st.subheader("Disclaimer")
+    st.write(
+    """
+    Seluruh data dari faktor risiko dan gejala dari sistem ini beracuan pada Buku Pedoman Pengeolaan dan Pencegahan Diabetes Mellitus Tipe 2 Dewasa di Indonesia tahun 2021 yang diterbitkan oleh PB Perkeni serta studi pustaka lainnya. 
+    Sistem pakar ini dirancang bukan untuk pengganti peran dokter namun hanya untuk menganalisa faktor risiko serta komplikasi diabetes tipe 2 yang diderita.
+    """)
 
 
 
