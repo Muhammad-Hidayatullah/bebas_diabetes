@@ -6,7 +6,7 @@ from fpdf import FPDF
 
 
 def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_lahir, tanggal_pemeriksaan, jenis_kelamin, alamat,
-                 pekerjaan, email, risiko_diabetes, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
+                 pekerjaan, email, risiko_diabetes, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
                  riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
                  kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
                  total_kolestrol_darah, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, gejala_terpilih, diagnosis_penyakit_tertentu, relasi_penyakit_dan_gejala):
@@ -52,7 +52,7 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
     pdf.set_font("Arial", size=10)
     
     pola_gaya_hidup = [
-        ["Usia di atas 45 tahun: ", usia_di_atas_40_tahun],
+        ["Usia di atas 45 tahun: ", usia_di_atas_45_tahun],
         ["Riwayat Keluarga Diabetes: ", riwayat_keluarga_diabetes],
         ["Riwayat Diabetes Gestasional: ", riwayat_diabetes_gestasional],
         ["Riwayat Lahir <2,5 kg atau Prematur: ", riwayat_lahir_di_bawah_2_koma_5_gram],
