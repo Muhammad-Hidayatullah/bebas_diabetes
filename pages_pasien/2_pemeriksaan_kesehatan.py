@@ -137,7 +137,7 @@ def forward_chaining(fakta, aturan):
     hasil = {
         penyakit: data
         for penyakit, data in kemungkinan_penyakit.items()
-        if data["tingkat_kecocokan"] >= 0.5
+        if data["tingkat_kecocokan"] >= 0.0
     }
     
     return hasil
