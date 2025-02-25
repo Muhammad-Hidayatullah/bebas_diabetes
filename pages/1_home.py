@@ -52,12 +52,18 @@ with col2:
     """
     st.markdown(text, unsafe_allow_html=True)
 
-st.subheader("Disclaimer")
+
+st.markdown("<h3 style='color: red;'>Disclaimer</h3>", unsafe_allow_html=True)
+
 st.write(
 """
-Seluruh data dari faktor risiko dan gejala dari sistem ini beracuan pada Buku Pedoman Pengeolaan dan Pencegahan Diabetes Mellitus Tipe 2 Dewasa di Indonesia tahun 2021 yang diterbitkan oleh PB Perkeni serta studi pustaka lainnya. 
-Sistem pakar ini dirancang bukan untuk pengganti peran dokter namun hanya untuk menganalisa faktor risiko serta komplikasi diabetes tipe 2 yang diderita.
-""")
+Sistem ini menggunakan data faktor risiko dan gejala yang bersumber dari **Buku Pedoman Pengelolaan dan Pencegahan Diabetes Mellitus Tipe 2 Dewasa di Indonesia (2021)** yang diterbitkan oleh **PB Perkeni**, serta referensi dari berbagai studi pustaka lainnya.
+
+⚠️ **Catatan Penting:**  
+Sistem pakar ini **bukan pengganti peran dokter**. Hasil analisis yang diberikan hanya untuk membantu dalam memahami faktor risiko dan kemungkinan komplikasi diabetes tipe 2. Untuk diagnosis dan penanganan yang lebih akurat, konsultasikan dengan tenaga medis profesional.
+"""
+)
+
 
 
 
