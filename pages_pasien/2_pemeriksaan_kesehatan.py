@@ -809,18 +809,21 @@ if st.session_state.lanjut_pemeriksaan == 6:
             st.warning("**Catatan Penting**: Anda Harus Tetap Berkunjung Ke Dokter Spesialis untuk Mendapatkan Pengobatan dan Solusi Lebih Lanjut!")
         
         
-        
-        # Nanti di hapus saja
-        if st.form_submit_button("Kembali"):
-            st.session_state.lanjut_pemeriksaan = 5
-            st.session_state.hasil_diagnosis = {}
-            st.rerun()
-            
+
+        col1, col2 = st.columns(2)
         if "cek" not in st.session_state:
                 st.session_state.cek = 0
-          
-        if st.form_submit_button("Selesai"):
-                st.session_state.cek = 1
+            
+        with col1:
+            if st.form_submit_button("Kembali"):
+                st.session_state.lanjut_pemeriksaan = 5
+                st.session_state.hasil_diagnosis = {}
+                st.rerun()
+            
+        
+        with col2:
+            if st.form_submit_button("Selesai"):
+                    st.session_state.cek = 1
         if st.session_state.cek == 1:
             if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pasien):
                 st.warning("Anda sudah melakukan pemeriksaan hari ini, apakah Anda ingin menggantinya dengan yang terbaru?")
@@ -875,7 +878,6 @@ if st.session_state.lanjut_pemeriksaan == 6:
 if st.session_state.lanjut_pemeriksaan == 7:
     st.title("Hasil Akhir")
     
-  
 
     # Display personal data directly using st.write
     st.subheader("Data Pribadi")
