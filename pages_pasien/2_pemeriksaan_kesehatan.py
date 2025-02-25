@@ -226,7 +226,7 @@ def buat_laporan():
         ["Tinggi Badan: ", str(st.session_state.tinggi_badan)+" cm", "-"],
         ["Berat Badan: ", str(st.session_state.berat_badan)+" kg", "-"],
         ["Lingkar Perut: ", str(st.session_state.lingkar_perut)+" cm", " Pria <90cm , Wanita <80cm"],
-        ["Indeks Massa Tubuh: ", str( st.session_state.indeks_massa_tubuh)+" kg/m2", " <25 kg/m2"],
+        ["Indeks Massa Tubuh: ", str( st.session_state.indeks_massa_tubuh)+" kg/m2", " <=23 kg/m2"],
     ]
     
     for row in pemeriksaan_fisik:
