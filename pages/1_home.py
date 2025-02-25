@@ -53,8 +53,7 @@ with col2:
     st.markdown(text, unsafe_allow_html=True)
 
 
-st.markdown("<h3 style='color: red;'>Disclaimer</h3>", unsafe_allow_html=True)
-
+st.markdown("<h1 style='color: red;'>Disclaimer</h1>", unsafe_allow_html=True)
 st.write(
 """
 Sistem ini menggunakan data faktor risiko dan gejala yang bersumber dari **Buku Pedoman Pengelolaan dan Pencegahan Diabetes Mellitus Tipe 2 Dewasa di Indonesia (2021)** yang diterbitkan oleh **PB Perkeni**, serta referensi dari berbagai studi pustaka lainnya.
