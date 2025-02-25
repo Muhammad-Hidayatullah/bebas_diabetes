@@ -446,7 +446,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
                 st.session_state.indeks_massa_tubuh = st.session_state.berat_badan/((st.session_state.tinggi_badan) ** 2) * 10000
                 st.session_state.indeks_massa_tubuh = round(st.session_state.indeks_massa_tubuh, 1)
                 
-            if st.session_state.indeks_massa_tubuh > 25.0:
+            if st.session_state.indeks_massa_tubuh > 23.0:
                 st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
                 kelebihan_berat_badan = "Kelebihan Berat Badan: " + str(st.session_state.indeks_massa_tubuh) + " kg/m2"
                 st.session_state.daftar_faktor_risiko_2.append(kelebihan_berat_badan)
