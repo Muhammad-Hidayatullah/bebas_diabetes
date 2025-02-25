@@ -13,7 +13,7 @@ def awal_pemeriksaan():
     st.session_state.lingkar_perut = None
     
     # Faktor Tidak Bisa Diubah
-    st.session_state.usia_di_atas_40_tahun = "TIDAK"
+    st.session_state.usia_di_atas_45_tahun = "TIDAK"
     st.session_state.riwayat_keluarga_diabetes = "TIDAK"
     st.session_state.riwayat_diabetes_gestasional = "TIDAK"
     st.session_state.riwayat_lahir_berat_badan_lahir_rendah = "TIDAK"
@@ -66,15 +66,15 @@ if st.session_state.lanjut_pemeriksaan == 0:
         st.session_state.usia = st.session_state.usia // 360
         
         
-        if st.session_state.usia > 40:
-            st.session_state.usia_di_atas_40_tahun = "YA"
+        if st.session_state.usia > 45:
+            st.session_state.usia_di_atas_45_tahun = "YA"
             st.session_state.faktor_risiko_1 = st.session_state.faktor_risiko_1 + 1
             st.session_state.daftar_faktor_risiko_1.append("Usia >45 tahun")
         else:
-            st.session_state.usia_di_atas_40_tahun = "TIDAK"
+            st.session_state.usia_di_atas_45_tahun = "TIDAK"
         
         
-        st.session_state.usia_di_atas_40_tahun = st.radio("Usia di atas 45 tahun", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.usia_di_atas_40_tahun))
+        st.session_state.usia_di_atas_45_tahun = st.radio("Usia di atas 45 tahun", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.usia_di_atas_40_tahun))
         
             
             
@@ -186,7 +186,7 @@ def buat_laporan():
     pdf.set_font("Arial", size=10)
     
     pola_gaya_hidup = [
-        ["Usia di atas 45 tahun: ", st.session_state.usia_di_atas_40_tahun],
+        ["Usia di atas 45 tahun: ", st.session_state.usia_di_atas_45_tahun],
         ["Riwayat Keluarga Diabetes: ", st.session_state.riwayat_keluarga_diabetes],
         ["Riwayat Diabetes Gestasional: ", st.session_state.riwayat_diabetes_gestasional],
         ["Riwayat Lahir <2,5 kg atau Prematur: ", st.session_state.riwayat_lahir_berat_badan_lahir_rendah ],
@@ -839,7 +839,7 @@ if st.session_state.lanjut_pemeriksaan == 6:
 
                 id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
                 db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pasien(st.session_state.username_pengguna), st.session_state.risiko_diabetes, st.session_state.tanggal_pemeriksaan)
-                db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
+                db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_45_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
                 db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
                 db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
                 db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
@@ -893,7 +893,7 @@ if st.session_state.lanjut_pemeriksaan == 7:
 
     # Display "Faktor Tidak Bisa Diubah"
     st.subheader("Faktor Tidak Bisa Diubah")
-    st.write("Usia di atas 45 tahun: " + st.session_state.usia_di_atas_40_tahun)
+    st.write("Usia di atas 45 tahun: " + st.session_state.usia_di_atas_45_tahun)
     st.write("Riwayat Keluarga Diabetes: " + st.session_state.riwayat_keluarga_diabetes)
     st.write("Riwayat Diabetes Gestasional: " + st.session_state.riwayat_diabetes_gestasional)
     st.write("Riwayat Lahir <2,5 kg atau Prematur: " + st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
