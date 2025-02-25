@@ -636,7 +636,7 @@ if st.session_state.lanjut_pemeriksaan == 4:
             st.warning("Risiko tinggi, gula darah sudah mencapai level prediabetes. Disarankan untuk mengikuti Tes Toleransi Glukosa Oral (TTGO) dan berkonsultasi dengan dokter")     
             st.session_state.risiko_diabetes = "TINGGI"
         elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2:
-            st.success("Risiko sedang, gula darah normal namun terdapat faktor risiko")
+            st.warning("Risiko sedang, gula darah normal namun terdapat faktor risiko")
             st.session_state.risiko_diabetes = "SEDANG"
              
         # Faktor Risiko Lebih Dari 2
