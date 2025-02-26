@@ -74,7 +74,7 @@ if st.session_state.lanjut_pemeriksaan == 0:
             st.session_state.usia_di_atas_45_tahun = "TIDAK"
         
         
-        st.session_state.usia_di_atas_45_tahun = st.radio("Usia di atas 45 tahun", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.usia_di_atas_40_tahun))
+        st.session_state.usia_di_atas_45_tahun = st.radio("Usia di atas 45 tahun", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.usia_di_atas_45_tahun))
         
             
             
