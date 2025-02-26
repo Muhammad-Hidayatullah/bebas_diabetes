@@ -556,11 +556,11 @@ def add_pemeriksaan_kesehatan(id_pemeriksaan, id_pasien, risiko_diabetes, tangga
     conn.close()
     
     
-def add_pemeriksaan_faktor_permanen(id_pemeriksaan, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional, riwayat_penyakit_berat_badan_rendah):
+def add_pemeriksaan_faktor_permanen(id_pemeriksaan, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional, riwayat_penyakit_berat_badan_rendah):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "INSERT INTO pemeriksaan_faktor_permanen (id_pemeriksaan, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional, riwayat_lahir_berat_badan_lahir_rendah) VALUES (%s, %s, %s, %s, %s);"
-    cursor.execute(query, (id_pemeriksaan, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional, riwayat_penyakit_berat_badan_rendah))
+    query = "INSERT INTO pemeriksaan_faktor_permanen (id_pemeriksaan, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional, riwayat_lahir_berat_badan_lahir_rendah) VALUES (%s, %s, %s, %s, %s);"
+    cursor.execute(query, (id_pemeriksaan, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional, riwayat_penyakit_berat_badan_rendah))
     conn.commit()
     conn.close()
     
@@ -934,7 +934,7 @@ def fetch_pemeriksaan_kesehatan():
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
+    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_45_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
     JOIN pemeriksaan_faktor_permanen ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_faktor_permanen.id_pemeriksaan
     JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien
@@ -957,7 +957,7 @@ def fetch_pemeriksaan_kesehatan():
         "id_pasien": "ID Pasien",
         "nama_pasien": "Nama Pasien",
         "risiko_diabetes": "Risiko Diabetes",
-        "usia_di_atas_40_tahun": "Usia di Atas 40 Tahun",
+        "usia_di_atas_45_tahun": "Usia di Atas 40 Tahun",
         "riwayat_keluarga_diabetes": "Riwayat Keluarga Diabetes",
         "riwayat_diabetes_gestasional": "Riwayat Diabetes Gestasional",
         "riwayat_lahir_berat_badan_lahir_rendah": "Riwayat Lahir Berat Badan Lahir Rendah",
@@ -991,7 +991,7 @@ def fetch_pemeriksaan_kesehatan_pasien(id_pemeriksaan):
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
+    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_45_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
     JOIN pemeriksaan_faktor_permanen ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_faktor_permanen.id_pemeriksaan
     JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien
@@ -1016,7 +1016,7 @@ def fetch_pemeriksaan_kesehatan_pasien(id_pemeriksaan):
         "nama_pasien": "Nama Pasien",
         "risiko_diabetes": "Risiko Diabetes",
         "tanggal_pemeriksaan": "Tanggal Pemeriksaan",
-        "usia_di_atas_40_tahun": "Usia Di Atas 40 Tahun",
+        "usia_di_atas_45_tahun": "Usia Di Atas 40 Tahun",
         "riwayat_keluarga_diabetes": "Riwayat Keluarga Diabetes",
         "riwayat_diabetes_gestasional": "Riwayat Diabetes Gestasional",
         "riwayat_lahir_berat_badan_lahir_rendah": "Riwayat Berat Badan Lahir Rendah",
