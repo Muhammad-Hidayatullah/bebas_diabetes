@@ -87,7 +87,7 @@ if df_pemeriksaan_kesehatan_pasien is not None or df_diagnosis_penyakit is not N
     if not df_pemeriksaan_kesehatan_pasien_tertentu.empty:
         row = df_pemeriksaan_kesehatan_pasien_tertentu.iloc[0]  # Get first row safely
         risiko_diabetes = row["Risiko Diabetes"]
-        usia_di_atas_40_tahun = row["Usia Di Atas 40 Tahun"]
+        usia_di_atas_45_tahun = row["Usia Di Atas 45 Tahun"]
         riwayat_keluarga_diabetes = row["Riwayat Keluarga Diabetes"]
         riwayat_diabetes_gestasional = row["Riwayat Diabetes Gestasional"]
         riwayat_lahir_di_bawah_2_koma_5_gram = row["Riwayat Berat Badan Lahir Rendah"]
@@ -141,7 +141,7 @@ if df_pemeriksaan_kesehatan_pasien is not None or df_diagnosis_penyakit is not N
     if opsi == "Unduh":
         if st.button("Unduh Laporan"):
             file_pdf = fl.buat_laporan_riwayat(st.session_state.kode_pasien, st.session_state.nama_lengkap, st.session_state.username_pengguna, st.session_state.tanggal_lahir, tanggal_pemeriksaan, st.session_state.jenis_kelamin, st.session_state.alamat,
-                    st.session_state.pekerjaan, st.session_state.email, risiko_diabetes, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
+                    st.session_state.pekerjaan, st.session_state.email, risiko_diabetes, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
                     riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
                     kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
                     total_kolestrol, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, gejala_terpilih, df_diagnosis_penyakit_tertentu, relasi_penyakit_dan_gejala)
