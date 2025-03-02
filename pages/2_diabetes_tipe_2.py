@@ -72,7 +72,7 @@ st.write(
   - Konsumsi Alkohol : Konsumsi alkohol yang berlebihan > 28 gram atau > 4 botol bir dalam sehari.
   - Kurang Tidur : Kurang tidur atau mengalami gangguan tidur sehingga tidur tidak berkualitas dengan waktu tidur hanya < 6 jam dalam sehari.
   - Aktivitas Fisik : Kurang beraktivitas fisik atau berolahraga dengan waktu < 150 menit dalam seminggu.
-  - Berat Badan : Berat badan yang berlebihan atau obesitas dengan Indeks Massa Tubuh > 25 kg/m2 untuk untuk ras dan etnis tertentu seperti Asia, Afro-Amerika, Hispanik/Amerika Latin, Indian Amerika, dan Kepulauan Pasifik.
+  - Berat Badan : Berat badan yang berlebihan atau obesitas dengan Indeks Massa Tubuh > 23 kg/m2 untuk untuk ras dan etnis tertentu seperti Asia, Afro-Amerika, Hispanik/Amerika Latin, Indian Amerika, dan Kepulauan Pasifik.
   - Lingkar Perut : Lingkaran perut mengalami obesitas sentral dengan lingkar perut ≥ 90 cm untuk pria dan lingkar perut ≥ 80 cm untuk wanita.
   - Hipertensi : Hipertensi dengan tekanan darah sistolik ≥ 140 mmHg dan/atau tekanan darah diastolik ≥ 90 mmHg.
   - Disiplidemia : Memiliki tingkat kolestrol yang tidak seimbang dengan kolestrol baik High Density Lipoprotein (HDL) ≤ 35 mg/dL dan/atau kolestrol jahat Low Density Lipoprotein (LDL) ≥  100 mg/dL dan/atau trigliseria ≥  250 mg/dL.
