@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.write(st.session_state.hello_word)
+st.write(st.session_state.hello_world)
 
 st.session_state.style_tabel = """
 <style>
