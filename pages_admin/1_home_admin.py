@@ -68,7 +68,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-kartu("Blabla", 10)
+
 
 
 st.title("DASBOR ADMIN")
