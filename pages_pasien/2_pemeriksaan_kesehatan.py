@@ -157,12 +157,12 @@ def buat_laporan():
     pdf.ln(5) 
 
     pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Data Pasien", ln=True)
+    pdf.cell(75, 10, txt="Data Pengguna", ln=True)
     pdf.set_font("Arial", size=10)
     
 
     data_pribadi = [
-        ['Kode Pasien: ', st.session_state.kode_pasien],
+        ['Kode Pengguna: ', st.session_state.kode_pasien],
         ['Nama: ', st.session_state.nama_lengkap],
         ["Username: ", st.session_state.username_pengguna],
         ["Tanggal Lahir: ", str(st.session_state.tanggal_lahir)],
