@@ -45,7 +45,7 @@ def kartu(total_apa, nilai):
     st.markdown(style_kartu, unsafe_allow_html=True)
 
 # Contoh penggunaan
-kartu("User Total", 10)
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
