@@ -36,8 +36,8 @@ user_total = 10
 st.markdown(
     f"""
     <div style="
-        padding: 20px;
-        border-radius: 10px;
+        padding: 5px;
+        border-radius: 5px;
         background-color: #f0f2f6;
         text-align: center;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
