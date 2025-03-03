@@ -28,10 +28,6 @@ st.session_state.style_tabel = """
 
 
 
-
-# Example data
-total_pengguna = 10
-
 def kartu(total_apa, nilai):
     style_kartu = f"""
     <div style="
@@ -50,25 +46,10 @@ def kartu(total_apa, nilai):
 
 # Contoh penggunaan
 kartu("User Total", 10)
+col1, col2, col3 = st.columns(3)
 
-
-st.markdown(
-    f"""
-    <div style="
-        width: 150px;
-        padding: 5px;
-        border-radius: 3px;
-        background-color: #f0f2f6;
-        text-align: center;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    ">
-        <p style="color: #333; font-weight: bold; font-size: 20px;">Total Pengguna</p>
-        <p style="font-size: 20px; font-weight: bold; color: #007BFF;">{total_pengguna}</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-
+with col1:
+    st.write("Test")
 
 
 
