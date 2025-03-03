@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.subheader(st.session_state.hello_world)
+
 
 st.session_state.style_tabel = """
 <style>
