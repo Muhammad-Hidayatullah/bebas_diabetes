@@ -162,7 +162,7 @@ if pilihan_pengguna == "Update":
     password_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Password"].values[0]
     password = st.text_input("Masukkan password baru: ", type= "password", value=password_default)
     
-    nama_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Nama pengguna"].values[0]
+    nama_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Nama Pengguna"].values[0]
     nama = st.text_input("Masukkan nama lengkap baru: ", value=nama_default)
     
     jenis_kelamin_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Jenis Kelamin"].values[0]
