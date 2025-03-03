@@ -658,10 +658,7 @@ def get_last_id_pengguna():
     cursor = conn.cursor()
     query = "SELECT id_pengguna FROM pengguna ORDER BY id_pengguna DESC LIMIT 1"
     cursor.execute(query)
-    
-    result = cursor.fetchone()
-    conn.commit()
-    
+    result = cursor.fetchone()    
     conn.close()
     
     return result[0]
@@ -672,7 +669,24 @@ def get_jumlah_pengguna():
     query = "SELECT COUNT(*) FROM pengguna;"
     cursor.execute(query)
     result = cursor.fetchone()
-    conn.commit()
+    conn.close()
+    return result[0]
+
+def get_jumlah_penyakit():
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    query = "SELECT COUNT(*) FROM komplikasi_penyakit;"
+    cursor.execute(query)
+    result = cursor.fetchone()
+    conn.close()
+    return result[0]
+    
+def get_jumlah_gejala():
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    query = "SELECT COUNT(*) FROM komplikasi_penyakit;"
+    cursor.execute(query)
+    result = cursor.fetchone()
     conn.close()
     return result[0]
 
