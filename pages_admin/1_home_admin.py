@@ -27,7 +27,7 @@ st.session_state.style_tabel = """
 """
 
 st.title("DASBOR ADMIN")
-st.subtitle("Jumlah Pengguna")
+st.subheader("Jumlah Pengguna")
 
 st.image("./assets/admin.png", width=300)
 
