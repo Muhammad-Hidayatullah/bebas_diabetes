@@ -54,14 +54,14 @@ def kartu(total_apa, nilai):
 st.title("DASBOR ADMIN")
 st.subheader("Jumlah Pengguna")
 
-col1, col2, col3 = st.columns(3)
 
-with col1:
-    kartu("User Total", 10)
-with col2:
-    kartu("User Total", 10)
-with col3:
-    kartu("User Total", 10)
+
+
+kartu("Jumlah Pengguna", 10)
+
+kartu("Jumlah Penyakit", 10)
+
+kartu("Jumlah Gejala", 10)
 
 st.write("")
 st.image("./assets/admin.png", width=300)
