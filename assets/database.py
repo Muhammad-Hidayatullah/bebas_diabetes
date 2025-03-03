@@ -70,13 +70,13 @@ def get_name(username, password):
         if connection:
             connection.close()
             
-def get_tanggal_lahir_pasien(username, password):
+def get_tanggal_lahir_pengguna(username, password):
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
 
         # SQL query to check user credentials
-        query = "SELECT tanggal_lahir FROM pasien WHERE username = %s AND password = %s"
+        query = "SELECT tanggal_lahir FROM pengguna WHERE username = %s AND password = %s"
         cursor.execute(query, (username, password))
 
         # Fetch one result
@@ -96,10 +96,10 @@ def get_tanggal_lahir_pasien(username, password):
             connection.close()
 
 
-def get_data_pasien(username):
+def get_data_pengguna(username):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "SELECT * FROM pasien WHERE username = %s"
+    query = "SELECT * FROM pengguna WHERE username = %s"
     cursor.execute(query, (username,))
     result = cursor.fetchone()
     conn.close()
@@ -343,11 +343,11 @@ def fetch_admin():
     conn.close()
     return df
 
-def fetch_pasien():
+def fetch_pengguna():
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT * FROM pasien;
+    SELECT * FROM pengguna;
     """ 
     cursor.execute(query)
     result = cursor.fetchall()
@@ -360,10 +360,10 @@ def fetch_pasien():
 
     # Column renaming dictionary
     ganti_header = {
-        "id_pasien": "ID Pasien",
+        "id_pengguna": "ID pengguna",
         "username": "Username",
         "password": "Password",
-        "nama_pasien": "Nama Pasien",
+        "nama_pengguna": "Nama pengguna",
         "jenis_kelamin": "Jenis Kelamin",
         "alamat": "Alamat",
         "email": "Email",
@@ -380,19 +380,19 @@ def fetch_pasien():
 
 
 
-def update_pengguna(username, password, nama_pasien, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, username_lama):
+def update_pengguna(username, password, nama_pengguna, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, username_lama):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "UPDATE pasien SET username = %s, password = %s, nama_pasien = %s, jenis_kelamin = %s, alamat = %s, email = %s, pekerjaan = %s, tanggal_lahir = %s WHERE username = %s"
-    cursor.execute(query, (username, password, nama_pasien, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, username_lama))
+    query = "UPDATE pengguna SET username = %s, password = %s, nama_pengguna = %s, jenis_kelamin = %s, alamat = %s, email = %s, pekerjaan = %s, tanggal_lahir = %s WHERE username = %s"
+    cursor.execute(query, (username, password, nama_pengguna, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, username_lama))
     conn.commit()
     conn.close()
     
-def hapus_data_pasien(id_pasien):
+def hapus_data_pengguna(id_pengguna):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "DELETE FROM pasien WHERE id_pasien = %s"
-    cursor.execute(query, (id_pasien,))
+    query = "DELETE FROM pengguna WHERE id_pengguna = %s"
+    cursor.execute(query, (id_pengguna,))
     conn.commit()
     conn.close()
     
@@ -410,13 +410,13 @@ def forward_chaining(gejala_gejala):
         
         
 
-def menambah_id_pasien_default():
+def menambah_id_pengguna_default():
     
     conn = connect_to_db()
     cursor = conn.cursor()
     
     # Ambil ID terakhir dari database (misalnya A0001, A0002, dst)
-    cursor.execute("SELECT id_pasien FROM pasien ORDER BY id_pasien DESC LIMIT 1")
+    cursor.execute("SELECT id_pengguna FROM pengguna ORDER BY id_pengguna DESC LIMIT 1")
     last_id = cursor.fetchone()
     
     if last_id:
@@ -489,25 +489,25 @@ def menambah_id_pemeriksaan_kesehatan_default():
 
     
 
-def add_pasien(id_pasien, username, password, nama_pasien, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir):
+def add_pengguna(id_pengguna, username, password, nama_pengguna, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir):
     conn = connect_to_db()
     cursor = conn.cursor()
     
-    query = "INSERT INTO pasien (id_pasien, username, password, nama_pasien, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
-    cursor.execute(query, (id_pasien, username, password, nama_pasien, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir))
+    query = "INSERT INTO pengguna (id_pengguna, username, password, nama_pengguna, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+    cursor.execute(query, (id_pengguna, username, password, nama_pengguna, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir))
     conn.commit()
     
-    st.success("Pasien Berhasil Didaftarkan")
+    st.success("pengguna Berhasil Didaftarkan")
     conn.close()
     
     
-def get_id_pasien(username):
+def get_id_pengguna(username):
     try:
         connection = connect_to_db()
         cursor = connection.cursor()
 
         # SQL query to check user credentials
-        query = "SELECT id_pasien FROM pasien WHERE username = %s"
+        query = "SELECT id_pengguna FROM pengguna WHERE username = %s"
         cursor.execute(query, (username,))
 
         # Fetch one result
@@ -541,17 +541,17 @@ def get_id_penyakit(nama_penyakit):
 def get_jenis_kelamin(username):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "SELECT jenis_kelamin FROM pasien WHERE username = %s"
+    query = "SELECT jenis_kelamin FROM pengguna WHERE username = %s"
     cursor.execute(query, (username,))
     jenis_kelamin = cursor.fetchone()
     conn.close()
     return jenis_kelamin[0] if jenis_kelamin else None
     
-def add_pemeriksaan_kesehatan(id_pemeriksaan, id_pasien, risiko_diabetes, tanggal_pemeriksaan):
+def add_pemeriksaan_kesehatan(id_pemeriksaan, id_pengguna, risiko_diabetes, tanggal_pemeriksaan):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "INSERT INTO pemeriksaan_kesehatan (id_pemeriksaan, id_pasien, risiko_diabetes, tanggal_pemeriksaan) VALUES (%s, %s, %s, %s);"
-    cursor.execute(query, (id_pemeriksaan, id_pasien, risiko_diabetes, tanggal_pemeriksaan))
+    query = "INSERT INTO pemeriksaan_kesehatan (id_pemeriksaan, id_pengguna, risiko_diabetes, tanggal_pemeriksaan) VALUES (%s, %s, %s, %s);"
+    cursor.execute(query, (id_pemeriksaan, id_pengguna, risiko_diabetes, tanggal_pemeriksaan))
     conn.commit()
     conn.close()
     
@@ -590,11 +590,11 @@ def add_pemeriksaan_laboratorium(id_pemeriksaan, gula_darah_sewaktu, gula_darah_
     conn.commit()
     conn.close()
 
-def get_tanggal_terkini(id_pasien):
+def get_tanggal_terkini(id_pengguna):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "SELECT MAX(tanggal_diagnosis) FROM diagnosis_penyakit WHERE diagnosis_penyakit.id_pasien = %s;"
-    cursor.execute(query, (id_pasien,))
+    query = "SELECT MAX(tanggal_diagnosis) FROM diagnosis_penyakit WHERE diagnosis_penyakit.id_pengguna = %s;"
+    cursor.execute(query, (id_pengguna,))
     tanggal_terkini = cursor.fetchone()
     conn.close()
     return tanggal_terkini[0]
@@ -624,17 +624,17 @@ def fetch_diagnosis_penyakit_admin():
     conn = connect_to_db()
     
     query = """
-    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, diagnosis_penyakit.gejala_terpilih, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
+    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pengguna, pengguna.nama_pengguna, diagnosis_penyakit.gejala_terpilih, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
     FROM diagnosis_penyakit
-    LEFT JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien
+    LEFT JOIN pengguna ON diagnosis_penyakit.id_pengguna = pengguna.id_pengguna
     LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit;
     """
     
     df = pd.read_sql(query, conn)
     ganti_header = {
         "id_diagnosis": "ID Diagnosis",
-        "id_pasien": "ID Pasien",
-        "nama_pasien": "Nama Pasien",
+        "id_pengguna": "ID pengguna",
+        "nama_pengguna": "Nama pengguna",
         "gejala_terpilih": "Gejala Terpilih",
         "nama_penyakit": "Nama Penyakit",
         "gejala_cocok": "Gejala Cocok",
@@ -644,18 +644,18 @@ def fetch_diagnosis_penyakit_admin():
     df.rename(columns=ganti_header, inplace=True)
     return df
 
-def insert_diagnosis_penyakit(id_diagnosis, id_pasien, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis):
+def insert_diagnosis_penyakit(id_diagnosis, id_pengguna, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "INSERT INTO diagnosis_penyakit(id_diagnosis, id_pasien, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis) VALUES (%s, %s, %s, %s, %s, %s, %s);"
-    cursor.execute(query, (id_diagnosis, id_pasien, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis))
+    query = "INSERT INTO diagnosis_penyakit(id_diagnosis, id_pengguna, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+    cursor.execute(query, (id_diagnosis, id_pengguna, id_komplikasi_penyakit, gejala_terpilih, gejala_cocok, persentase_kecocokan, tanggal_diagnosis))
     conn.commit()
     conn.close()
     
-def get_last_id_pasien():
+def get_last_id_pengguna():
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "SELECT id_pasien FROM pasien ORDER BY id_pasien DESC LIMIT 1"
+    query = "SELECT id_pengguna FROM pengguna ORDER BY id_pengguna DESC LIMIT 1"
     cursor.execute(query)
     
     result = cursor.fetchone()
@@ -682,7 +682,7 @@ def validasi_email_regex(email):
     regex = r'^[a-zA-Z0-9_.+-]+@gmail\.com$'
     return re.match(regex, email) is not None
 
-def check_data_registrasi_pasien(username_pengguna, email, password_pengguna, nama, alamat):
+def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, nama, alamat):
     
     validation_errors = []
                 
@@ -720,7 +720,7 @@ def check_data_registrasi_pasien(username_pengguna, email, password_pengguna, na
     else:
         return True
 
-def check_update_data_pasien(username_pengguna, email, password_pengguna, nama, alamat):
+def check_update_data_pengguna(username_pengguna, email, password_pengguna, nama, alamat):
     validation_errors = []
                 
     if cek_username(username_pengguna) == True and username_pengguna != username_pengguna:
@@ -793,7 +793,7 @@ def check_pengguna(username, password):
         cursor = connection.cursor()
 
         # SQL query to check user credential
-        query = "SELECT * FROM pasien WHERE username = %s AND password = %s"
+        query = "SELECT * FROM pengguna WHERE username = %s AND password = %s"
         cursor.execute(query, (username, password))
 
         # Fetch one result
@@ -820,7 +820,7 @@ def cek_username(username):
         cursor = connection.cursor()
 
         # SQL query to check user credential
-        query = "SELECT * FROM pasien WHERE username = %s"
+        query = "SELECT * FROM pengguna WHERE username = %s"
         cursor.execute(query, (username,))
 
         # Fetch one result
@@ -848,7 +848,7 @@ def cek_email(email):
         cursor = connection.cursor()
 
         # SQL query to check user credential
-        query = "SELECT * FROM pasien WHERE email = %s"
+        query = "SELECT * FROM pengguna WHERE email = %s"
         cursor.execute(query, (email,))
 
         # Fetch one result
@@ -934,10 +934,10 @@ def fetch_pemeriksaan_kesehatan():
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_45_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
+    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pengguna, pengguna.nama_pengguna, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_45_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
     JOIN pemeriksaan_faktor_permanen ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_faktor_permanen.id_pemeriksaan
-    JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien
+    JOIN pengguna ON pemeriksaan_kesehatan.id_pengguna = pengguna.id_pengguna
     JOIN kebiasaan_hidup ON kebiasaan_hidup.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan
     JOIN pemeriksaan_fisik ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_fisik.id_pemeriksaan
     JOIN pemeriksaan_laboratorium ON pemeriksaan_laboratorium.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan;
@@ -954,8 +954,8 @@ def fetch_pemeriksaan_kesehatan():
     ganti_header = {
         "tanggal_pemeriksaan": "Tanggal Pemeriksaan",
         "id_pemeriksaan": "ID Pemeriksaan",
-        "id_pasien": "ID Pasien",
-        "nama_pasien": "Nama Pasien",
+        "id_pengguna": "ID pengguna",
+        "nama_pengguna": "Nama pengguna",
         "risiko_diabetes": "Risiko Diabetes",
         "usia_di_atas_45_tahun": "Usia di Atas 45 Tahun",
         "riwayat_keluarga_diabetes": "Riwayat Keluarga Diabetes",
@@ -987,18 +987,18 @@ def fetch_pemeriksaan_kesehatan():
 
 
 
-def fetch_pemeriksaan_kesehatan_pasien(id_pemeriksaan):
+def fetch_pemeriksaan_kesehatan_pengguna(id_pemeriksaan):
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pasien, pasien.nama_pasien, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_45_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
+    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pengguna, pengguna.nama_pengguna, pemeriksaan_kesehatan.risiko_diabetes, pemeriksaan_faktor_permanen.usia_di_atas_45_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
     JOIN pemeriksaan_faktor_permanen ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_faktor_permanen.id_pemeriksaan
-    JOIN pasien ON pemeriksaan_kesehatan.id_pasien = pasien.id_pasien
+    JOIN pengguna ON pemeriksaan_kesehatan.id_pengguna = pengguna.id_pengguna
     JOIN kebiasaan_hidup ON kebiasaan_hidup.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan
     JOIN pemeriksaan_fisik ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_fisik.id_pemeriksaan
     JOIN pemeriksaan_laboratorium ON pemeriksaan_laboratorium.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan
-    WHERE pemeriksaan_kesehatan.id_pasien = %s;
+    WHERE pemeriksaan_kesehatan.id_pengguna = %s;
     """
     cursor.execute(query, (id_pemeriksaan,))
     result = cursor.fetchall()
@@ -1012,8 +1012,8 @@ def fetch_pemeriksaan_kesehatan_pasien(id_pemeriksaan):
     # Column renaming dictionary
     ganti_header = {
         "id_pemeriksaan": "ID Pemeriksaan",
-        "id_pasien": "ID Pasien",
-        "nama_pasien": "Nama Pasien",
+        "id_pengguna": "ID pengguna",
+        "nama_pengguna": "Nama pengguna",
         "risiko_diabetes": "Risiko Diabetes",
         "tanggal_pemeriksaan": "Tanggal Pemeriksaan",
         "usia_di_atas_45_tahun": "Usia Di Atas 45 Tahun",
@@ -1081,18 +1081,18 @@ def fetch_kebiasaan_hidup():
 
 
 
-def get_diagnosis_penyakit(id_pasien):
+def get_diagnosis_penyakit(id_pengguna):
     
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pasien, pasien.nama_pasien, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
+    SELECT diagnosis_penyakit.tanggal_diagnosis, diagnosis_penyakit.id_diagnosis, diagnosis_penyakit.id_pengguna, pengguna.nama_pengguna, komplikasi_penyakit.nama_penyakit, diagnosis_penyakit.gejala_terpilih, diagnosis_penyakit.gejala_cocok, diagnosis_penyakit.persentase_kecocokan
     FROM diagnosis_penyakit
-    LEFT JOIN pasien ON diagnosis_penyakit.id_pasien = pasien.id_pasien
+    LEFT JOIN pengguna ON diagnosis_penyakit.id_pengguna = pengguna.id_pengguna
     LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit
-    WHERE diagnosis_penyakit.id_pasien = %s;
+    WHERE diagnosis_penyakit.id_pengguna = %s;
     """ 
-    cursor.execute(query, (id_pasien,))
+    cursor.execute(query, (id_pengguna,))
     result = cursor.fetchall()
     conn.close()
     if not result:
@@ -1104,8 +1104,8 @@ def get_diagnosis_penyakit(id_pasien):
     # Column renaming dictionary
     ganti_header = {
         "id_diagnosis": "ID Diagnosis",
-        "id_pasien": "ID Pasien",
-        "nama_pasien": "Nama Pasien",
+        "id_pengguna": "ID pengguna",
+        "nama_pengguna": "Nama pengguna",
         "nama_penyakit": "Nama Penyakit",
         "gejala_terpilih": "Gejala Terpilih",
         "gejala_cocok": "Gejala Cocok",
@@ -1120,14 +1120,14 @@ def get_diagnosis_penyakit(id_pasien):
 
 
 
-def hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal):
+def hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pengguna, tanggal):
     conn = connect_to_db()
-    query = "DELETE FROM pemeriksaan_kesehatan WHERE id_pasien = %s AND tanggal_pemeriksaan = %s"
+    query = "DELETE FROM pemeriksaan_kesehatan WHERE id_pengguna = %s AND tanggal_pemeriksaan = %s"
     cursor = conn.cursor()
-    cursor.execute(query, (id_pasien, tanggal))
+    cursor.execute(query, (id_pengguna, tanggal))
     conn.commit()
-    query = "DELETE FROM diagnosis_penyakit WHERE id_pasien = %s AND tanggal_diagnosis = %s"
-    cursor.execute(query, (id_pasien, tanggal))
+    query = "DELETE FROM diagnosis_penyakit WHERE id_pengguna = %s AND tanggal_diagnosis = %s"
+    cursor.execute(query, (id_pengguna, tanggal))
     conn.commit()
     conn.close()
 
