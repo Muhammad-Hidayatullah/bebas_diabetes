@@ -125,7 +125,7 @@ def validasi_email_regex(email):
 
 pilihan_pasien = st.selectbox("Opsi Yang Ingin Dilakukan Pada Data Pasien: ", ("Tambah", "Update", "Hapus"))
 if pilihan_pasien == "Tambah":
-    st.subheader("Tambah Data Pasien")
+    st.subheader("Tambah Data Pengguna")
     username_pengguna = st.text_input("Masukkan username: ")
     password_pengguna = st.text_input("Masukkan password: ", type="password")
     nama = st.text_input("Nama Lengkap: ")
@@ -153,7 +153,7 @@ if pilihan_pasien == "Tambah":
             st.rerun()
         
 if pilihan_pasien == "Update":
-    st.subheader("Update Data Pasien")
+    st.subheader("Update Data Pengguna")
     id_pasien = st.selectbox("Pilih ID Pasien: ", options=df_pasien["ID Pasien"], index=0)
     
     username_default = df_pasien.loc[df_pasien["ID Pasien"] == id_pasien, "Username"].values[0]
@@ -192,14 +192,14 @@ if pilihan_pasien == "Update":
             time.sleep(2)
             st.rerun()
 if pilihan_pasien == "Hapus":
-    st.subheader("Hapus Data Pasien")
+    st.subheader("Hapus Data Pengguna")
     id_pasien = st.selectbox("Pilih ID Pasien: ", options=df_pasien["ID Pasien"], index=0)
     
     if st.button("Hapus"):
         hapus_data_pasien = db.hapus_data_pasien(id_pasien)
-        st.success("Berhasil Hapus Data Pasien")
+        st.success("Berhasil Hapus Data Pengguna")
         time.sleep(2)
         st.rerun()
-    st.write("**Catatan Penting**: Apabila data pasien dihapus maka hasil diagnosisnya juga akan terhapus")
+    st.write("**Catatan Penting**: Apabila data pengguna dihapus maka hasil diagnosisnya juga akan terhapus")
 
 
