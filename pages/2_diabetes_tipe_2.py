@@ -103,7 +103,7 @@ st.write(
     **Pengobatan dan Pencegahan**
     
     Penanganan Diabetes Mellitus Tipe 2 adalah dengan cara mengatur pola makan, olahraga, dan pengobatan medis seperti pemberian insulin atau obat. 
-    Pasien harus rutin melakukan pemeriksaan kesehatan dan tes gula darah secara rutin sambil mengikuti pengobatan.
+    Anda harus rutin melakukan pemeriksaan kesehatan dan tes gula darah secara rutin sambil mengikuti pengobatan.
     
     Pencegahan penyakit Diabetes Mellitus Tipe 2 dapat dilakukan dengan cara seperti berikut ini:
     - Aktif bergerak, beraktivitas, atau berolahraga secara rutin minimal 150 menit dalam seminggu.
