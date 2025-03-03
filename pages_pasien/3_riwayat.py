@@ -37,8 +37,6 @@ style_tabel = """
 """
 
 
-
-st.write(st.session_state.kode_pengguna)
 df_pemeriksaan_kesehatan_pengguna = db.fetch_pemeriksaan_kesehatan_pengguna(st.session_state.kode_pengguna)
 if df_pemeriksaan_kesehatan_pengguna is None:
     st.write("--")
