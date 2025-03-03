@@ -56,7 +56,7 @@ st.title("DASBOR ADMIN")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    kartu("Jumlah Pengguna", 10)
+    kartu("Jumlah User", 10)
 with col2:
     kartu("Jumlah Penyakit", 10)
 with col3:
