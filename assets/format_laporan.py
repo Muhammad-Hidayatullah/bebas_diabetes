@@ -5,7 +5,7 @@ from fpdf import FPDF
 
 
 
-def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_lahir, tanggal_pemeriksaan, jenis_kelamin, alamat,
+def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal_lahir, tanggal_pemeriksaan, jenis_kelamin, alamat,
                  pekerjaan, email, risiko_diabetes, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
                  riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
                  kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
@@ -23,12 +23,12 @@ def buat_laporan_riwayat(kode_pasien, nama_lengkap, username_pengguna, tanggal_l
     pdf.ln(5) 
     
     pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Data Pasien", ln=True)
+    pdf.cell(75, 10, txt="Data Pengguna", ln=True)
     pdf.set_font("Arial", size=10)
     
 
     data_pribadi = [
-        ['Kode Pasien: ', kode_pasien],
+        ['Kode Pengguna: ', kode_pengguna],
         ['Nama: ', nama_lengkap],
         ["Username: ", username_pengguna],
         ["Tanggal Lahir: ", str(tanggal_lahir)],
