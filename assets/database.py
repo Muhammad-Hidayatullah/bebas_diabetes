@@ -360,7 +360,7 @@ def fetch_pengguna():
 
     # Column renaming dictionary
     ganti_header = {
-        "id_pengguna": "ID pengguna",
+        "id_pengguna": "ID Pengguna",
         "username": "Username",
         "password": "Password",
         "nama_pengguna": "Nama pengguna",
