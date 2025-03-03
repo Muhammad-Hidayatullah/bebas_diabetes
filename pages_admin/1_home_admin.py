@@ -21,7 +21,7 @@ st.session_state.style_tabel = """
         text-align: left;
     }
     tr:nth-child(even) td {
-        background-color: #f9f9f9; /* Light gray for alternating rows */
+        background-color: #f9f9f9;
     }
 </style>
 """
