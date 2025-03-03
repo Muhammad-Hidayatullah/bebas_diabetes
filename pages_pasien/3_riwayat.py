@@ -44,7 +44,7 @@ else:
     df_pemeriksaan_kesehatan_pengguna = pd.DataFrame(df_pemeriksaan_kesehatan_pengguna)
     lihat_df_pemeriksaan_kesehatan = df_pemeriksaan_kesehatan_pengguna.copy()
     
-    lihat_df_pemeriksaan_kesehatan.drop(columns=["ID Pemeriksaan", "ID pengguna", "Nama pengguna"], inplace=True)
+    lihat_df_pemeriksaan_kesehatan.drop(columns=["ID Pemeriksaan", "ID Pengguna", "Nama Pengguna"], inplace=True)
     
     tabel_html_pemeriksaan_kesehatan_pengguna = lihat_df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
 
@@ -59,7 +59,7 @@ else:
     
     lihat_df_diagnosis_penyakit = df_diagnosis_penyakit.copy()
     
-    lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID pengguna", "Nama pengguna", "Gejala Terpilih"], inplace = True)
+    lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID Pengguna", "Nama Pengguna", "Gejala Terpilih"], inplace = True)
     tabel_html_diagnosis_penyakit = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
 
       
