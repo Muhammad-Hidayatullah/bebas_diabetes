@@ -633,7 +633,7 @@ def fetch_diagnosis_penyakit_admin():
     df = pd.read_sql(query, conn)
     ganti_header = {
         "id_diagnosis": "ID Diagnosis",
-        "id_pengguna": "ID pengguna",
+        "id_pengguna": "ID Pengguna",
         "nama_pengguna": "Nama pengguna",
         "gejala_terpilih": "Gejala Terpilih",
         "nama_penyakit": "Nama Penyakit",
@@ -954,7 +954,7 @@ def fetch_pemeriksaan_kesehatan():
     ganti_header = {
         "tanggal_pemeriksaan": "Tanggal Pemeriksaan",
         "id_pemeriksaan": "ID Pemeriksaan",
-        "id_pengguna": "ID pengguna",
+        "id_pengguna": "ID Pengguna",
         "nama_pengguna": "Nama pengguna",
         "risiko_diabetes": "Risiko Diabetes",
         "usia_di_atas_45_tahun": "Usia di Atas 45 Tahun",
@@ -1012,7 +1012,7 @@ def fetch_pemeriksaan_kesehatan_pengguna(id_pemeriksaan):
     # Column renaming dictionary
     ganti_header = {
         "id_pemeriksaan": "ID Pemeriksaan",
-        "id_pengguna": "ID pengguna",
+        "id_pengguna": "ID Pengguna",
         "nama_pengguna": "Nama pengguna",
         "risiko_diabetes": "Risiko Diabetes",
         "tanggal_pemeriksaan": "Tanggal Pemeriksaan",
@@ -1104,7 +1104,7 @@ def get_diagnosis_penyakit(id_pengguna):
     # Column renaming dictionary
     ganti_header = {
         "id_diagnosis": "ID Diagnosis",
-        "id_pengguna": "ID pengguna",
+        "id_pengguna": "ID Pengguna",
         "nama_pengguna": "Nama pengguna",
         "nama_penyakit": "Nama Penyakit",
         "gejala_terpilih": "Gejala Terpilih",
