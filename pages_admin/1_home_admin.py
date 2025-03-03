@@ -50,15 +50,15 @@ def kartu(total_apa, nilai):
 
 
 
-
+st.write(db.get_jumlah_pengguna())
 
 
 st.title("DASBOR ADMIN")
-jumlah_user = db.get_jumlah_pengguna()
+
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    kartu("Jumlah User", jumlah_user)
+    kartu("Jumlah User", 10)
 with col2:
     kartu("Jumlah Penyakit", 10)
 with col3:
