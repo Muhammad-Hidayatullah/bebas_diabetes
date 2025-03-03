@@ -45,7 +45,7 @@ def kartu(total_apa, nilai):
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         ">
             <p style="color: #333; font-weight: bold; font-size: 20px;">{total_apa}</p>
-            <p style="font-size: 20px; font-weight: bold; color: #007BFF;">{total_pengguna}</p>
+            <p style="font-size: 20px; font-weight: bold; color: #007BFF;">{nilai}</p>
     </div>
     
     """
