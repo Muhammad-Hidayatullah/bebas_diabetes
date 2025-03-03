@@ -8,7 +8,7 @@ from fpdf import FPDF
 from assets import format_laporan as fl
 
 
-df_pasien = db.fetch_pasien()
+df_pengguna = db.fetch_pengguna()
 st.title("LAPORAN")
 
 st.subheader("PEMERIKSAAN KESEHATAN")
@@ -35,21 +35,21 @@ st.markdown(st.session_state.style_tabel + df_diagnosis_penyakit_html, unsafe_al
     
 pilihan = st.selectbox("Pilih yang ingin dilakukan", options=["Unduh Hasil", "Hapus Hasil"])
 
-id_pasien = st.selectbox("Pilih ID pasien", options=df_pemeriksaan_kesehatan["ID Pasien"].unique(), index=0)
-tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["ID Pasien"] == id_pasien, "Tanggal Pemeriksaan"], index=0)
+id_pengguna = st.selectbox("Pilih ID pengguna", options=df_pemeriksaan_kesehatan["ID pengguna"].unique(), index=0)
+tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["ID pengguna"] == id_pengguna, "Tanggal Pemeriksaan"], index=0)
 
-df_pasien_tertentu = df_pasien[df_pasien["ID Pasien"] == id_pasien]
+df_pengguna_tertentu = df_pengguna[df_pengguna["ID pengguna"] == id_pengguna]
 
-df_pemeriksaan_kesehatan_pasien_tertentu = df_pemeriksaan_kesehatan[(df_pemeriksaan_kesehatan["ID Pasien"] == id_pasien) & (df_pemeriksaan_kesehatan["Tanggal Pemeriksaan"] == tanggal)]
-df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["ID Pasien"] == id_pasien) & (df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal)]
+df_pemeriksaan_kesehatan_pengguna_tertentu = df_pemeriksaan_kesehatan[(df_pemeriksaan_kesehatan["ID pengguna"] == id_pengguna) & (df_pemeriksaan_kesehatan["Tanggal Pemeriksaan"] == tanggal)]
+df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["ID pengguna"] == id_pengguna) & (df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal)]
 
 
 if pilihan == "Unduh Hasil":
     
     if not df_diagnosis_penyakit_tertentu.empty:
-        row = df_pasien_tertentu.iloc[0]
+        row = df_pengguna_tertentu.iloc[0]
         username = row["Username"]
-        nama_pasien = row["Nama Pasien"]
+        nama_pengguna = row["Nama pengguna"]
         jenis_kelamin = row["Jenis Kelamin"]
         alamat = row["Alamat"]
         email = row["Email"]
@@ -60,9 +60,9 @@ if pilihan == "Unduh Hasil":
     
     
     
-    if not df_pemeriksaan_kesehatan_pasien_tertentu.empty:
+    if not df_pemeriksaan_kesehatan_pengguna_tertentu.empty:
     
-        row = df_pemeriksaan_kesehatan_pasien_tertentu.iloc[0]  # Get first row safely
+        row = df_pemeriksaan_kesehatan_pengguna_tertentu.iloc[0]  # Get first row safely
         risiko_diabetes = row["Risiko Diabetes"]
         usia_di_atas_40_tahun = row["Usia di Atas 40 Tahun"]
         riwayat_keluarga_diabetes = row["Riwayat Keluarga Diabetes"]
@@ -97,7 +97,7 @@ if pilihan == "Unduh Hasil":
     row = df_diagnosis_penyakit_tertentu.head(1)
     
     gejala_terpilih = row["Gejala Terpilih"].iloc[0]
-    nama_pasien_terpilih = row["Nama Pasien"].iloc[0]
+    nama_pengguna_terpilih = row["Nama pengguna"].iloc[0]
     
 
     diagnosis_penyakit_tertentu = df_diagnosis_penyakit_tertentu.iloc[:, 3:]
@@ -117,7 +117,7 @@ if pilihan == "Unduh Hasil":
     
 
     if st.button("Unduh Laporan"):
-        file_pdf = fl.buat_laporan_riwayat(id_pasien, nama_pasien, username, tanggal_lahir, tanggal, jenis_kelamin, alamat,
+        file_pdf = fl.buat_laporan_riwayat(id_pengguna, nama_pengguna, username, tanggal_lahir, tanggal, jenis_kelamin, alamat,
                 pekerjaan, email, risiko_diabetes, usia_di_atas_40_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
                 riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
                 kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
@@ -132,14 +132,14 @@ if pilihan == "Unduh Hasil":
         st.download_button(
             label="Download PDF",
             data=file_pdf,
-            file_name = "Laporan Kesehatan_"+nama_pasien_terpilih+ "_"+str(tanggal)+".pdf",
+            file_name = "Laporan Kesehatan_"+nama_pengguna_terpilih+ "_"+str(tanggal)+".pdf",
             mime="application/pdf"
         )
 
 
 if pilihan == "Hapus Hasil":
     if st.button("Hapus"):
-        db.hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pasien, tanggal)
+        db.hapus_hasil_pemeriksaan_dan_diagnosis_penyakit_admin(id_pengguna, tanggal)
         st.success("Data Berhasil Terhapus")
         time.sleep(2)
         st.rerun()
