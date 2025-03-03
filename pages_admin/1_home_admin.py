@@ -26,8 +26,33 @@ st.session_state.style_tabel = """
 </style>
 """
 
+
+import streamlit as st
+
+# Example data
+user_total = 10
+
+# Custom CSS for the card
+st.markdown(
+    f"""
+    <div style="
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f0f2f6;
+        text-align: center;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    ">
+        <h3 style="color: #333;">User Total</h3>
+        <p style="font-size: 24px; font-weight: bold; color: #007BFF;">{user_total}</p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+
 st.title("DASBOR ADMIN")
 st.subheader("Jumlah Pengguna")
+
 
 st.image("./assets/admin.png", width=300)
 
