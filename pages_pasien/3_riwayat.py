@@ -39,21 +39,21 @@ style_tabel = """
 
 
 
-df_pemeriksaan_kesehatan_pasien = db.fetch_pemeriksaan_kesehatan_pasien(st.session_state.kode_pasien)
-if df_pemeriksaan_kesehatan_pasien is None:
+df_pemeriksaan_kesehatan_pengguna = db.fetch_pemeriksaan_kesehatan_pengguna(st.session_state.kode_pengguna)
+if df_pemeriksaan_kesehatan_pengguna is None:
     st.write("--")
 else:
-    df_pemeriksaan_kesehatan_pasien = pd.DataFrame(df_pemeriksaan_kesehatan_pasien)
-    lihat_df_pemeriksaan_kesehatan = df_pemeriksaan_kesehatan_pasien.copy()
+    df_pemeriksaan_kesehatan_pengguna = pd.DataFrame(df_pemeriksaan_kesehatan_pengguna)
+    lihat_df_pemeriksaan_kesehatan = df_pemeriksaan_kesehatan_pengguna.copy()
     
-    lihat_df_pemeriksaan_kesehatan.drop(columns=["ID Pemeriksaan", "ID Pasien", "Nama Pasien"], inplace=True)
+    lihat_df_pemeriksaan_kesehatan.drop(columns=["ID Pemeriksaan", "ID pengguna", "Nama pengguna"], inplace=True)
     
-    tabel_html_pemeriksaan_kesehatan_pasien = lihat_df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
+    tabel_html_pemeriksaan_kesehatan_pengguna = lihat_df_pemeriksaan_kesehatan.to_html(index=False, escape=False)
 
-    st.markdown(style_tabel + tabel_html_pemeriksaan_kesehatan_pasien, unsafe_allow_html=True)
+    st.markdown(style_tabel + tabel_html_pemeriksaan_kesehatan_pengguna, unsafe_allow_html=True)
 
 st.subheader("Riwayat Diagnosis Penyakit")
-df_diagnosis_penyakit = db.get_diagnosis_penyakit(st.session_state.kode_pasien)
+df_diagnosis_penyakit = db.get_diagnosis_penyakit(st.session_state.kode_pengguna)
 if df_diagnosis_penyakit is None:
     st.write("--")
 else:
@@ -61,7 +61,7 @@ else:
     
     lihat_df_diagnosis_penyakit = df_diagnosis_penyakit.copy()
     
-    lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID Pasien", "Nama Pasien", "Gejala Terpilih"], inplace = True)
+    lihat_df_diagnosis_penyakit.drop(columns=["ID Diagnosis", "ID pengguna", "Nama pengguna", "Gejala Terpilih"], inplace = True)
     tabel_html_diagnosis_penyakit = lihat_df_diagnosis_penyakit.to_html(index=False, escape=False)
 
       
@@ -69,23 +69,23 @@ else:
     
     
 
-if df_pemeriksaan_kesehatan_pasien is not None or df_diagnosis_penyakit is not None:
+if df_pemeriksaan_kesehatan_pengguna is not None or df_diagnosis_penyakit is not None:
     #Opsi untu hapus atau unduh
     opsi = st.selectbox("Pilih Opsi: ", ("Unduh", "Hapus"))
 
     #tanggal_pemeriksaan = st.selectbox("Pilih tanggal: ", options=df_diagnosis_penyakit["Tanggal Diagnosis"].unique())
 
-    options = sorted(set(df_diagnosis_penyakit["Tanggal Diagnosis"].unique()) | set(df_pemeriksaan_kesehatan_pasien["Tanggal Pemeriksaan"].unique()))
+    options = sorted(set(df_diagnosis_penyakit["Tanggal Diagnosis"].unique()) | set(df_pemeriksaan_kesehatan_pengguna["Tanggal Pemeriksaan"].unique()))
 
     tanggal_pemeriksaan = st.selectbox("Pilih tanggal:", options)
 
 
     #tanggal_pemeriksaan = pd.to_datetime(tanggal_pemeriksaan)
-    df_pemeriksaan_kesehatan_pasien_tertentu = df_pemeriksaan_kesehatan_pasien.loc[df_pemeriksaan_kesehatan_pasien["Tanggal Pemeriksaan"] == tanggal_pemeriksaan]
+    df_pemeriksaan_kesehatan_pengguna_tertentu = df_pemeriksaan_kesehatan_pengguna.loc[df_pemeriksaan_kesehatan_pengguna["Tanggal Pemeriksaan"] == tanggal_pemeriksaan]
 
 
-    if not df_pemeriksaan_kesehatan_pasien_tertentu.empty:
-        row = df_pemeriksaan_kesehatan_pasien_tertentu.iloc[0]  # Get first row safely
+    if not df_pemeriksaan_kesehatan_pengguna_tertentu.empty:
+        row = df_pemeriksaan_kesehatan_pengguna_tertentu.iloc[0]  # Get first row safely
         risiko_diabetes = row["Risiko Diabetes"]
         usia_di_atas_45_tahun = row["Usia Di Atas 45 Tahun"]
         riwayat_keluarga_diabetes = row["Riwayat Keluarga Diabetes"]
@@ -140,7 +140,7 @@ if df_pemeriksaan_kesehatan_pasien is not None or df_diagnosis_penyakit is not N
 
     if opsi == "Unduh":
         if st.button("Unduh Laporan"):
-            file_pdf = fl.buat_laporan_riwayat(st.session_state.kode_pasien, st.session_state.nama_lengkap, st.session_state.username_pengguna, st.session_state.tanggal_lahir, tanggal_pemeriksaan, st.session_state.jenis_kelamin, st.session_state.alamat,
+            file_pdf = fl.buat_laporan_riwayat(st.session_state.kode_pengguna, st.session_state.nama_lengkap, st.session_state.username_pengguna, st.session_state.tanggal_lahir, tanggal_pemeriksaan, st.session_state.jenis_kelamin, st.session_state.alamat,
                     st.session_state.pekerjaan, st.session_state.email, risiko_diabetes, usia_di_atas_45_tahun, riwayat_keluarga_diabetes, riwayat_diabetes_gestasional,
                     riwayat_lahir_di_bawah_2_koma_5_gram, konsumsi_alkohol, kurang_aktivitas, merokok, pola_makan_buruk,
                     kurang_tidur, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah, HDL, LDL, trigliserida,
