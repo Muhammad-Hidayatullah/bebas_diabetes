@@ -684,7 +684,7 @@ def get_jumlah_penyakit():
 def get_jumlah_gejala():
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "SELECT COUNT(*) FROM komplikasi_penyakit;"
+    query = "SELECT COUNT(*) FROM gejala;"
     cursor.execute(query)
     result = cursor.fetchone()
     conn.close()
