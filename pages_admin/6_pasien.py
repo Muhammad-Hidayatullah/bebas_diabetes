@@ -154,34 +154,34 @@ if pilihan_pengguna == "Tambah":
         
 if pilihan_pengguna == "Update":
     st.subheader("Update Data Pengguna")
-    id_pengguna = st.selectbox("Pilih ID pengguna: ", options=df_pengguna["ID pengguna"], index=0)
+    id_pengguna = st.selectbox("Pilih ID Pengguna: ", options=df_pengguna["ID Pengguna"], index=0)
     
-    username_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Username"].values[0]
+    username_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Username"].values[0]
     username = st.text_input("Masukkan username baru: ", value=username_default)
     
-    password_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Password"].values[0]
+    password_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Password"].values[0]
     password = st.text_input("Masukkan password baru: ", type= "password", value=password_default)
     
-    nama_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Nama pengguna"].values[0]
+    nama_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Nama pengguna"].values[0]
     nama = st.text_input("Masukkan nama lengkap baru: ", value=nama_default)
     
-    jenis_kelamin_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Jenis Kelamin"].values[0]
+    jenis_kelamin_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Jenis Kelamin"].values[0]
     jenis_kelamin = st.radio("Jenis Kelamin: ", ("LAKI-LAKI", "PEREMPUAN"), horizontal=True, index=("LAKI-LAKI", "PEREMPUAN").index(jenis_kelamin_default))
     
     
-    alamat_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Alamat"].values[0]
+    alamat_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Alamat"].values[0]
     alamat = st.text_input("Masukkan alamat baru: ", value=alamat_default)
     
-    email_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Email"].values[0]
+    email_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Email"].values[0]
     email = st.text_input("Masukkan email baru: ", value=email_default)
     
-    pekerjaan_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Pekerjaan"].values[0]
+    pekerjaan_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Pekerjaan"].values[0]
     pekerjaan = st.selectbox("Masukkan pekerjaan baru: ", options=st.session_state.pekerjaan_pekerjaan, index=st.session_state.pekerjaan_pekerjaan.index(pekerjaan_default)) 
     if pekerjaan == "Lainnya":
         pekerjaan_lainnya = st.text_input("Masukkan pekerjaan baru: ")
         pekerjaan = pekerjaan_lainnya
     
-    tanggal_lahir_default = df_pengguna.loc[df_pengguna["ID pengguna"] == id_pengguna, "Tanggal Lahir"].values[0]
+    tanggal_lahir_default = df_pengguna.loc[df_pengguna["ID Pengguna"] == id_pengguna, "Tanggal Lahir"].values[0]
     tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now(), value=tanggal_lahir_default)
 
     if st.button("Update"):
@@ -193,7 +193,7 @@ if pilihan_pengguna == "Update":
             st.rerun()
 if pilihan_pengguna == "Hapus":
     st.subheader("Hapus Data Pengguna")
-    id_pengguna = st.selectbox("Pilih ID pengguna: ", options=df_pengguna["ID pengguna"], index=0)
+    id_pengguna = st.selectbox("Pilih ID Pengguna: ", options=df_pengguna["ID Pengguna"], index=0)
     
     if st.button("Hapus"):
         hapus_data_pengguna = db.hapus_data_pengguna(id_pengguna)
