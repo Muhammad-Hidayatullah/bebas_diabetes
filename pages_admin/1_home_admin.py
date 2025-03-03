@@ -32,10 +32,8 @@ st.session_state.style_tabel = """
 # Example data
 total_pengguna = 10
 
-
 def kartu(total_apa, nilai):
-    style_kartu = 
-    f"""
+    style_kartu = f"""
     <div style="
         width: 150px;
         padding: 5px;
@@ -43,13 +41,16 @@ def kartu(total_apa, nilai):
         background-color: #f0f2f6;
         text-align: center;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        ">
-            <p style="color: #333; font-weight: bold; font-size: 20px;">{total_apa}</p>
-            <p style="font-size: 20px; font-weight: bold; color: #007BFF;">{nilai}</p>
+    ">
+        <p style="color: #333; font-weight: bold; font-size: 18px; margin: 5px 0;">{total_apa}</p>
+        <p style="font-size: 20px; font-weight: bold; color: #007BFF; margin: 5px 0;">{nilai}</p>
     </div>
-    
     """
-    st.markdown(style_kartu, unsafe_allow_html= True)
+    st.markdown(style_kartu, unsafe_allow_html=True)
+
+# Contoh penggunaan
+kartu("User Total", 10)
+
 
 st.markdown(
     f"""
