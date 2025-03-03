@@ -69,7 +69,8 @@ def get_name(username, password):
             cursor.close()
         if connection:
             connection.close()
-            
+
+
 def get_tanggal_lahir_pengguna(username, password):
     try:
         connection = connect_to_db()
@@ -663,6 +664,16 @@ def get_last_id_pengguna():
     
     conn.close()
     
+    return result[0]
+
+def get_jumlah_pengguna():
+    conn = connect_to_db()
+    cursor = conn.cursor()
+    query = "SELECT COUNT(*) FROM pengguna;"
+    cursor.execute(query)
+    result = cursor.fetchone()
+    conn.commit()
+    conn.close()
     return result[0]
 
 def get_penjelasan_penyakit(nama_penyakit):
