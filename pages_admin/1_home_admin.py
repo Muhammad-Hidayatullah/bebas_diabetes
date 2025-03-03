@@ -49,7 +49,12 @@ kartu("User Total", 10)
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.write("Test")
+    kartu("User Total", 10)
+with col2:
+    kartu("User Total", 10)
+with col3:
+    kartu("User Total", 10)
+
 
 
 
