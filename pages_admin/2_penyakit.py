@@ -2,7 +2,7 @@ import streamlit as st
 from assets import database as db
 import time
 
-st.session_state.hello_word = "Hello"
+st.session_state.hello_world = "Hello"
 
 st.title("PENYAKIT")
 penyakit_df = db.fetch_penyakit()
