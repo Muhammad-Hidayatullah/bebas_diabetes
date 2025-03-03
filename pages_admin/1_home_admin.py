@@ -44,7 +44,7 @@ st.markdown(
         text-align: center;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     ">
-        <h3 style="color: #333; font-size: 30px">Total Pengguna</h3>
+        <h3 style="color: #333; font-size: 30px;">Total Pengguna</h3>
         
         <p style="font-size: 24px; font-weight: bold; color: #007BFF;">{total_pengguna}</p>
     </div>
