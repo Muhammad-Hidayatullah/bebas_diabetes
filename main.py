@@ -69,10 +69,10 @@ login_pengguna = st.Page(
 )
 
 
-#Halaman untuk Pasien
+#Halaman untuk pengguna
 data_pengguna = st.Page(
     page="pages_pengguna/1_data_pengguna.py",
-    title="Data Pasien",
+    title="Data pengguna",
     icon=":material/account_circle:",
 )
 
@@ -129,7 +129,7 @@ halaman_artikel = st.Page(
 
 halaman_pengguna = st.Page(
     page="pages_admin/6_pengguna.py",
-    title="Pasien",
+    title="pengguna",
     icon=":material/patient_list:",
 )
 
