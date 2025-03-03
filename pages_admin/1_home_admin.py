@@ -36,7 +36,11 @@ user_total = 10
 st.markdown(
     f"""
     <div style="
-        width: 150px;
+
+
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
         padding: 3px;
         border-radius: 5px;
         background-color: #f0f2f6;
