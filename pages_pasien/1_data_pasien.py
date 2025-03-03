@@ -24,29 +24,29 @@ if "lanjut" not in st.session_state:
     
     
 if st.session_state.lanjut == 0:
-    with st.form("form_data_pasien"):
+    with st.form("form_data_pengguna"):
         
         
-        if "data_pasien" not in st.session_state:
-            st.session_state.data_pasien = []
+        if "data_pengguna" not in st.session_state:
+            st.session_state.data_pengguna = []
         
-        st.session_state.data_pasien = db.get_data_pasien(st.session_state.username_pengguna)
+        st.session_state.data_pengguna = db.get_data_pengguna(st.session_state.username_pengguna)
         
         # Mengambil data dari database
-        st.session_state.kode_pasien = st.session_state.data_pasien[0]
-        st.session_state.username_pengguna = st.session_state.data_pasien[1]
-        st.session_state.password_pengguna = st.session_state.data_pasien[2]
-        st.session_state.nama_lengkap = st.session_state.data_pasien[3]
-        st.session_state.jenis_kelamin = st.session_state.data_pasien[4]
-        st.session_state.alamat = st.session_state.data_pasien[5]
-        st.session_state.email = st.session_state.data_pasien[6]
-        st.session_state.pekerjaan = st.session_state.data_pasien[7]
-        st.session_state.tanggal_lahir = st.session_state.data_pasien[8]
+        st.session_state.kode_pengguna = st.session_state.data_pengguna[0]
+        st.session_state.username_pengguna = st.session_state.data_pengguna[1]
+        st.session_state.password_pengguna = st.session_state.data_pengguna[2]
+        st.session_state.nama_lengkap = st.session_state.data_pengguna[3]
+        st.session_state.jenis_kelamin = st.session_state.data_pengguna[4]
+        st.session_state.alamat = st.session_state.data_pengguna[5]
+        st.session_state.email = st.session_state.data_pengguna[6]
+        st.session_state.pekerjaan = st.session_state.data_pengguna[7]
+        st.session_state.tanggal_lahir = st.session_state.data_pengguna[8]
         
         
         
-        st.title("Data Pasien")
-        st.write("Kode Pasien       : " + st.session_state.kode_pasien)
+        st.title("Data pengguna")
+        st.write("Kode pengguna       : " + st.session_state.kode_pengguna)
         st.write("Username          : " + st.session_state.username_pengguna)
         st.write("Password          : " + len(st.session_state.password_pengguna) * "*")
         st.write("Nama Lengkap      : " + st.session_state.nama_lengkap)
@@ -79,8 +79,8 @@ if st.session_state.lanjut == 0:
 
 if st.session_state.lanjut == 2:
     update_data_berhasil = False
-    with st.form("form-update-data-pasien"):
-        st.title("Update Data Pasien")
+    with st.form("form-update-data-pengguna"):
+        st.title("Update Data pengguna")
         st.warning("Apabila ada nilai yang tidak ingin diubah, jangan diganti!")
         username = st.text_input("Masukkan username baru: ", value=st.session_state.username_pengguna)
         password = st.text_input("Masukkan password baru: ", type= "password", value=st.session_state.password_pengguna)
