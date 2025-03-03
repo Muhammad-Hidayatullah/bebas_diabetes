@@ -37,7 +37,7 @@ st.markdown(
     f"""
     <div style="
         width: 150px;
-        padding: 5px;
+        padding: 3px;
         border-radius: 2px;
         background-color: #f0f2f6;
         text-align: center;
