@@ -63,6 +63,7 @@ with col2:
 with col3:
     kartu("User Total", 10)
 
+st.write("")
 st.image("./assets/admin.png", width=300)
 
 st.write("Silahkan pilih menu-menu berikut dan atur sesuai kebutuhan")
