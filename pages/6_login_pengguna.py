@@ -5,9 +5,9 @@ import datetime
 import re
 
 
-def variabel_awal_pasien():
+def variabel_awal_pengguna():
     st.session_state.next = -2
-    st.session_state.kode_pasien = ""
+    st.session_state.kode_pengguna = ""
     st.session_state.nama = ""
     st.session_state.username_pengguna = ""
     st.session_state.password_pengguna = ""
@@ -129,9 +129,9 @@ def variabel_awal_pasien():
 if "logged_in_pengguna" not in st.session_state:
     st.session_state.logged_in_pengguna = False
     st.session_state.username = ""
-    variabel_awal_pasien()
+    variabel_awal_pengguna()
     
-with st.form("login-pasien"):
+with st.form("login-pengguna"):
     if not st.session_state.logged_in_pengguna:
         st.title("Halaman Login Pengguna")
         
@@ -171,7 +171,7 @@ def validasi_email_regex(email):
 def validasi_password(password):
     return len(password) >= 7  # Minimum length of 6 characters
 
-with st.form("registrasi-pasien"):
+with st.form("registrasi-pengguna"):
     if st.session_state.logged_in_pengguna == "Registrasi":
         st.title("Registrasi")
         st.write("Silahkan lakukan registrasi")
@@ -198,11 +198,11 @@ with st.form("registrasi-pasien"):
 
         
         if st.form_submit_button(label="Registrasi"):
-            cek_validasi_data_pasien = db.check_data_registrasi_pasien(st.session_state.username_pengguna, email, password_pengguna, st.session_state.nama, alamat)
+            cek_validasi_data_pengguna = db.check_data_registrasi_pengguna(st.session_state.username_pengguna, email, password_pengguna, st.session_state.nama, alamat)
                 
-            if cek_validasi_data_pasien == True:
+            if cek_validasi_data_pengguna == True:
                 st.success("Data valid.")
-                db.add_pasien(db.menambah_id_pasien_default(), st.session_state.username_pengguna, password_pengguna, st.session_state.nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir)
+                db.add_pengguna(db.menambah_id_pengguna_default(), st.session_state.username_pengguna, password_pengguna, st.session_state.nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir)
                 time.sleep(2)
                 st.session_state.logged_in_pengguna = False
                 st.rerun()
