@@ -987,7 +987,7 @@ def fetch_pemeriksaan_kesehatan():
 
 
 
-def fetch_pemeriksaan_kesehatan_pengguna(id_pemeriksaan):
+def fetch_pemeriksaan_kesehatan_pengguna(id_pengguna):
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
@@ -1000,7 +1000,7 @@ def fetch_pemeriksaan_kesehatan_pengguna(id_pemeriksaan):
     JOIN pemeriksaan_laboratorium ON pemeriksaan_laboratorium.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan
     WHERE pemeriksaan_kesehatan.id_pengguna = %s;
     """
-    cursor.execute(query, (id_pemeriksaan,))
+    cursor.execute(query, (id_pengguna,))
     result = cursor.fetchall()
     conn.close()
     if not result:
