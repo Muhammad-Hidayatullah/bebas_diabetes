@@ -56,12 +56,15 @@ st.title("DASBOR ADMIN")
 
 col1, col2, col3 = st.columns(3)
 jumlah_pengguna = db.get_jumlah_pengguna()
+jumlah_penyakit = db.get_jumlah_penyakit()
+jumlah_gejala = db.get_jumlah_gejala()
+
 with col1:
     kartu("Jumlah User", jumlah_pengguna)
 with col2:
-    kartu("Jumlah Penyakit", 10)
+    kartu("Jumlah Penyakit", jumlah_penyakit)
 with col3:
-    kartu("Jumlah Gejala", 10)
+    kartu("Jumlah Gejala", jumlah_gejala)
 
 st.write("")
 st.image("./assets/admin.png", width=300)
