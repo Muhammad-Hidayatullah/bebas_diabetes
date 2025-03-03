@@ -33,7 +33,7 @@ Mellitus Tipe 2 atau tidak.
 
 st.subheader("3. Pemeriksaan Komplikasi")
 st.write("""
-Di bagian ini, Anda dapat memilih gejala-gejala yang dialami pasien dari daftar yang tersedia. 
+Di bagian ini, Anda dapat memilih gejala-gejala yang Anda dialami dari daftar yang tersedia. 
 Cukup centang gejala yang relevan dan klik tombol "Submit" untuk menyimpan pilihan Anda. Setelah itu Anda 
 akan mendapatkan gejala-gejala yang Anda pilih, komplikasi penyakit, gejala penyakit yang cocok (intersect) dengan 
 yang Anda piilih, gejala penyakitnya secara penuh, dan solusi 
