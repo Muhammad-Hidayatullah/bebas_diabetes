@@ -70,26 +70,26 @@ login_pengguna = st.Page(
 
 
 #Halaman untuk Pasien
-data_pasien = st.Page(
-    page="pages_pasien/1_data_pasien.py",
+data_pengguna = st.Page(
+    page="pages_pengguna/1_data_pengguna.py",
     title="Data Pasien",
     icon=":material/account_circle:",
 )
 
 pemeriksaan_kesehatan = st.Page(
-    page="pages_pasien/2_pemeriksaan_kesehatan.py",
+    page="pages_pengguna/2_pemeriksaan_kesehatan.py",
     title = "Pemeriksaan",
     icon=":material/medical_services:",
 )
 
 riwayat = st.Page(
-    page="pages_pasien/3_riwayat.py",
+    page="pages_pengguna/3_riwayat.py",
     title="Riwayat",
     icon=":material/history:",
 )
 
 log_out = st.Page(
-    page="pages_pasien/4_log_out.py",
+    page="pages_pengguna/4_log_out.py",
     title="Log Out",
     icon=":material/logout:",
 )
@@ -127,8 +127,8 @@ halaman_artikel = st.Page(
     icon=":material/article:",
 )
 
-halaman_pasien = st.Page(
-    page="pages_admin/6_pasien.py",
+halaman_pengguna = st.Page(
+    page="pages_admin/6_pengguna.py",
     title="Pasien",
     icon=":material/patient_list:",
 )
@@ -159,12 +159,12 @@ if st.session_state.masuk_website == None:
     
 if st.session_state.masuk_website == "Admin":
     st.session_state.pg = st.navigation(pages=[home_website_admin, halaman_penyakit, halaman_gejala, halaman_relasi_dan_gejala, 
-                                               halaman_pasien, halaman_laporan, halaman_artikel, halaman_log_out])
+                                               halaman_pengguna, halaman_laporan, halaman_artikel, halaman_log_out])
     st.session_state.pg.run()
     
 
 if st.session_state.masuk_website == "Pengguna":
-    st.session_state.pg = st.navigation(pages=[data_pasien, pemeriksaan_kesehatan, riwayat, log_out])
+    st.session_state.pg = st.navigation(pages=[data_pengguna, pemeriksaan_kesehatan, riwayat, log_out])
     st.session_state.pg.run()
 
 
