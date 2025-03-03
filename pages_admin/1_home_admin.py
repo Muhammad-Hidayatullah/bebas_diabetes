@@ -26,7 +26,8 @@ st.session_state.style_tabel = """
 </style>
 """
 
-st.title("SELAMAT DATANG ADMIN")
+st.title("DASBOR ADMIN")
+st.subtitle("Jumlah Pengguna")
 
 st.image("./assets/admin.png", width=300)
 
