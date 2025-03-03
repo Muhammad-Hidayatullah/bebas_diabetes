@@ -7,8 +7,7 @@ import pandas as pd
 from fpdf import FPDF
 from assets import format_laporan as fl
 
-st.title("PASIEN")
-st.subheader("DATA PASIEN")
+st.title("PENGGUNA")
 df_pasien = db.fetch_pasien()
 df_pasien_html = df_pasien.to_html(index=False, escape=False)
 st.markdown(st.session_state.style_tabel + df_pasien_html, unsafe_allow_html=True)
