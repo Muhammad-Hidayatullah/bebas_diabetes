@@ -12,7 +12,6 @@ st.session_state.style_tabel_aturan = """
     th {
         background-color: #93C572;
         color: white;
-        vertical-align: inherit;
         font-weight: bold;
         text-align: left;
         padding: 20px;
