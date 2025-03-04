@@ -14,7 +14,7 @@ st.session_state.style_tabel_aturan = """
         color: white;
         vertical-align: inherit;
         font-weight: bold;
-        text-align: center;
+        text-align: left;
         padding: 20px;
     }
     
