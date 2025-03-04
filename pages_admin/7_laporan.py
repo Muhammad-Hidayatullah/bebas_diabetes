@@ -49,7 +49,7 @@ if pilihan == "Unduh Hasil":
     if not df_diagnosis_penyakit_tertentu.empty:
         row = df_pengguna_tertentu.iloc[0]
         username = row["Username"]
-        nama_pengguna = row["Nama pengguna"]
+        nama_pengguna = row["Nama Pengguna"]
         jenis_kelamin = row["Jenis Kelamin"]
         alamat = row["Alamat"]
         email = row["Email"]
@@ -97,7 +97,7 @@ if pilihan == "Unduh Hasil":
     row = df_diagnosis_penyakit_tertentu.head(1)
     
     gejala_terpilih = row["Gejala Terpilih"].iloc[0]
-    nama_pengguna_terpilih = row["Nama pengguna"].iloc[0]
+    nama_pengguna_terpilih = row["Nama Pengguna"].iloc[0]
     
 
     diagnosis_penyakit_tertentu = df_diagnosis_penyakit_tertentu.iloc[:, 3:]
