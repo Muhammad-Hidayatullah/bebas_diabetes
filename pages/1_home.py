@@ -10,16 +10,17 @@ st.session_state.style_tabel_aturan = """
         font-size: 12px;
     }
     th {
-        background-color: blue;
+        background-color: green;
         color: white;
         padding: 10px;
-        text-align: centre;
+        text-align: center;
     }
+    
     td {
         background-color: white;
         padding: 10px;
         border: 1px solid #ddd;
-        text-align: left;
+        text-align: center;
     }
     tr:nth-child(even) td {
         background-color: #f9f9f9;
