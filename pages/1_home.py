@@ -12,7 +12,9 @@ st.session_state.style_tabel_aturan = """
     th {
         background-color: green;
         color: white;
-        padding: 10px;
+        display: table-cell;
+        vertical-align: inherit;
+        font-weight: bold;
         text-align: center;
     }
     
@@ -20,7 +22,7 @@ st.session_state.style_tabel_aturan = """
         background-color: white;
         padding: 10px;
         border: 1px solid #ddd;
-        text-align: justify;
+        text-align: left;
     }
     tr:nth-child(even) td {
         background-color: #f9f9f9;
