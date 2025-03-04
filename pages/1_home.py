@@ -20,7 +20,7 @@ st.session_state.style_tabel_aturan = """
         background-color: white;
         padding: 10px;
         border: 1px solid #ddd;
-        text-align: center;
+        text-align: justify;
     }
     tr:nth-child(even) td {
         background-color: #f9f9f9;
