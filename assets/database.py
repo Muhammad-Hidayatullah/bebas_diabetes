@@ -240,7 +240,7 @@ def fetch_relasi_penyakit_dan_gejala_aturan():
     df = pd.read_sql_query(query, conn)
 
     # Membuat format "IF gejala1 AND gejala2 THEN penyakit"
-    return df["Aturan"]
+    return df
 
 
 
