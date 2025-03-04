@@ -35,13 +35,13 @@ st.markdown(st.session_state.style_tabel + df_diagnosis_penyakit_html, unsafe_al
     
 pilihan = st.selectbox("Pilih yang ingin dilakukan", options=["Unduh Hasil", "Hapus Hasil"])
 
-id_pengguna = st.selectbox("Pilih ID pengguna", options=df_pemeriksaan_kesehatan["ID pengguna"].unique(), index=0)
-tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["ID pengguna"] == id_pengguna, "Tanggal Pemeriksaan"], index=0)
+id_pengguna = st.selectbox("Pilih ID Pengguna", options=df_pemeriksaan_kesehatan["ID Pengguna"].unique(), index=0)
+tanggal = st.selectbox("Pilih tanggal", options=df_pemeriksaan_kesehatan.loc[df_pemeriksaan_kesehatan["ID Pengguna"] == id_pengguna, "Tanggal Pemeriksaan"], index=0)
 
-df_pengguna_tertentu = df_pengguna[df_pengguna["ID pengguna"] == id_pengguna]
+df_pengguna_tertentu = df_pengguna[df_pengguna["ID Pengguna"] == id_pengguna]
 
-df_pemeriksaan_kesehatan_pengguna_tertentu = df_pemeriksaan_kesehatan[(df_pemeriksaan_kesehatan["ID pengguna"] == id_pengguna) & (df_pemeriksaan_kesehatan["Tanggal Pemeriksaan"] == tanggal)]
-df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["ID pengguna"] == id_pengguna) & (df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal)]
+df_pemeriksaan_kesehatan_pengguna_tertentu = df_pemeriksaan_kesehatan[(df_pemeriksaan_kesehatan["ID Pengguna"] == id_pengguna) & (df_pemeriksaan_kesehatan["Tanggal Pemeriksaan"] == tanggal)]
+df_diagnosis_penyakit_tertentu = df_diagnosis_penyakit[(df_diagnosis_penyakit["ID Pengguna"] == id_pengguna) & (df_diagnosis_penyakit["Tanggal Diagnosis"] == tanggal)]
 
 
 if pilihan == "Unduh Hasil":
