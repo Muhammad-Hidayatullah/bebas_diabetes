@@ -10,7 +10,7 @@ st.session_state.style_tabel_aturan = """
         font-size: 12px;
     }
     th {
-        background-color: green;
+        background-color: #93C572;
         color: white;
         vertical-align: inherit;
         font-weight: bold;
