@@ -1149,7 +1149,7 @@ def get_diagnosis_penyakit(id_pengguna):
     LEFT JOIN pengguna ON diagnosis_penyakit.id_pengguna = pengguna.id_pengguna
     LEFT JOIN komplikasi_penyakit ON diagnosis_penyakit.id_komplikasi_penyakit = komplikasi_penyakit.id_komplikasi_penyakit
     WHERE diagnosis_penyakit.id_pengguna = %s
-    ORDER BY diagnosis_penyakit.tanggal_diagnosis;
+    ORDER BY diagnosis_penyakit.tanggal_diagnosis DESC;
     """ 
     cursor.execute(query, (id_pengguna,))
     result = cursor.fetchall()
