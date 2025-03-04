@@ -61,11 +61,38 @@ Anda akan mendapatkan nama jenis penyakit, gejala yang cocok, gejala komplikasi 
 
 st.markdown("---")
 
-st.header("Kontak Bantuan")
-st.write("""
-Jika Anda memerlukan bantuan lebih lanjut atau memiliki pertanyaan, silakan hubungi tim dukungan kami di:
-- Email: support@diabetesapp.com
-- Telepon: +62 123 456 7890
-""")
+st.title("Kirim Pesan Anda")
+col1, col2= st.columns(2)
+form_kontak = """
+    <form action="https://formsubmit.co/m.hidayatullah20022002@gmail.com" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="name" required placeholder="Nama anda">
+        <input type="email" name="email" required placeholder="Email anda">
+        <textarea name="message" placeholder="Tulis pesan anda"></textarea>
+        <button type="submit">Kirim</button>
+</form>
+"""
 
-st.write("Terima kasih telah menggunakan aplikasi kami! Semoga aplikasi ini bermanfaat untuk Anda.")
+with col2:
+    st.markdown(
+    """
+        📞 (021)- 0123 4567
+        
+        📧 test@gmail.com
+        
+        🌐 www.example.com
+
+    """
+    )
+
+
+with col1:
+    st.markdown("Silahkan tinggalkan pesan pada kolom yang tersedia")
+    st.markdown(form_kontak, unsafe_allow_html=True)
+
+    def local_css(file_name):
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+            
+    local_css("./style/style.css")
+
