@@ -13,7 +13,7 @@ st.session_state.style_tabel_aturan = """
         background-color: blue;
         color: white;
         padding: 10px;
-        text-align: right;
+        text-align: centre;
     }
     td {
         background-color: white;
