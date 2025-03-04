@@ -231,8 +231,8 @@ def fetch_relasi_penyakit_dan_gejala_aturan():
     conn = connect_to_db()  # Pastikan connect_to_db() mengembalikan koneksi database
     
     query = """ 
-    SELECT kp.nama_penyakit AS penyakit, 
-           GROUP_CONCAT(g.nama_gejala SEPARATOR ' AND ') AS gejala
+    SELECT kp.nama_penyakit AS Penyakit, 
+           GROUP_CONCAT(g.nama_gejala SEPARATOR ' AND ') AS Gejala
     FROM relasi_penyakit_gejala rpg
     JOIN komplikasi_penyakit kp ON rpg.id_komplikasi_penyakit = kp.id_komplikasi_penyakit
     JOIN gejala g ON rpg.id_gejala = g.id_gejala
