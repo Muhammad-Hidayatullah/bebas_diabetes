@@ -83,7 +83,7 @@ st.subheader("Aturan")
 
 relasi_penyakit_dan_gejala_aturan = db.fetch_relasi_penyakit_dan_gejala_aturan()
 
-relasi_penyakit_dan_gejala_aturan_html.to_html(index=False, escape=False)
+relasi_penyakit_dan_gejala_aturan_html = relasi_penyakit_dan_gejala_aturan.to_html(index=False, escape=False)
 
 st.markdown(st.session_state.style_tabel_aturan + relasi_penyakit_dan_gejala_aturan_html, unsafe_allow_html=True)
 
