@@ -10,10 +10,10 @@ st.session_state.style_tabel_aturan = """
         font-size: 12px;
     }
     th {
-        background-color: green;
+        background-color: blue;
         color: white;
         padding: 10px;
-        text-align: center;
+        text-align: right;
     }
     td {
         background-color: white;
