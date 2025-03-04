@@ -1054,8 +1054,9 @@ def fetch_pemeriksaan_kesehatan_pengguna(id_pengguna):
     ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_fisik.id_pemeriksaan
     JOIN pemeriksaan_laboratorium 
     ON pemeriksaan_laboratorium.id_pemeriksaan = pemeriksaan_kesehatan.id_pemeriksaan
-    WHERE pemeriksaan_kesehatan.id_pengguna = "PS002"
+    WHERE pemeriksaan_kesehatan.id_pengguna = %s
     ORDER BY pemeriksaan_kesehatan.tanggal_pemeriksaan DESC;
+    
     """
     cursor.execute(query, (id_pengguna,))
     result = cursor.fetchall()
