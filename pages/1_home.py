@@ -12,10 +12,10 @@ st.session_state.style_tabel_aturan = """
     th {
         background-color: green;
         color: white;
-        display: table-cell;
         vertical-align: inherit;
         font-weight: bold;
         text-align: center;
+        padding: 20px;
     }
     
     td {
