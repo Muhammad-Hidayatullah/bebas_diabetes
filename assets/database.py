@@ -225,23 +225,28 @@ def fetch_relasi_penyakit_dan_gejala_full():
     conn.close()
     return df
 
+import pandas as pd
+
 def fetch_relasi_penyakit_dan_gejala_aturan():
-    conn = connect_to_db()
-    query = 
-    """
+    conn = connect_to_db()  # Pastikan connect_to_db() mengembalikan koneksi database
+    
+    query = """ 
     SELECT kp.nama_penyakit AS penyakit, 
-       GROUP_CONCAT(g.nama_gejala SEPARATOR ' AND ') AS gejala
+           GROUP_CONCAT(g.nama_gejala SEPARATOR ' AND ') AS gejala
     FROM relasi_penyakit_gejala rpg
     JOIN komplikasi_penyakit kp ON rpg.id_komplikasi_penyakit = kp.id_komplikasi_penyakit
     JOIN gejala g ON rpg.id_gejala = g.id_gejala
     GROUP BY kp.nama_penyakit;
     """
-
-    df = pd.read_sql(query, conn)
+    
+    df = pd.read_sql(query, conn)  # Pastikan conn kompatibel dengan Pandas
     conn.close()
 
     # Membuat format "IF gejala1 AND gejala2 THEN penyakit"
-    return df
+    df["aturan"] = "IF " + df["gejala"] + " THEN " + df["penyakit"]
+
+    return df[["aturan"]]
+
 
 
 
