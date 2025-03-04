@@ -243,9 +243,10 @@ def fetch_relasi_penyakit_dan_gejala_aturan():
     conn.close()
 
     # Membuat format "IF gejala1 AND gejala2 THEN penyakit"
-    df["aturan"] = "IF " + df["gejala"] + " THEN " + df["penyakit"]
+    #df["aturan"] = "IF " + df["gejala"] + " THEN " + df["penyakit"]
 
-    return df[["aturan"]]
+    #return df[["aturan"]]
+    return df
 
 
 
