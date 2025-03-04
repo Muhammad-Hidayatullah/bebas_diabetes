@@ -129,7 +129,7 @@ halaman_artikel = st.Page(
 
 halaman_pengguna = st.Page(
     page="pages_admin/6_pengguna.py",
-    title="pengguna",
+    title="Pengguna",
     icon=":material/patient_list:",
 )
 
