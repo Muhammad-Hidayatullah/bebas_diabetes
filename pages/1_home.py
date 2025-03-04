@@ -80,7 +80,7 @@ with col2:
 
 
 
-st.subheader("Aturan")
+st.subheader("Aturan Komplikasi Penyakit")
 
 relasi_penyakit_dan_gejala_aturan = db.fetch_relasi_penyakit_dan_gejala_aturan()
 
