@@ -72,7 +72,7 @@ login_pengguna = st.Page(
 #Halaman untuk pengguna
 data_pengguna = st.Page(
     page="pages_pengguna/1_data_pengguna.py",
-    title="Data pengguna",
+    title="Data Pengguna",
     icon=":material/account_circle:",
 )
 
