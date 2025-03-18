@@ -348,7 +348,7 @@ def buat_laporan():
         pdf.cell(200, 10, txt=f"--", ln=True)
         
     #return pdf.output(dest="S").encode("latin1")
-    return bytes(pdf.output())
+    return bytes(pdf.output(dest='S').encode('latin-1'))
 
 
 
