@@ -4,4 +4,4 @@ pandas
 PyPDF2
 streamlit_pdf_viewer
 reportlab
-cryptography.fernet
+fernet
