@@ -255,6 +255,6 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
     #return pdf.output(dest="S").encode("latin1")
-    return bytes(pdf.output())
+    return bytes(pdf.output(dest='S').encode('latin-1'))
 
 
