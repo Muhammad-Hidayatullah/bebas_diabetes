@@ -1043,13 +1043,13 @@ def check_admin(username, password):
         cursor = connection.cursor()
 
         # SQL query to check user credentials
-        query = "SELECT * FROM admin WHERE username_admin = %s AND password = %s"
-        cursor.execute(query, (username, password))
+        query = "SELECT username_admin, password FROM admin WHERE username_admin = %s"
+        cursor.execute(query, (username,))
 
         # Fetch one result
         result = cursor.fetchone()
         if result:
-            dekripsi = dekripsi_password(result[2])
+            dekripsi = dekripsi_password(result[1])
             if result[0] == username and dekripsi == password:
                 return True # User is found
         else:
