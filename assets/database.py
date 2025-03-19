@@ -1049,7 +1049,8 @@ def check_admin(username, password):
         # Fetch one result
         result = cursor.fetchone()
         if result:
-            if result[0] == username and result[2] == password:
+            dekripsi = dekripsi_password(result[2])
+            if result[0] == username and dekripsi == password:
                 return True # User is found
         else:
             return False  # User not found
