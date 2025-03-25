@@ -938,7 +938,7 @@ if st.session_state.lanjut_pemeriksaan == 6:
             if st.session_state.cek == 2 or st.session_state.tanggal_pemeriksaan != db.get_tanggal_terkini(st.session_state.kode_pengguna):
                 st.session_state.cek = 0
                 st.session_state.lanjut_pemeriksaan = 7
-
+                st.success("Tunggu Sebentar!")
                 id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
                 db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pengguna(st.session_state.username_pengguna), st.session_state.tingkat_gula_darah, st.session_state.tanggal_pemeriksaan)
                 db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah, st.session_state.riwayat_sindrom_ovariaum_polikistik, st.session_state.riwayat_penyakit_kardiovaskular)
