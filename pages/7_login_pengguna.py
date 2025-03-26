@@ -181,7 +181,7 @@ with st.form("registrasi-pengguna"):
         password_pengguna = ""
         password_pengguna = st.text_input("Masukkan password: ", type="password")
         
-        
+        st.session_state.nama = ""
         st.session_state.nama = st.text_input("Nama Lengkap: ", value=st.session_state.nama)
         jenis_kelamin = st.radio("Jenis Kelamin", ("LAKI-LAKI", "PEREMPUAN"), horizontal=True, index=("LAKI-LAKI", "PEREMPUAN").index(st.session_state.jenis_kelamin))
         tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now())
