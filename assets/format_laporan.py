@@ -124,10 +124,10 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
     hasil_laboratorium = [
         
         ["Parameter", "Hasil", "Nilai Normal"],
-        ["HDL : ", str(HDL)+" mg/dL", " >=30 mg/dL"],
-        ["LDL : ", str(LDL)+" mg/dL", " <130 mg/dL"],
-        ["Trigliserida : ", str(trigliserida)+" mg/dL", " <200 mg/dL"],
-        ["Total Kolestrol Darah: ", str(total_kolestrol_darah)+" mg/dL", " <220 mg/dL"],
+        ["HDL : ", str(HDL)+" mg/dL", " >=35 mg/dL"],
+        ["LDL : ", str(LDL)+" mg/dL", " <=130 mg/dL"],
+        ["Trigliserida : ", str(trigliserida)+" mg/dL", " <=250 mg/dL"],
+        ["Total Kolestrol Darah: ", str(total_kolestrol_darah)+" mg/dL", " <240 mg/dL"],
     ]
    
     
