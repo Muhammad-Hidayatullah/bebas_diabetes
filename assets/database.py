@@ -553,7 +553,7 @@ def fetch_pengguna():
     conn = connect_to_db()
     cursor = conn.cursor(dictionary=True)
     query = """
-    SELECT * FROM pengguna;
+    SELECT pengguna.id_pengguna, pengguna.username, pengguna.password, pengguna.nama_pengguna, pengguna.jenis_kelamin, pengguna.alamat, pengguna.email, pengguna.pekerjaan, pengguna.tanggal_lahir FROM pengguna WHERE jenis_pengguna="PENGGUNA";
     """ 
     cursor.execute(query)
     result = cursor.fetchall()
@@ -613,6 +613,7 @@ def hapus_data_pengguna(id_pengguna):
     
     
 def forward_chaining(gejala_gejala):
+    
     conn = connect_to_db()
     cursor = conn.cursor()
     query = "SELECT id_komplikasi_penyakit FROM relasi_penyakit_gejala WHERE id_gejala = %s"
@@ -638,10 +639,10 @@ def menambah_id_pengguna_default():
     if last_id:
         # Ambil nomor dari ID terakhir dan increment 1
         last_number = int(last_id[0][2:])  # Mengambil angka setelah 'A'
-        new_id = f"PS{last_number + 1:03d}"  # Formatkan ID seperti A0001, A0002, dst
+        new_id = f"PS{last_number + 1:08d}"  # Formatkan ID seperti A0001, A0002, dst
     else:
         # Jika tidak ada data sebelumnya, mulai dengan A0001
-        new_id = "PS001"
+        new_id = "PS00000001"
     
     conn.close()
     return new_id
@@ -695,9 +696,9 @@ def menambah_id_pemeriksaan_kesehatan_default():
     
     if last_id:
         last_number = int(last_id[0][1:])
-        new_id = f"K{last_number + 1:04}"
+        new_id = f"K{last_number + 1:09}"
     else:
-        new_id = "K0001"
+        new_id = "K000000001"
     
     conn.close()
     return new_id
@@ -807,22 +808,22 @@ def add_kebiasaan_hidup(id_pemeriksaan, konsumsi_alkohol, kurang_aktivitas, mero
     conn.close()
     
     
-def add_pemeriksaan_fisik(id_pemeriksaan, berat_badan, tinggi_badan, lingkar_perut, indeks_massa_tubuh):
+def add_pemeriksaan_fisik(id_pemeriksaan, berat_badan, tinggi_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah):
     conn = connect_to_db()
     cursor = conn.cursor()
-    query = "INSERT INTO pemeriksaan_fisik(id_pemeriksaan, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh) VALUES (%s, %s, %s, %s, %s);"
-    cursor.execute(query, (id_pemeriksaan, berat_badan, tinggi_badan, lingkar_perut, indeks_massa_tubuh))
+    query = "INSERT INTO pemeriksaan_fisik(id_pemeriksaan, tinggi_badan, berat_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah) VALUES (%s, %s, %s, %s, %s, %s);"
+    cursor.execute(query, (id_pemeriksaan, berat_badan, tinggi_badan, lingkar_perut, indeks_massa_tubuh, tekanan_darah))
     conn.commit()
     conn.close()
 
 def add_pemeriksaan_laboratorium(id_pemeriksaan, gula_darah_sewaktu, gula_darah_puasa, 
-                                 gula_darah_2_jam_setelah_makan, tekanan_darah, HDL, LDL, trigliserida, total_kolestrol):
+                                 gula_darah_2_jam_setelah_makan, HDL, LDL, trigliserida, total_kolestrol):
     conn = connect_to_db()
     cursor = conn.cursor()
     query = """INSERT INTO pemeriksaan_laboratorium(id_pemeriksaan, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, 
-    tekanan_darah, HDL, LDL, trigliserida, total_kolestrol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"""
+    HDL, LDL, trigliserida, total_kolestrol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"""
     cursor.execute(query, (id_pemeriksaan, gula_darah_sewaktu, gula_darah_puasa, gula_darah_2_jam_setelah_makan, 
-                           tekanan_darah, HDL, LDL, trigliserida, total_kolestrol))
+                           HDL, LDL, trigliserida, total_kolestrol))
     conn.commit()
     conn.close()
 
@@ -1043,7 +1044,8 @@ def check_admin(username, password):
         cursor = connection.cursor()
 
         # SQL query to check user credentials
-        query = "SELECT username_admin, password FROM admin WHERE username_admin = %s"
+        query = "SELECT username, password FROM pengguna WHERE username = %s AND jenis_pengguna='ADMIN'"
+
         cursor.execute(query, (username,))
 
         # Fetch one result
@@ -1053,7 +1055,7 @@ def check_admin(username, password):
             if result[0] == username and dekripsi == password:
                 return True # User is found
         else:
-            return False  # User not found
+            return False # User not found
 
     except mysql.connector.Error as err:
         st.error(f"Database error: {err}")  # Show the error
@@ -1217,7 +1219,7 @@ def fetch_pemeriksaan_kesehatan():
      
     
     query = """
-    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pengguna, pengguna.nama_pengguna, pemeriksaan_kesehatan.tingkat_gula_darah, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, pemeriksaan_faktor_permanen.riwayat_sindrom_ovariaum_polikistik, pemeriksaan_faktor_permanen.riwayat_penyakit_kardiovaskular, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.tekanan_darah, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
+    SELECT pemeriksaan_kesehatan.tanggal_pemeriksaan, pemeriksaan_kesehatan.id_pemeriksaan, pemeriksaan_kesehatan.id_pengguna, pengguna.nama_pengguna, pemeriksaan_kesehatan.tingkat_gula_darah, pemeriksaan_faktor_permanen.usia_di_atas_40_tahun, pemeriksaan_faktor_permanen.riwayat_keluarga_diabetes, pemeriksaan_faktor_permanen.riwayat_diabetes_gestasional, pemeriksaan_faktor_permanen.riwayat_lahir_berat_badan_lahir_rendah, pemeriksaan_faktor_permanen.riwayat_sindrom_ovariaum_polikistik, pemeriksaan_faktor_permanen.riwayat_penyakit_kardiovaskular, kebiasaan_hidup.konsumsi_alkohol, kebiasaan_hidup.kurang_aktivitas, kebiasaan_hidup.merokok, kebiasaan_hidup.pola_makan_buruk, kebiasaan_hidup.kurang_tidur, pemeriksaan_fisik.berat_badan, pemeriksaan_fisik.tinggi_badan, pemeriksaan_fisik.lingkar_perut, pemeriksaan_fisik.indeks_massa_tubuh, pemeriksaan_fisik.tekanan_darah, pemeriksaan_laboratorium.gula_darah_sewaktu, pemeriksaan_laboratorium.gula_darah_puasa, pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, pemeriksaan_laboratorium.HDL, pemeriksaan_laboratorium.LDL, pemeriksaan_laboratorium.trigliserida, pemeriksaan_laboratorium.total_kolestrol
     FROM pemeriksaan_kesehatan
     JOIN pemeriksaan_faktor_permanen ON pemeriksaan_kesehatan.id_pemeriksaan = pemeriksaan_faktor_permanen.id_pemeriksaan
     JOIN pengguna ON pemeriksaan_kesehatan.id_pengguna = pengguna.id_pengguna
@@ -1296,11 +1298,11 @@ def fetch_pemeriksaan_kesehatan_pengguna(id_pengguna):
     pemeriksaan_fisik.berat_badan, 
     pemeriksaan_fisik.tinggi_badan, 
     pemeriksaan_fisik.lingkar_perut, 
-    pemeriksaan_fisik.indeks_massa_tubuh, 
+    pemeriksaan_fisik.indeks_massa_tubuh,
+    pemeriksaan_fisik.tekanan_darah, 
     pemeriksaan_laboratorium.gula_darah_sewaktu, 
     pemeriksaan_laboratorium.gula_darah_puasa, 
-    pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan, 
-    pemeriksaan_laboratorium.tekanan_darah, 
+    pemeriksaan_laboratorium.gula_darah_2_jam_setelah_makan,  
     pemeriksaan_laboratorium.HDL, 
     pemeriksaan_laboratorium.LDL, 
     pemeriksaan_laboratorium.trigliserida, 
@@ -1351,10 +1353,10 @@ def fetch_pemeriksaan_kesehatan_pengguna(id_pengguna):
         "berat_badan": "Berat Badan",
         "lingkar_perut": "Lingkar Perut",
         "indeks_massa_tubuh": "Indeks Massa Tubuh",
+        "tekanan_darah": "Tekanan Darah",
         "gula_darah_sewaktu": "Gula Darah Sewaktu",
         "gula_darah_puasa": "Gula Darah Puasa",
         "gula_darah_2_jam_setelah_makan": "Gula Darah 2 Jam Setelah Makan",
-        "tekanan_darah": "Tekanan Darah",
         "HDL": "HDL",
         "LDL": "LDL",
         "trigliserida": "Trigliserida",
