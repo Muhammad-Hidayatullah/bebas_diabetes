@@ -69,20 +69,11 @@ if pilihan_penyakit == "Hapus Penyakit":
             st.session_state.konfirmasi_hapus_penyakit = 2
     
     if st.session_state.konfirmasi_hapus_penyakit == 2:
-        st.success("Berhasil menghapus penyakit!")
         st.session_state.konfirmasi_hapus_penyakit = 0
         db.hapus_komplikasi_penyakit(id_komplikasi_penyakit)
         time.sleep(2)
         st.rerun()
 
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
 st.write("")
 st.write("")
 st.write("")
