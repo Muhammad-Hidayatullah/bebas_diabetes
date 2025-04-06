@@ -204,6 +204,7 @@ def buat_laporan():
         ["Berat Badan: ", str(st.session_state.berat_badan)+" kg", "-"],
         ["Lingkar Perut: ", str(st.session_state.lingkar_perut)+" cm", " Pria <90cm , Wanita <80cm"],
         ["Indeks Massa Tubuh: ", str( st.session_state.indeks_massa_tubuh)+" kg/m2", " <=23 kg/m2"],
+        ["Tekanan Darah: ", str(st.session_state.tekanan_darah)+" mmHg", " <140/90 mmHg"],
     ]
     
     for row in pemeriksaan_fisik:
@@ -214,12 +215,11 @@ def buat_laporan():
     
     pdf.ln()
     pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Hasil Tekanan Darah dan Kolestrol Darah", ln=True)
+    pdf.cell(75, 10, txt="Kolestrol Darah", ln=True)
     pdf.set_font("Arial", size=10)
     hasil_laboratorium = [
         
         ["Parameter", "Hasil", "Nilai Normal"],
-        ["Tekanan Darah: ", str(st.session_state.tekanan_darah)+" mmHg", " <140/90 mmHg"],
         ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >=30 mg/dL"],
         ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <130 mg/dL"],
         ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <200 mg/dL"],
@@ -347,8 +347,8 @@ def buat_laporan():
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt=f"--", ln=True)
         
-    #return pdf.output(dest="S").encode("latin1")
-    return bytes(pdf.output(dest='S').encode('latin-1'))
+    return pdf.output(dest="S").encode("latin1")
+   
 
 
 
@@ -372,7 +372,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
         st.session_state.tinggi_badan = st.number_input("Tinggi Badan (cm): ", min_value=0.0, max_value=999.0, value=st.session_state.tinggi_badan)
         st.session_state.berat_badan = st.number_input("Berat Badan (kg): ", min_value=0.0, max_value=999.0, value=st.session_state.berat_badan)
         st.session_state.lingkar_perut = st.number_input("Lingkar perut (cm): ", min_value=0.0, max_value=240.0, step=None, value=st.session_state.lingkar_perut)
-        
+        st.session_state.tekanan_darah = st.text_input("Tekanan Darah (mmHg): ", value=st.session_state.tekanan_darah)
         
         
         
@@ -380,10 +380,8 @@ if st.session_state.lanjut_pemeriksaan == 1:
         
         st.markdown("---")
         
-        st.subheader("Pemeriksaan Tekanan dan Kolestrol Darah")
+        st.subheader("Kolestrol Darah")
 
-        st.session_state.tekanan_darah = st.text_input("Tekanan Darah (mmHg): ", value=st.session_state.tekanan_darah)
-        
         cek_tekanan_darah = 0
         st.session_state.HDL = st.number_input("HDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.HDL)
         
@@ -585,8 +583,8 @@ if st.session_state.lanjut_pemeriksaan == 2:
                         
                         
                         
-                        db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
-                        db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
+                        db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh, st.session_state.tekanan_darah)
+                        db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
                         db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
                         db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pengguna[0], None, None, None, st.session_state.tanggal_pemeriksaan)
                         fungsi_pemeriksaan.awal_pemeriksaan()
@@ -656,8 +654,8 @@ if st.session_state.lanjut_pemeriksaan == 3:
                 id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
                 db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pengguna(st.session_state.username_pengguna), st.session_state.tingkat_gula_darah, st.session_state.tanggal_pemeriksaan)
                 db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah, st.session_state.riwayat_sindrom_ovariaum_polikistik, st.session_state.riwayat_penyakit_kardiovaskular)
-                db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
-                db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
+                db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh, st.session_state.tekanan_darah)
+                db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
                 db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
                 db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pengguna[0], None, None, None, st.session_state.tanggal_pemeriksaan)
                 fungsi_pemeriksaan.awal_pemeriksaan()
@@ -730,14 +728,14 @@ if st.session_state.lanjut_pemeriksaan == 4:
             
     
         # Faktor Risiko 1 atau 2
-        if (st.session_state.gula_darah_sewaktu >= 200.0 or st.session_state.gula_darah_puasa >= 126.0 or st.session_state.gula_darah_2_jam_setelah_makan >= 200.0) and st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2:
+        if (st.session_state.gula_darah_sewaktu >= 200.0 or st.session_state.gula_darah_puasa >= 126.0 or st.session_state.gula_darah_2_jam_setelah_makan >= 200.0) and (st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2):
             st.error("Gula darah sudah masuk ke dalam level diabetes dan terdapat beberapa faktor risiko. Anda sangat disarankan untuk segera berkonsultasi ke dokter dan menerapkan pola hidup sehat")
             st.session_state.tingkat_gula_darah = "DIABETES"
         
-        elif (st.session_state.gula_darah_sewaktu >= 140.0 and st.session_state.gula_darah_sewaktu < 200.0 or st.session_state.gula_darah_puasa >= 100.0 and st.session_state.gula_darah_puasa < 126.0 or st.session_state.gula_darah_2_jam_setelah_makan >= 140.0 and st.session_state.gula_darah_2_jam_setelah_makan < 200.0) and st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2:
+        elif (st.session_state.gula_darah_sewaktu >= 140.0 and st.session_state.gula_darah_sewaktu < 200.0 or st.session_state.gula_darah_puasa >= 100.0 and st.session_state.gula_darah_puasa < 126.0 or st.session_state.gula_darah_2_jam_setelah_makan >= 140.0 and st.session_state.gula_darah_2_jam_setelah_makan < 200.0) and (st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2):
             st.warning("Gula darah sudah mencapai level prediabetes dan terdapat beberapa faktor risiko. Disarankan untuk segera mengubah pola hidup menjadi lebih sehat")     
             st.session_state.tingkat_gula_darah = "PREDIABETES"
-        elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2:
+        elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and (st.session_state.total_faktor_risiko == 1 or st.session_state.total_faktor_risiko == 2):
             st.warning("Gula darah normal namun terdapat faktor risiko, terapkan pola hidup sehat!")
             st.session_state.tingkat_gula_darah = "NORMAL"
          
@@ -938,12 +936,13 @@ if st.session_state.lanjut_pemeriksaan == 6:
             if st.session_state.cek == 2 or st.session_state.tanggal_pemeriksaan != db.get_tanggal_terkini(st.session_state.kode_pengguna):
                 st.session_state.cek = 0
                 st.session_state.lanjut_pemeriksaan = 7
-                st.success("Tunggu Sebentar!")
+
+                st.success("Tunggu Sebentar, sedang dimasukkan database dan pembuatan laporan!")
                 id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
                 db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pengguna(st.session_state.username_pengguna), st.session_state.tingkat_gula_darah, st.session_state.tanggal_pemeriksaan)
                 db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah, st.session_state.riwayat_sindrom_ovariaum_polikistik, st.session_state.riwayat_penyakit_kardiovaskular)
-                db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh)
-                db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.tekanan_darah, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
+                db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh, st.session_state.tekanan_darah)
+                db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
                 db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
                 
                 
@@ -1000,10 +999,10 @@ if st.session_state.lanjut_pemeriksaan == 7:
     st.write("Berat Badan: " + str(st.session_state.berat_badan) + " kg")
     st.write("Lingkar Perut: " + str(st.session_state.lingkar_perut) + " cm")
     st.write("Indeks Massa Tubuh: " + str(st.session_state.indeks_massa_tubuh) + " kg/m²")
+    st.write("Tekanan Darah: " + str(st.session_state.tekanan_darah) + " mmHg")
 
     # Display "Hasil Tekanan Darah dan Kolesterol Darah"
-    st.subheader("Hasil Tekanan Darah dan Kolesterol Darah")
-    st.write("Tekanan Darah: " + str(st.session_state.tekanan_darah) + " mmHg")
+    st.subheader("Kolesterol Darah")
     st.write("HDL: " + str(st.session_state.HDL) + " mg/dL")
     st.write("LDL: " + str(st.session_state.LDL) + " mg/dL")
     st.write("Trigliserida: " + str(st.session_state.trigliserida) + " mg/dL")
