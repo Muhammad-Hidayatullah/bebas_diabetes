@@ -48,6 +48,7 @@ if pilihan_relasi == "Update Relasi":
     
     if st.button("Update Relasi"):
         db.update_relasi_penyakit_dan_gejala(id_komplikasi_penyakit, id_gejala, id_gejala_baru)
+        st.success("Update relasi berhasil!")
         time.sleep(2)
         st.rerun()
 
