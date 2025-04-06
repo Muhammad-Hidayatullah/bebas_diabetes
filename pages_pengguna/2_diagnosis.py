@@ -461,18 +461,12 @@ if st.session_state.lanjut_pemeriksaan == 1:
                 st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
                 
                 disiplidemia = "Disiplidemia: "
-
                 if st.session_state.total_kolestrol_darah > 0:
                     st.session_state.total_kolestrol = st.session_state.total_kolestrol_darah
-                    st.session_state.total_kolestrol_darah = 0
-                    if st.session_state.total_kolestrol > 220:
-                        disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " +str(st.session_state.total_kolestrol) + " mg/dL dengan rumus Total Kolestrol = HDL + LDL + Trigliserida/5, "
+                   
+
                 if st.session_state.total_kolestrol > 220:
                     disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL "
-                    
-                
-            
-            #Jika mengalami disiplidemia dengan HDL <= 35 dan/atau LDL >= 100 dan/atau trigliserida ≥  200.0
                 
                 
                 if st.session_state.HDL < 30.0 and st.session_state.total_kolestrol_darah > 0.0:
