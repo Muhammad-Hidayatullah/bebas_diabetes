@@ -468,7 +468,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
                     st.session_state.total_kolestrol = st.session_state.total_kolestrol_darah
                     disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " +str(st.session_state.total_kolestrol) + " mg/dL dengan rumus Total Kolestrol = HDL + LDL + Trigliserida/5, "
                 if st.session_state.total_kolestrol > 220:
-                    disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL"
+                    disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL "
                     
                 
             
