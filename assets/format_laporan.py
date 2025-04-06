@@ -108,6 +108,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
         ["Berat Badan: ", str(berat_badan)+" kg", "-"],
         ["Lingkar Perut: ", str(lingkar_perut)+" cm", " Pria <90cm , Wanita <80cm"],
         ["Indeks Massa Tubuh: ", str(indeks_massa_tubuh)+" kg/m2", " <=23 kg/m2"],
+        ["Tekanan Darah: ", str(tekanan_darah)+ " mmHg", " <140/90 mmHg"],
     ]
     
     for row in pemeriksaan_fisik:
@@ -118,12 +119,11 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
     
     pdf.ln()
     pdf.set_font("Arial", size=13, style="B")
-    pdf.cell(75, 10, txt="Hasil Tekanan Darah dan Kolestrol Darah", ln=True)
+    pdf.cell(75, 10, txt="Kolestrol Darah", ln=True)
     pdf.set_font("Arial", size=10)
     hasil_laboratorium = [
         
         ["Parameter", "Hasil", "Nilai Normal"],
-        ["Tekanan Darah: ", str(tekanan_darah)+ " mmHg", " <140/90 mmHg"],
         ["HDL : ", str(HDL)+" mg/dL", " >=30 mg/dL"],
         ["LDL : ", str(LDL)+" mg/dL", " <130 mg/dL"],
         ["Trigliserida : ", str(trigliserida)+" mg/dL", " <200 mg/dL"],
@@ -254,7 +254,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt="Tidak ada penyakit yang cocok", ln=True)
     
-    #return pdf.output(dest="S").encode("latin1")
-    return bytes(pdf.output(dest='S').encode('latin-1'))
+    return pdf.output(dest="S").encode("latin1")
+    
 
 
