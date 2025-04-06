@@ -66,7 +66,6 @@ if pilihan_relasi == "Hapus Relasi":
         if st.button("Ya"):
             st.session_state.hapus_relasi = 2
     if st.session_state.hapus_relasi == 2:
-        st.success("Berhapus menghapus relasi penyakit dan gejala")
         st.session_state.hapus_relasi = 0
         db.hapus_relasi_penyakit_dan_gejala(id_komplikasi_penyakit, id_gejala)
         time.sleep(2)
