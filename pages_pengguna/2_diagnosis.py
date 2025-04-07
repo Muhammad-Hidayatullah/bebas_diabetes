@@ -291,7 +291,7 @@ def buat_laporan():
             pdf.cell(200, 10, txt=f"{penyakit} : {kecocokan:.2f}%", ln=True)
             
             pdf.set_font("Arial", size=10)
-            pdf.cell(200, 10, txt=f"{db.get_penjelasan_penyakit(penyakit)}", ln=True)
+            pdf.multi_cell(200, 10, txt=f"{db.get_penjelasan_penyakit(penyakit)}", ln=True)
 
             pdf.ln(5)
             if pdf.get_y() > 220:
