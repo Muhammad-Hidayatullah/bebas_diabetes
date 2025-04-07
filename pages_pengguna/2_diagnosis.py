@@ -265,7 +265,7 @@ def buat_laporan():
     
     if st.session_state.gejala_terpilih:
         for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
-            pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
+            pdf.multi_cell(200, 10, txt=f"{i}. {gejala}", ln=True)
         if i >= 18 and i <= 24:
             pdf.ln(120)
         
@@ -315,7 +315,7 @@ def buat_laporan():
             
             pisah_gejala_penyakit = gejala_penyakit.split("; ")
             for i, gejala_penyakit in enumerate(pisah_gejala_penyakit, start=1):
-                pdf.cell(200, 10, txt=f"{i}. {gejala_penyakit}", ln=True)
+                pdf.multi_cell(0, 10, txt=f"{i}. {gejala_penyakit}")
             
             
             pdf.ln(5)
