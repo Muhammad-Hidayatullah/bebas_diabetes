@@ -171,7 +171,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
     if gejala_terpilih is not None:
         #daftar_gejala_terpilih = gejala_terpilih.split("; ")
         for i, gejala in enumerate(gejala_terpilih, start=1):
-            pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
+            pdf.multi_cell(0, 10, txt=f"{i}. {gejala}")
         if i >= 18 and i <= 24:
             pdf.ln(120)
         
@@ -194,7 +194,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
                 pdf.set_font("Arial", size=10, style="B")
                 pdf.cell(200, 10, txt=f"{row['Nama Penyakit']} : {row['Persentase Kecocokan']:.2f}%", ln=True)
                 pdf.set_font("Arial", size=10)
-                pdf.multi_cell(200, 10, txt=f"{db.get_penjelasan_penyakit(row['Nama Penyakit'])}", ln=True)
+                pdf.multi_cell(0, 10, txt=f"{db.get_penjelasan_penyakit(row['Nama Penyakit'])}")
             
             if pdf.get_y() > 220:
                 pdf.ln(200)
@@ -209,7 +209,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
                 daftar_gejala = daftar_gejala.split("; ")
             
                 for i, gejala_cocok in enumerate(daftar_gejala, start=1):
-                    pdf.cell(200, 10, txt=f"{i}. {gejala_cocok}", ln=True)
+                    pdf.multi_cell(0, 10, txt=f"{i}. {gejala_cocok}")
                 
             pdf.ln(5)
             if pdf.get_y() > 220:
@@ -226,14 +226,14 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
                     gejala_penyakit = relasi_penyakit_dan_gejala[row['Nama Penyakit']]
                     
                     for i, gejala in enumerate(gejala_penyakit, start=1):
-                        pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
+                        pdf.multi_cell(0, 10, txt=f"{i}. {gejala}")
         
                 #Solusi
                 pdf.ln(5)
                 if pdf.get_y() > 220:
                     pdf.ln(200)
                 pdf.set_font("Arial", size=10, style="B")
-                pdf.cell(200, 10, txt=f"Solusi Penyakit", ln=True)
+                pdf.multi_cell(0, 10, txt=f"Solusi Penyakit")
                 pdf.set_font("Arial", size=10)
                 
                 solusi_penyakit = db.get_solusi_penyakit(row['Nama Penyakit'])
@@ -244,7 +244,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
 
                 # Loop untuk menampilkan dengan nomor urut
                 for i, frasa in enumerate(daftar_solusi, start=1):
-                    pdf.cell(200, 10, txt=f"{i}. {frasa}", ln=True)
+                    pdf.multi_cell(0, 10, txt=f"{i}. {frasa}")
                 pdf.ln(10)
                 if pdf.get_y() > 220:
                     pdf.ln(200)
