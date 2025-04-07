@@ -304,7 +304,7 @@ def buat_laporan():
             
             for i, gejala in enumerate(pisah_gejala_cocok, start=1):
                 
-                pdf.cell(200, 10, txt=f"{i}. {gejala}", ln=True)
+                pdf.multi_cell(0, 10, txt=f"{i}. {gejala}")
             
             pdf.ln(5)
             if pdf.get_y() > 220:
@@ -337,7 +337,7 @@ def buat_laporan():
             
             # Loop untuk menampilkan dengan nomor urut
             for i, frasa in enumerate(daftar_solusi, start=1):
-                pdf.cell(200, 10, txt=f"{i}. {frasa}", ln=True)
+                pdf.multi_cell(0, 10, txt=f"{i}. {frasa}")
                
             pdf.ln(10)
             if pdf.get_y() > 220:
