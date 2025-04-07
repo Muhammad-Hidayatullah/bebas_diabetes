@@ -194,7 +194,7 @@ def buat_laporan_riwayat(kode_pengguna, nama_lengkap, username_pengguna, tanggal
                 pdf.set_font("Arial", size=10, style="B")
                 pdf.cell(200, 10, txt=f"{row['Nama Penyakit']} : {row['Persentase Kecocokan']:.2f}%", ln=True)
                 pdf.set_font("Arial", size=10)
-                pdf.cell(200, 10, txt=f"{db.get_penjelasan_penyakit(row['Nama Penyakit'])}", ln=True)
+                pdf.multi_cell(200, 10, txt=f"{db.get_penjelasan_penyakit(row['Nama Penyakit'])}", ln=True)
             
             if pdf.get_y() > 220:
                 pdf.ln(200)
