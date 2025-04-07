@@ -265,7 +265,7 @@ def buat_laporan():
     
     if st.session_state.gejala_terpilih:
         for i, gejala in enumerate(st.session_state.gejala_terpilih, start=1):
-            pdf.multi_cell(200, 10, txt=f"{i}. {gejala}", ln=True)
+            pdf.multi_cell(200, 10, txt=f"{i}. {gejala}")
         if i >= 18 and i <= 24:
             pdf.ln(120)
         
