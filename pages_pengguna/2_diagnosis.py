@@ -446,17 +446,6 @@ if st.session_state.lanjut_pemeriksaan == 1:
                         
                 
                 
-                if st.session_state.HDL is None:
-                    st.session_state.HDL = 0.0
-                if st.session_state.LDL is None:
-                    st.session_state.LDL = 0.0
-        
-                if st.session_state.trigliserida is None:
-                    st.session_state.trigliserida = 0.0
-                
-                if st.session_state.total_kolestrol is None:
-                    st.session_state.total_kolestrol = 0.0
-                
                 st.session_state.total_kolestrol_darah = st.session_state.HDL + st.session_state.LDL + (st.session_state.trigliserida/5.0)
         
             
@@ -520,6 +509,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
     
     
 if st.session_state.lanjut_pemeriksaan == 2:
+    st.write(st.session_state.total_kolestrol)
     st.session_state.daftar_faktor_risiko = []
     
     if st.session_state.daftar_faktor_risiko_1:
