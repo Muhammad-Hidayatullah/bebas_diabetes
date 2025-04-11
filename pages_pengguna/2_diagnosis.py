@@ -392,7 +392,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
 
         col1, col2, col3 = st.columns(3)
 
-        with col1:
+        with col3:
             if st.form_submit_button("Lanjut"):
                 if st.session_state.konsumsi_alkohol == "YA":
                     st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
@@ -503,7 +503,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
                 if cek_tekanan_darah == 0:
                     st.session_state.lanjut_pemeriksaan = 2
                     st.rerun()
-        with col3:
+        with col1:
             if st.form_submit_button("Kembali"):  
                 st.session_state.lanjut_pemeriksaan = 0
                 st.rerun()
