@@ -508,7 +508,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
         
     
 if st.session_state.lanjut_pemeriksaan == 2:
-    st.write(st.session_state.total_kolestrol)
+    
     st.session_state.daftar_faktor_risiko = []
     
     if st.session_state.daftar_faktor_risiko_1:
