@@ -544,7 +544,7 @@ if st.session_state.lanjut_pemeriksaan == 2:
             if st.form_submit_button("Kembali"):
                 st.session_state.lanjut_pemeriksaan = 1
                 st.session_state.daftar_faktor_risiko = []
-                st.session_state.total_kolestrol_darah = 0
+               
                 st.rerun()
       
             
