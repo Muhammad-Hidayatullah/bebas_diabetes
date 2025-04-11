@@ -549,46 +549,14 @@ if st.session_state.lanjut_pemeriksaan == 2:
                 st.session_state.lanjut_pemeriksaan = 1
                 st.session_state.daftar_faktor_risiko = []
                 st.rerun()
-        with col2:
-            if st.session_state.total_faktor_risiko == 0:
-                if st.form_submit_button("Selesai"):
-                    if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pengguna):
-                        kembali = 1
-                    else:
-                        db.hapus_pemeriksaan_kesehatan_dan_diagnosis(st.session_state.tanggal_pemeriksaan)
-                        st.session_state.berat_badan = 0.0
-                        st.session_state.tinggi_badan = 0.0
-                        st.session_state.lingkar_perut = 0.0
-                        
-                        st.session_state.gula_darah_sewaktu = 0.0
-                        st.session_state.gula_darah_puasa = 0.0
-                        st.session_state.gula_darah_2_jam_setelah_makan = 0.0
-                    
-                        st.session_state.HDL = 0.0
-                        st.session_state.LDL = 0.0
-                        st.session_state.trigliserida = 0.0
-                        st.session_state.total_kolestrol = 0.0
-                        st.session_state.total_kolestrol_darah = 0.0
-                        
-                        kembali = 1
-                        
-                        id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
-                        db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pengguna(st.session_state.username_pengguna), st.session_state.tingkat_gula_darah, st.session_state.tanggal_pemeriksaan)
-                        db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah, st.session_state.riwayat_sindrom_ovariaum_polikistik, st.session_state.riwayat_penyakit_kardiovaskular)
-                        
-                        
-                        
-                        db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh, st.session_state.tekanan_darah)
-                        db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
-                        db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
-                        db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pengguna[0], None, None, None, st.session_state.tanggal_pemeriksaan)
-                        fungsi_pemeriksaan.awal_pemeriksaan()
+      
+            
                     
             
-            with col3:
-                if st.form_submit_button("Lanjut Cek Gula Darah"):
-                    st.session_state.lanjut_pemeriksaan = 3
-                    st.rerun()
+        with col3:
+            if st.form_submit_button("Lanjut"):
+                st.session_state.lanjut_pemeriksaan = 3
+                st.rerun()
                 
         if kembali == 1:
             st.success("Kembali ke menu awal")
