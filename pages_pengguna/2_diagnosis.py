@@ -476,8 +476,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
                     st.session_state.daftar_faktor_risiko_2.append(disiplidemia)
                 
                 
-                
-    
+
                 
                 if cek_validasi_tekanan_darah(st.session_state.tekanan_darah) == False or st.session_state.tekanan_darah == "":
                     cek_tekanan_darah = 1
@@ -497,10 +496,10 @@ if st.session_state.lanjut_pemeriksaan == 1:
                 if cek_tekanan_darah == 0:
                     st.session_state.lanjut_pemeriksaan = 2
                     st.rerun()
-    
-            if st.form_submit_button("Kembali"):  
-                st.session_state.lanjut_pemeriksaan = 0
-                st.rerun()
+            with col1:
+                if st.form_submit_button("Kembali"):  
+                    st.session_state.lanjut_pemeriksaan = 0
+                    st.rerun()
     
         if cek_tekanan_darah == 1:
             st.error("Tekanan Darah Anda Salah! Buat dengan format : 120/80")
