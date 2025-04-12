@@ -460,7 +460,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
                        
     
                     if st.session_state.total_kolestrol >= 200:
-                        disiplidemia = disiplidemia + "Total Kolestrol Tinggi (>240) sebesar " + str(st.session_state.total_kolestrol) + " mg/dL "
+                        disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL "
                     
                 
     
