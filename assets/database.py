@@ -499,7 +499,8 @@ def fetch_artikel():
         "judul_artikel" : "Judul Artikel",
         "nama_penulis" : "Nama Penulis",
         "tanggal_artikel" : "Tanggal Artikel",
-        "link_artikel" : "Link Artikel"
+        "link_artikel" : "Link Artikel",
+        "id_pengguna" : "ID Pengguna"
     }
 
     # Rename columns
