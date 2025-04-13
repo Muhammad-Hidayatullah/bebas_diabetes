@@ -65,7 +65,7 @@ if pilihan_artikel == "Hapus Artikel":
         st.session_state.konfirmasi_hapus_artikel = 1
     
     if st.session_state.konfirmasi_hapus_artikel == 1:
-        st.warning("Apakah Anda yakin ingin menghapus? Semua terkait pengguna tersebut akan terhapus!")
+        st.warning("Apakah Anda yakin ingin menghapus artikel tersebut?")
         if st.button("Ya"):
             st.session_state.konfirmasi_hapus_artikel = 2
     if st.session_state.konfirmasi_hapus_artikel == 2:
