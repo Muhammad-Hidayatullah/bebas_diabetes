@@ -1,6 +1,6 @@
 import streamlit as st
 from assets import database as db
-
+st.write("Hello")
 st.session_state.style_tabel_aturan = """
 <style>
     table {
