@@ -21,7 +21,7 @@ if pilihan_artikel == "Tambah Artikel":
     tanggal_artikel = st.date_input("Masukkan tanggal artikel dibuat: ")
     link_artikel = st.text_input("Masukkan link artikel di sini: ")
     if st.button("Tambah Artikel"):
-        db.add_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel)
+        db.add_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, db.get_id_pengguna_milik_admin(st.session_state.username))
         st.success("Artikel Berhasil Ditambahkan")
         time.sleep(2)
         st.rerun()
