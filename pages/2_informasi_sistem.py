@@ -170,3 +170,17 @@ relasi_penyakit_dan_gejala_aturan = db.fetch_relasi_penyakit_dan_gejala_aturan()
 relasi_penyakit_dan_gejala_aturan_html = relasi_penyakit_dan_gejala_aturan.to_html(index=False, escape=False)
 
 st.markdown(st.session_state.style_tabel_aturan + relasi_penyakit_dan_gejala_aturan_html, unsafe_allow_html=True)
+
+st.write("")
+st.markdown(
+  """
+      **Sumber referensi:**
+      
+      [1] https://www.alodokter.com/diabetes-tipe-2
+      
+      [2] https://ayosehat.kemkes.go.id/topik-penyakit/diabetes--penyakit-ginjal/diabetes-melitus-tipe-2
+      
+      [3] https://www.nhs.uk/conditions/type-2-diabetes/
+      
+  """
+)
