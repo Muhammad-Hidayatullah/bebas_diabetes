@@ -2,6 +2,33 @@ import streamlit as st
 
 import pandas as pd
 from assets import database as db
+st.session_state.style_tabel_aturan = """
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+    th {
+        background-color: #93C572;
+        color: white;
+        font-weight: bold;
+        text-align: left;
+        padding: 20px;
+    }
+    
+    td {
+        background-color: white;
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+    tr:nth-child(even) td {
+        background-color: #f9f9f9;
+    }
+</style>
+"""
 st.title("Informasi Sistem")
 
 
@@ -58,6 +85,7 @@ data_faktor_risiko = {
 }
 
 
+
 df_faktor_risiko = pd.DataFrame(data_faktor_risiko)
 
 st.subheader("Deskripsi Sistem")
@@ -71,10 +99,70 @@ st.write("""
          """)
 
 
+st.subheader("Pengertian Diabetes Mellitus Tipe 2")
+text = """
+  <div style="text-align: justify;">
+    Diabetes tipe 2 adalah penyakit yang membuat kadar gula darah meningkat akibat kelainan 
+    pada kemampuan tubuh untuk menggunakan hormon insulin. Diabetes tipe 2 merupakan jenis diabetes yang paling sering terjadi. 
+    Insulin adalah hormon yang membantu gula darah (glukosa) masuk ke dalam sel tubuh 
+    untuk diubah menjadi energi. Hormon ini diproduksi oleh pankreas ketika seseorang makan. 
+    Pada diabetes tipe 2, tingginya kadar gula darah terjadi akibat resistensi insulin, 
+    yaitu kondisi sel ketika tubuh tidak dapat menggunakan hormon insulin dengan baik. 
+    
+    
+  </div>
+"""
+
+st.markdown(text, unsafe_allow_html=True)
+st.write("")
+
 df_faktor_risiko_html = df_faktor_risiko.to_html(index=False, escape=False)
 st.subheader("Faktor-Faktor Risiko")
 st.markdown(st.session_state.style_tabel_aturan + df_faktor_risiko_html, unsafe_allow_html=True)
-st.write("")
+
+
+data_pemeriksaan_gula_darah= {
+    "Jenis Pemeriksaan": [
+        "Gula Darah Sewaktu (GDS)",
+        "Gula Darah Sewaktu (GDS)",
+        "Gula Darah Sewaktu (GDS)",
+        "Gula Darah Puasa (GDP)",
+        "Gula Darah Puasa (GDP)",
+        "Gula Darah Puasa (GDP)",
+        "Gula Darah 2 Jam Setelah Makan (GD2PP)",
+        "Gula Darah 2 Jam Setelah Makan (GD2PP)",
+        "Gula Darah 2 Jam Setelah Makan (GD2PP)"
+    ],
+    "Kategori": [
+        "Normal",
+        "Prediabetes",
+        "Diabetes",
+        "Normal",
+        "Prediabetes",
+        "Diabetes",
+        "Normal",
+        "Prediabetes",
+        "Diabetes"
+    ],
+    "Kadar Gula Darah (mg/dL)": [
+        "70 - 139",
+        "140 - 199",
+        "≥ 200",
+        "70 - 99",
+        "100 - 125",
+        "≥ 126",
+        "70 - 139",
+        "140 - 199",
+        "≥ 200"
+    ]
+}
+
+df_pemeriksaan_gula = pd.DataFrame(data_pemeriksaan_gula_darah)
+df_pemeriksaan_gula_html = df_pemeriksaan_gula.to_html(index=False, escape=False)
+st.subheader("Pemeriksaan Gula Darah")
+st.markdown(st.session_state.style_tabel_aturan + df_pemeriksaan_gula_html, unsafe_allow_html=True)
+
+
 st.subheader("Aturan Komplikasi Penyakit")
 
 relasi_penyakit_dan_gejala_aturan = db.fetch_relasi_penyakit_dan_gejala_aturan()
