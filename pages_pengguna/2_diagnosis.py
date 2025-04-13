@@ -472,7 +472,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
             
        
             
-                if st.session_state.total_kolestrol_darah >= 200.0 or st.session_state.total_kolestrol >= 200.0 or (st.session_state.HDL != 0.0 and st.session_state.HDL < 50.0 or st.session_state.LDL > 100.0 or st.session_state.trigliserida > 150.0):
+                if st.session_state.total_kolestrol_darah >= 200.0 or st.session_state.total_kolestrol >= 200.0 or ((st.session_state.HDL != 0.0 and st.session_state.HDL < 50.0) or st.session_state.LDL > 100.0 or st.session_state.trigliserida > 150.0):
                     st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
                     
                     disiplidemia = "Disiplidemia: "
@@ -486,7 +486,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
     
                     
                     
-                    if st.session_state.HDL != 0.0 and st.session_state.HDL < 50.0:
+                    if (st.session_state.HDL != 0.00 and st.session_state.HDL < 50.0):
                         disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL "
                     if st.session_state.LDL > 100.0:
                         disiplidemia = disiplidemia + "LDL = " + str(st.session_state.LDL) + " mg/dL "
