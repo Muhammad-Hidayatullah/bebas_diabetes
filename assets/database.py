@@ -523,9 +523,9 @@ def update_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tangg
     conn = connect_to_db()
     cursor = conn.cursor()
     
-    query = "UPDATE artikel SET nama_website = %s, link_gambar = %s, judul_artikel = %s, nama_penulis = %s, tanggal_artikel = %s, link_artikel = %s WHERE id_artikel= %s"
+    query = "UPDATE artikel SET nama_website = %s, link_gambar = %s, judul_artikel = %s, nama_penulis = %s, tanggal_artikel = %s, link_artikel = %s, id_pengguna = %s WHERE id_artikel= %s"
 
-    cursor.execute(query, (nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_artikel))
+    cursor.execute(query, (nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_pengguna, id_artikel))
     conn.commit()
     st.success("Artikel Berhasil Diupdate")
     conn.close()
