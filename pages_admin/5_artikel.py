@@ -49,7 +49,7 @@ if pilihan_artikel == "Update Artikel":
     link_artikel = st.text_input("Masukkan link artikel baru: ", link_artikel_default)
     
     if st.button("Update Artikel"):
-        db.update_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_artikel)
+        db.update_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, db.get_id_pengguna_milik_admin(st.session_state.username), id_artikel)
         st.success("Berhasil Update Artikel!")
         time.sleep(2)
         st.rerun()
