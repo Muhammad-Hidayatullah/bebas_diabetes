@@ -42,38 +42,30 @@ informasi_sistem = st.Page(
     icon = ":material/wysiwyg:",
 )
 
-informasi_diabetes_tipe_2 = st.Page(
-    page="pages/3_diabetes_tipe_2.py",
-    title="Diabetes Tipe 2",
-    icon=":material/glucose:",
+
+artikel = st.Page(
+    page="pages/3_artikel.py",
+    title="Artikel",
+    icon=":material/library_books:",
 )
 
+bantuan = st.Page(
+    page="pages/4_bantuan.py",
+    title="Bantuan",
+    icon=":material/help:",
+)
 
+login_pengguna = st.Page(
+    page="pages/5_login_pengguna.py",
+    title = "Login Pengguna",
+    icon = ":material/login:",
+)
 
 admin = st.Page(
     page="pages/6_login_admin.py",
     title="Login Admin",
     icon=":material/diagnosis:",
 )
-
-artikel = st.Page(
-    page="pages/4_artikel.py",
-    title="Artikel",
-    icon=":material/library_books:",
-)
-
-bantuan = st.Page(
-    page="pages/5_bantuan.py",
-    title="Bantuan",
-    icon=":material/help:",
-)
-
-login_pengguna = st.Page(
-    page="pages/7_login_pengguna.py",
-    title = "Login Pengguna",
-    icon = ":material/login:",
-)
-
 
 #Halaman untuk pengguna
 data_pengguna = st.Page(
