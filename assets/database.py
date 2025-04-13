@@ -1066,7 +1066,33 @@ def check_admin(username, password):
             cursor.close()
         if connection:
             connection.close()
-            
+
+def get_id_pengguna_milik_admin(username):
+    try:
+        connection = connect_to_db()
+        cursor = connection.cursor()
+
+        # SQL query to check user credentials
+        query = "SELECT id_pengguna FROM pengguna WHERE username = %s AND jenis_pengguna='ADMIN'"
+
+        cursor.execute(query, (username,))
+
+        # Fetch one result
+        result = cursor.fetchone()
+        if result:
+            return result[0] # User is found
+        else:
+            return False # User not found
+
+    except mysql.connector.Error as err:
+        st.error(f"Database error: {err}")  # Show the error
+        return False  # Indicate failure
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
 
 def check_pengguna(username, password):
     try:
