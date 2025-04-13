@@ -486,7 +486,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
     
                     
                     
-                    if st.session_state.HDL < 50.0 and st.session_state.total_kolestrol_darah > 0.0:
+                    if st.session_state.HDL != 0.0 and st.session_state.HDL < 50.0:
                         disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL "
                     if st.session_state.LDL > 100.0:
                         disiplidemia = disiplidemia + "LDL = " + str(st.session_state.LDL) + " mg/dL "
