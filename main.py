@@ -158,7 +158,7 @@ if "masuk_website" not in st.session_state:
     st.session_state.masuk_website = None
 
 if st.session_state.masuk_website == None:
-    st.session_state.pg = st.navigation(pages=[home_website, informasi_sistem, informasi_diabetes_tipe_2, 
+    st.session_state.pg = st.navigation(pages=[home_website, informasi_sistem,
                                                artikel, bantuan, login_pengguna, admin])
     
     
