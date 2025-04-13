@@ -448,7 +448,9 @@ if st.session_state.lanjut_pemeriksaan == 1:
                 
                 
                 
-        
+                
+
+                
                 if cek_validasi_tekanan_darah(st.session_state.tekanan_darah) == False or st.session_state.tekanan_darah == "":
                     cek_tekanan_darah = 1
                     
@@ -464,15 +466,11 @@ if st.session_state.lanjut_pemeriksaan == 1:
                         hipertensi = "Hipertensi: " + st.session_state.tekanan_darah + " mmHg"
                         st.session_state.daftar_faktor_risiko_2.append(hipertensi)
                 
-                if cek_tekanan_darah == 0:
-                    st.session_state.lanjut_pemeriksaan = 2
-                    st.rerun()
-
                 st.session_state.total_kolestrol_darah = st.session_state.HDL + st.session_state.LDL + (st.session_state.trigliserida/5.0)
                 if st.session_state.total_kolestrol_darah > 0:
                     st.session_state.total_kolestrol = st.session_state.total_kolestrol_darah
             
-     
+       
             
                 if st.session_state.total_kolestrol_darah >= 200.0 or st.session_state.total_kolestrol >= 200.0 or (st.session_state.HDL != 0.0 and st.session_state.HDL < 50.0 or st.session_state.LDL > 100.0 or st.session_state.trigliserida > 150.0):
                     st.session_state.faktor_risiko_2 = st.session_state.faktor_risiko_2 + 1
@@ -484,6 +482,10 @@ if st.session_state.lanjut_pemeriksaan == 1:
                     if st.session_state.total_kolestrol >= 200:
                         disiplidemia = disiplidemia + "Total Kolestrol Tinggi sebesar " + str(st.session_state.total_kolestrol) + " mg/dL "
                     
+                
+    
+                    
+                    
                     if st.session_state.HDL < 50.0 and st.session_state.total_kolestrol_darah > 0.0:
                         disiplidemia = disiplidemia + "HDL = " + str(st.session_state.HDL) + " mg/dL "
                     if st.session_state.LDL > 100.0:
@@ -492,6 +494,12 @@ if st.session_state.lanjut_pemeriksaan == 1:
                         disiplidemia = disiplidemia + "Trigliserida = " + str(st.session_state.trigliserida) + " mg/dL "
                     
                     st.session_state.daftar_faktor_risiko_2.append(disiplidemia)
+                
+                
+                
+                if cek_tekanan_darah == 0:
+                    st.session_state.lanjut_pemeriksaan = 2
+                    st.rerun()
             with col1:
                 if st.form_submit_button("Kembali"):  
                     st.session_state.lanjut_pemeriksaan = 0
