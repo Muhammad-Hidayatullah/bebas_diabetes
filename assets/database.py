@@ -509,12 +509,12 @@ def fetch_artikel():
 
 
 
-def add_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel):
+def add_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_pengguna):
     conn = connect_to_db()
     cursor = conn.cursor()
     
-    query = "INSERT INTO artikel (nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel) VALUES (%s, %s, %s, %s, %s, %s)"
-    cursor.execute(query, (nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel))
+    query = "INSERT INTO artikel (nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_pengguna) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+    cursor.execute(query, (nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_pengguna))
     conn.commit()
     conn.close()
     
