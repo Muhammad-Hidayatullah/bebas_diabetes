@@ -1,7 +1,7 @@
 import streamlit as st
 from assets import database as db
 import time
-st.write(db.get_id_pengguna_milik_admin(st.session_state.username))
+
 st.title("ARTIKEL")
 st.cache_data()
 df_artikel = db.fetch_artikel()
