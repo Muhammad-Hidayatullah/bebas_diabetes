@@ -519,7 +519,7 @@ def add_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_
     conn.close()
     
 
-def update_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_artikel):
+def update_artikel(nama_website, link_gambar, judul_artikel, nama_penulis, tanggal_artikel, link_artikel, id_pengguna, id_artikel):
     conn = connect_to_db()
     cursor = conn.cursor()
     
