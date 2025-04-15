@@ -220,9 +220,9 @@ def buat_laporan():
     hasil_laboratorium = [
         
         ["Parameter", "Hasil", "Nilai Normal"],
-        ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >50 mg/dL"],
-        ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <100 mg/dL"],
-        ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <150 mg/dL"],
+        ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >=50 mg/dL"],
+        ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <=100 mg/dL"],
+        ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <=150 mg/dL"],
         ["Total Kolestrol Darah: ", str(st.session_state.total_kolestrol_darah)+" mg/dL", " <200 mg/dL"],
     ]
    
