@@ -15,6 +15,7 @@ if st.button("Log Out"):
     st.session_state.data_pengguna = []
     st.session_state.update_data = 0
     st.session_state.lanjut = 0
+    st.session_state.lanjut_pemeriksaan = 0
 
     fungsi_pemeriksaan.variabel_awal_pengguna()
     fungsi_pemeriksaan.awal_pemeriksaan()
