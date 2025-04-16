@@ -104,7 +104,7 @@ if st.session_state.lanjut == 2:
                 
         
         if update == 1:
-            cek_update_data_pengguna = db.check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat)
+            cek_update_data_pengguna = db.check_update_data_pengguna(st.session_state.username_pengguna, username, password, nama, st.session_state.email, email, tanggal_lahir, alamat)
            
             
         if cek_update_data_pengguna == True and update == 1:
