@@ -220,9 +220,9 @@ def buat_laporan():
     hasil_laboratorium = [
         
         ["Parameter", "Hasil", "Nilai Normal"],
-        ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >=50 mg/dL"],
-        ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <=100 mg/dL"],
-        ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <=150 mg/dL"],
+        ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >50 mg/dL"],
+        ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <100 mg/dL"],
+        ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <150 mg/dL"],
         ["Total Kolestrol Darah: ", str(st.session_state.total_kolestrol_darah)+" mg/dL", " <200 mg/dL"],
     ]
    
@@ -347,7 +347,7 @@ def buat_laporan():
         pdf.set_font("Arial", size=10)
         pdf.cell(200, 10, txt=f"--", ln=True)
 
-    #return bytes(pdf.output())
+   
     return pdf.output(dest="S").encode("latin1")
    
 
@@ -370,9 +370,9 @@ if st.session_state.lanjut_pemeriksaan == 1:
         st.markdown("---")
         
         st.subheader("Pemeriksaan Fisik")
-        st.session_state.tinggi_badan = st.number_input("Tinggi Badan (cm): ", min_value=0.0, max_value=999.0, value=st.session_state.tinggi_badan)
-        st.session_state.berat_badan = st.number_input("Berat Badan (kg): ", min_value=0.0, max_value=999.0, value=st.session_state.berat_badan)
-        st.session_state.lingkar_perut = st.number_input("Lingkar perut (cm): ", min_value=0.0, max_value=240.0, step=None, value=st.session_state.lingkar_perut)
+        st.session_state.tinggi_badan = st.number_input("Tinggi Badan (cm): ", min_value=0.0, max_value=999.0, value=st.session_state.tinggi_badan, placeholder="➔ tinggi badan")
+        st.session_state.berat_badan = st.number_input("Berat Badan (kg): ", min_value=0.0, max_value=999.0, value=st.session_state.berat_badan, placeholder="➔ berat badan")
+        st.session_state.lingkar_perut = st.number_input("Lingkar perut (cm): ", min_value=0.0, max_value=240.0, step=None, value=st.session_state.lingkar_perut, placeholder="➔ lingkar perut")
         st.session_state.tekanan_darah = st.text_input("Tekanan Darah (mmHg): ", value=st.session_state.tekanan_darah)
         cek_tekanan_darah = 0
         
@@ -383,13 +383,13 @@ if st.session_state.lanjut_pemeriksaan == 1:
         
         st.subheader("Kolestrol Darah")
 
-        st.session_state.HDL = st.number_input("HDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.HDL)
+        st.session_state.HDL = st.number_input("HDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.HDL, placeholder="➔ HDL")
         
-        st.session_state.LDL = st.number_input("LDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.LDL)
+        st.session_state.LDL = st.number_input("LDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.LDL, placeholder="➔ LDL")
         
-        st.session_state.trigliserida = st.number_input("Trigliserida (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.trigliserida)
+        st.session_state.trigliserida = st.number_input("Trigliserida (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.trigliserida, placeholder="➔ Trigliserida")
         
-        st.session_state.total_kolestrol = st.number_input("Total Kolestrol Darah (mg/dL) (Kosongkan saja apabila HDL, LDL, dan trigliserida terisi): ", min_value=0.0, max_value=999.0, value=st.session_state.total_kolestrol)
+        st.session_state.total_kolestrol = st.number_input("Total Kolestrol Darah (mg/dL) (Kosongkan saja apabila HDL, LDL, dan trigliserida terisi): ", min_value=0.0, max_value=999.0, value=st.session_state.total_kolestrol, placeholder="➔ total kolestrol")
 
         col1, col2, col3 = st.columns(3)
 
@@ -466,7 +466,20 @@ if st.session_state.lanjut_pemeriksaan == 1:
                         hipertensi = "Hipertensi: " + st.session_state.tekanan_darah + " mmHg"
                         st.session_state.daftar_faktor_risiko_2.append(hipertensi)
                 
+                if st.session_state.total_kolestrol is None:
+                    st.session_state.total_kolestrol = 0.0
+                    
+                if st.session_state.HDL is None:
+                    st.session_state.HDL = 0.0
+                if st.session_state.LDL is None:
+                    st.session_state.LDL = 0.0
+                if st.session_state.trigliserida is None:
+                    st.session_state.trigliserida = 0.0
+                
+                
+                
                 st.session_state.total_kolestrol_darah = st.session_state.HDL + st.session_state.LDL + (st.session_state.trigliserida/5.0)
+                
                 if st.session_state.total_kolestrol_darah > 0:
                     st.session_state.total_kolestrol = st.session_state.total_kolestrol_darah
             
@@ -548,6 +561,31 @@ if st.session_state.lanjut_pemeriksaan == 2:
             if st.form_submit_button("Kembali"):
                 st.session_state.lanjut_pemeriksaan = 1
                 st.session_state.daftar_faktor_risiko = []
+                
+                
+                if st.session_state.berat_badan == 0:
+                    st.session_state.berat_badan = None
+                if st.session_state.tinggi_badan == 0:
+                    st.session_state.tinggi_badan = None
+                    
+                if st.session_state.lingkar_perut == 0:
+                    st.session_state.lingkar_perut = None
+                    
+                
+                
+                
+                if st.session_state.total_kolestrol == 0.0:
+                    st.session_state.total_kolestrol = None
+                    
+                if st.session_state.HDL == 0.0:
+                    st.session_state.HDL = None
+                if st.session_state.LDL == 0.0:
+                    st.session_state.LDL = None
+                if st.session_state.trigliserida == 0:
+                    st.session_state.trigliserida = None
+                
+                
+                
                
                 st.rerun()
       
@@ -572,6 +610,8 @@ if st.session_state.lanjut_pemeriksaan == 3:
         st.session_state.sudah_diisi = 0
     if "hapus" not in st.session_state:
         st.session_state.hapus = 0
+        
+        
     with st.form(key="form_pemeriksaan_gula_darah"):
         st.session_state.gula_darah_sewaktu = 0.0
         st.session_state.gula_darah_puasa = 0.0
@@ -763,13 +803,62 @@ if st.session_state.lanjut_pemeriksaan == 4:
         
         
         
+        if st.session_state.tingkat_gula_darah != "NORMAL":
+            if st.form_submit_button("Lanjut Memilih Gejala"):
+                st.session_state.lanjut_pemeriksaan = 5
+                st.rerun()
+                
+        if st.session_state.tingkat_gula_darah == "NORMAL":
+            if st.form_submit_button("Selesai"):
+                if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pengguna):
+                    st.session_state.sudah_diisi = 1
+                else:
+                    st.session_state.selesai = 1
+                    
+        if st.session_state.sudah_diisi == 1:
+            st.session_state.selesai = 0
+          
+            st.warning("Tanggal tersebut sudah pernah terisi, apakah Anda ingin menggantinya dengan yang terbaru?")
+            if st.form_submit_button("Ya"):
+                st.session_state.hapus = 1
+                
+            
+        
+            if st.session_state.hapus == 1:
+                st.success("Menghapus data yang lama!")
+                db.hapus_pemeriksaan_kesehatan_dan_diagnosis(st.session_state.tanggal_pemeriksaan)
+                st.session_state.selesai = 1
+        
+            
+        
+        if st.session_state.selesai == 1:
+            id_pemeriksaan_default = db.menambah_id_pemeriksaan_kesehatan_default()
+            db.add_pemeriksaan_kesehatan(id_pemeriksaan_default, db.get_id_pengguna(st.session_state.username_pengguna), st.session_state.tingkat_gula_darah, st.session_state.tanggal_pemeriksaan)
+            db.add_pemeriksaan_faktor_permanen(id_pemeriksaan_default, st.session_state.usia_di_atas_40_tahun, st.session_state.riwayat_keluarga_diabetes, st.session_state.riwayat_diabetes_gestasional, st.session_state.riwayat_lahir_berat_badan_lahir_rendah, st.session_state.riwayat_sindrom_ovariaum_polikistik, st.session_state.riwayat_penyakit_kardiovaskular)
+            db.add_pemeriksaan_fisik(id_pemeriksaan_default, st.session_state.tinggi_badan, st.session_state.berat_badan, st.session_state.lingkar_perut, st.session_state.indeks_massa_tubuh, st.session_state.tekanan_darah)
+            db.add_pemeriksaan_laboratorium(id_pemeriksaan_default, st.session_state.gula_darah_sewaktu, st.session_state.gula_darah_puasa, st.session_state.gula_darah_2_jam_setelah_makan, st.session_state.HDL, st.session_state.LDL, st.session_state.trigliserida, st.session_state.total_kolestrol)
+            db.add_kebiasaan_hidup(id_pemeriksaan_default, st.session_state.konsumsi_alkohol, st.session_state.kurang_aktivitas, st.session_state.merokok, st.session_state.pola_makan_buruk, st.session_state.kurang_tidur)
+            db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pengguna[0], None, None, None, st.session_state.tanggal_pemeriksaan)
+            fungsi_pemeriksaan.awal_pemeriksaan()
+            
+            st.success("Kembali ke menu awal")
+            st.session_state.lanjut_pemeriksaan = 0
+            st.session_state.selesai = 0
     
-        if st.form_submit_button("Lanjut Memilih Gejala"):
-            st.session_state.lanjut_pemeriksaan = 5
+            st.session_state.sudah_diisi = 0
+    
+            st.session_state.hapus = 0
+            
+            time.sleep(2)
             st.rerun()
+            
+                
+                
         if st.form_submit_button("Kembali"):
             st.session_state.lanjut_pemeriksaan = 3
             st.rerun()
+            
+            
             
 if st.session_state.lanjut_pemeriksaan == 5:
     with st.form(key="form_pemeriksaan_komplikasi"):
@@ -906,7 +995,7 @@ if st.session_state.lanjut_pemeriksaan == 6:
         
         with col2:
             if st.form_submit_button("Selesai"):
-                    st.session_state.cek = 1
+                st.session_state.cek = 1
         if st.session_state.cek == 1:
             if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pengguna):
                 st.warning("Anda sudah melakukan pemeriksaan hari ini, apakah Anda ingin menggantinya dengan yang terbaru?")
