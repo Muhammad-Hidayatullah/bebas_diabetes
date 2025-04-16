@@ -129,9 +129,9 @@ def awal_pemeriksaan():
     st.session_state.tanggal_pemeriksaan = datetime.date.today()
     # Pemeriksaan fisik
     st.session_state.lanjut_pemeriksaan = 0
-    st.session_state.berat_badan = 0.0
-    st.session_state.tinggi_badan = 0.0
-    st.session_state.lingkar_perut = 0.0
+    st.session_state.berat_badan = None
+    st.session_state.tinggi_badan = None
+    st.session_state.lingkar_perut = None
     
     # Faktor Tidak Bisa Diubah
     st.session_state.usia_di_atas_40_tahun = "TIDAK"
@@ -149,17 +149,17 @@ def awal_pemeriksaan():
     st.session_state.tingkat_risiko = "RENDAH"
     
     # Pemeriksaan Lab
-    st.session_state.skip_gula_darah = 0
-    st.session_state.gula_darah_sewaktu = 0.0
-    st.session_state.gula_darah_puasa = 0.0
-    st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+    st.session_state.skip_gula_darah = None
+    st.session_state.gula_darah_sewaktu = None
+    st.session_state.gula_darah_puasa = None
+    st.session_state.gula_darah_2_jam_setelah_makan = None
     st.session_state.tekanan_darah = "0/0"
     st.session_state.sistole, st.session_state.diastole = st.session_state.tekanan_darah.split("/")
-    st.session_state.HDL = 0.0
-    st.session_state.LDL = 0.0
-    st.session_state.trigliserida = 0.0
-    st.session_state.total_kolestrol = 0.0
-    st.session_state.total_kolestrol_darah = 0.0 # rumusnya: LDL + HDL + 1/5 Trigliserida
+    st.session_state.HDL = None
+    st.session_state.LDL = None
+    st.session_state.trigliserida = None
+    st.session_state.total_kolestrol = None
+    st.session_state.total_kolestrol_darah = None # rumusnya: LDL + HDL + 1/5 Trigliserida
     
     # Risiko
     st.session_state.tingkat_gula_darah = "-"
