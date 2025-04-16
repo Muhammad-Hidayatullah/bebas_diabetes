@@ -190,13 +190,15 @@ if df_pengguna is not None:
         tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now(), value=tanggal_lahir_default)
 
         if st.button("Update"):
-            cek_update_data_pengguna = db.check_update_data_pengguna(username, email, password, nama, alamat)
+            cek_update_data_pengguna = db.check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat)
+            username, password, nama, email, tanggal_lahir, alamat
             if cek_update_data_pengguna == True:
                 st.success("Update Data Berhasil.")
                 enkripsi_password = db.enkripsi_password(password)
                 db.update_pengguna(username, enkripsi_password, nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, username_default)
                 time.sleep(2)
                 st.rerun()
+                
     if pilihan_pengguna == "Hapus Pengguna":
         if "konfirmasi_hapus" not in st.session_state:
             st.session_state.konfirmasi_hapus = 0
