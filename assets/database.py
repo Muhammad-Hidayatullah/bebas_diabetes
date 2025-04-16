@@ -977,8 +977,11 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
         validation_errors.append("Username sudah terdaftar!")
 
         
-    if cek_email(email) == True and email != None:
+    if cek_email(email) == True:
         validation_errors.append("Email Sudah Terdaftar!")
+
+    if email != None:
+        validation_errors.append("Email Tidak Boleh Kosong!")
    
     if not username_pengguna:
         validation_errors.append("Username tidak boleh kosong!")
