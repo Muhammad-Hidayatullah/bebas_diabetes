@@ -1016,19 +1016,16 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
 def check_update_data_pengguna(username, email, password_pengguna, nama, tanggal_lahir, alamat):
     validation_errors = []
                 
-    if cek_username(username_pengguna) == True and username_pengguna != username_pengguna:
-        validation_errors.append("Username sudah terdaftar!")
+    
+    if cek_username(username) == True and username != username:
+        validation_errors.append("Username sudah terdaftar")
 
+    if not username:
+        validation_errors.append("Username tidak boleh kosong!")
         
     if cek_email(email) == True and email != email:
         validation_errors.append("Email Sudah Terdaftar!")
 
-    if not username:
-        validation_errors.append("Username tidak boleh kosong!")
-
-    if cek_username(username) == True and username != username:
-        validation_errors.append("Username sudah terdaftar")
-    
     if not password_pengguna or not validasi_password(password_pengguna):
         validation_errors.append("Password harus lebih dari 6 karakter!")
 
