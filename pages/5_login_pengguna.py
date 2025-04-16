@@ -137,8 +137,8 @@ with st.form("login-pengguna"):
         st.title("Login Pengguna")
         
         # Input username dan password hanya terlihat jika belum login
-        st.session_state.username_pengguna = st.text_input("Masukkan username:")
-        input_password = st.text_input("Masukkan password:", type="password")
+        st.session_state.username_pengguna = st.text_input("Masukkan username:", placeholder="username")
+        input_password = st.text_input("Masukkan password:", type="password", placeholder="password")
         
         if st.form_submit_button(label="Login"):
             # Validasi login
