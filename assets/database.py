@@ -1036,6 +1036,11 @@ def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, a
     if cek_email(email) == True and email != email:
         validation_errors.append("Email Sudah Terdaftar")
 
+
+    if not alamat:
+        validation_errors.append("Alamat tidak boleh kosong!")
+
+    
     if cek_email(email) == True and email != email:
         validation_errors.append("Email Sudah Terdaftar!")
         
@@ -1047,8 +1052,7 @@ def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, a
         validation_errors.append("Usia minimal 10 tahun!")
 
     # Check if address is provided
-    if not alamat:
-        validation_errors.append("Alamat tidak boleh kosong!")
+    
 
     # Display validation errors
     if validation_errors:
