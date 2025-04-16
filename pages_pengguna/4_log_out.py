@@ -12,6 +12,9 @@ if st.button("Log Out"):
     st.success("Anda Berhasil Logout")
     st.session_state.masuk_website = None
     st.session_state.logged_in_pengguna = False
+    st.session_state.data_pengguna = []
+    st.session_state.update_data = 0
+    st.session_state.lanjut = 0
 
     fungsi_pemeriksaan.variabel_awal_pengguna()
     fungsi_pemeriksaan.awal_pemeriksaan()
