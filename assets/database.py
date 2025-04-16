@@ -1038,7 +1038,7 @@ def check_update_data_pengguna(username, email, password_pengguna, nama, tanggal
         validation_errors.append("Email Sudah Terdaftar")
         
     if not email or not validasi_email_regex(email):
-        validation_errors.append("Email tidakk valid. Pastikan menggunakan format yang benar (@gmail.com)!")
+        validation_errors.append("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com)!")
         
 
     if hitung_usia(tanggal_lahir) < 10:
