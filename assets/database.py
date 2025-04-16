@@ -1017,10 +1017,10 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
     else:
         return True
 
-def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat):
+def check_update_data_pengguna(username_lama, username_baru, password, nama, email_lama, email_baru, tanggal_lahir, alamat):
     validation_errors = []
                 
-    if cek_username(username) == True:
+    if cek_username(username) == True and username_lama != username_baru:
         validation_errors.append("Username sudah terdaftar")
 
     if not username:
@@ -1037,7 +1037,7 @@ def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, a
     if not alamat:
         validation_errors.append("Alamat tidak boleh kosong!")
 
-    if cek_email(email) == True and email != email:
+    if cek_email(email) == True and email_lama != email_baru:
         validation_errors.append("Email Sudah Terdaftar!")
 
     if not email:
@@ -1045,7 +1045,6 @@ def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, a
 
     
 
-    
     if cek_email(email) == True and email != email:
         validation_errors.append("Email Sudah Terdaftar!")
         
