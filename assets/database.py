@@ -980,7 +980,7 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
     if cek_email(email) == True:
         validation_errors.append("Email Sudah Terdaftar!")
 
-    if email != None:
+    if email == None:
         validation_errors.append("Email Tidak Boleh Kosong!")
 
     if not email or not validasi_email_regex(email):
@@ -1034,7 +1034,10 @@ def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, a
 
 
     if cek_email(email) == True and email != email:
-        validation_errors.append("Email Sudah Terdaftar")
+        validation_errors.append("Email Sudah Terdaftar!")
+
+    if email == None:
+        validation_errors.append("Email Tidak Boleh Kosong!")
 
 
     if not alamat:
