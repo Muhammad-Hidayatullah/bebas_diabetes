@@ -89,6 +89,9 @@ if st.session_state.lanjut == 2:
         
         col1, col2 = st.columns(2)
         validation_errors = False
+        update = 0
+       
+        cek_update_data_pengguna = False
         with col1:
             if st.form_submit_button(label="Kembali"):
                 st.session_state.lanjut = 0
@@ -97,51 +100,16 @@ if st.session_state.lanjut == 2:
         with col2:
             update_data_berhasil = False
             if st.form_submit_button(label="Update"):
+                update = 1
                 
-                validation_errors = []
-                
-                if not username:
-                    validation_errors.append("Username tidak boleh kosong")
-                if db.cek_username(username) == True and username != st.session_state.username_pengguna:
-                    validation_errors.append("Username sudah terdaftar")
-
-                    
-                if db.cek_email(email) == True and email != st.session_state.email:
-                    validation_errors.append("Email Sudah Terdaftar")
-                # Check if username is provided
-                if not st.session_state.username_pengguna:
-                    validation_errors.append("Username tidak boleh kosong.")
-
-                # Check if password is provided and meets the length requirement
-                if not password or not validasi_password(password):
-                    validation_errors.append("Password harus lebih dari 6 karakter.")
-
-                # Check if full name is provided
-                if not nama:
-                    validation_errors.append("Nama lengkap tidak boleh kosong.")
-
-                # Check if email is provided and valid
-                if not email or not validasi_email_regex(email):
-                    validation_errors.append("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com).")
-
-                if not pekerjaan:
-                    validation_errors.append("Pekerjaan tidak boleh kosong.")
-                # Check if address is provided
-                if not alamat:
-                    validation_errors.append("Alamat tidak boleh kosong.")
-
-                # Display validation errors
-                
-                if not validation_errors:
-                    update_data_berhasil = True
-                    enkripsi = db.enkripsi_password(password)
-                    db.update_pengguna(username, enkripsi, nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, st.session_state.username_pengguna)
+        
+        if update == 1:
+            cek_update_data_pengguna = db.check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat)
+           
             
-                    
-        if validation_errors:
-            for error in validation_errors:
-                st.error(error)
-        if update_data_berhasil == True:
+        if cek_update_data_pengguna == True and update == 1:
+            enkripsi_password = db.enkripsi_password(password)
+            db.update_pengguna(username, enkripsi_password, nama, jenis_kelamin, alamat, email, pekerjaan, tanggal_lahir, st.session_state.username_pengguna)
             st.success("Update Data Anda Berhasil!.")
             fungsi_pemeriksaan.awal_pemeriksaan()
             st.session_state.username_pengguna = username
