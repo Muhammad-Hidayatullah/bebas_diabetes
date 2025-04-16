@@ -1044,7 +1044,7 @@ def check_update_data_pengguna(username_lama, username_baru, password, nama, ema
         validation_errors.append("Email Tidak Boleh Kosong!")
         
         
-    if not email or not validasi_email_regex(email):
+    if not email_baru or not validasi_email_regex(email_baru):
         validation_errors.append("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com)!")
         
 
