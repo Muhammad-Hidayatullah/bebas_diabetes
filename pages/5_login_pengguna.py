@@ -199,7 +199,7 @@ with st.form("registrasi-pengguna"):
 
         
         if st.form_submit_button(label="Registrasi"):
-            cek_validasi_data_pengguna = db.check_data_registrasi_pengguna(st.session_state.username_pengguna, email, password_pengguna, st.session_state.nama, alamat)
+            cek_validasi_data_pengguna = db.check_data_registrasi_pengguna(st.session_state.username_pengguna, email, password_pengguna, st.session_state.nama, tanggal_lahir, alamat)
                 
             if cek_validasi_data_pengguna == True:
                 st.success("Berhasil melakukan registrasi.")
