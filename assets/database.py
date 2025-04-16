@@ -1023,7 +1023,7 @@ def check_update_data_pengguna(username_lama, username_baru, password, nama, ema
     if cek_username(username_baru) == True and username_lama != username_baru:
         validation_errors.append("Username sudah terdaftar")
 
-    if not username:
+    if not username_baru:
         validation_errors.append("Username tidak boleh kosong!")
         
 
@@ -1040,13 +1040,9 @@ def check_update_data_pengguna(username_lama, username_baru, password, nama, ema
     if cek_email(email_baru) == True and email_lama != email_baru:
         validation_errors.append("Email Sudah Terdaftar!")
 
-    if not email:
+    if not email_baru:
         validation_errors.append("Email Tidak Boleh Kosong!")
-
-    
-
-    if cek_email(email) == True and email != email:
-        validation_errors.append("Email Sudah Terdaftar!")
+        
         
     if not email or not validasi_email_regex(email):
         validation_errors.append("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com)!")
