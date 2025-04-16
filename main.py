@@ -61,11 +61,7 @@ login_pengguna = st.Page(
     icon = ":material/login:",
 )
 
-admin = st.Page(
-    page="pages/6_login_admin.py",
-    title="Login Admin",
-    icon=":material/diagnosis:",
-)
+
 
 #Halaman untuk pengguna
 data_pengguna = st.Page(
@@ -92,57 +88,6 @@ log_out = st.Page(
     icon=":material/logout:",
 )
 
-#Halaman untuk admin
-home_website_admin = st.Page(
-    page="pages_admin/1_home_admin.py",
-    title="Dasbor",
-    icon=":material/home:",
-)   
-
-
-
-halaman_penyakit = st.Page(
-    page="pages_admin/2_penyakit.py",
-    title="Penyakit",
-    icon=":material/microbiology:",
-)
-
-halaman_gejala = st.Page(
-    page="pages_admin/3_gejala.py",
-    title="Gejala",
-    icon=":material/symptoms:",
-)
-
-halaman_relasi_dan_gejala = st.Page(
-    page="pages_admin/4_relasi_penyakit_dan_gejala.py",
-    title="Relasi Penyakit dan Gejala",
-    icon=":material/fact_check:",
-)
-
-halaman_artikel = st.Page(
-    page="pages_admin/5_artikel.py",
-    title="Artikel",
-    icon=":material/article:",
-)
-
-halaman_pengguna = st.Page(
-    page="pages_admin/6_pengguna.py",
-    title="Pengguna",
-    icon=":material/patient_list:",
-)
-
-halaman_riwayat_pengguna = st.Page(
-    page="pages_admin/7_riwayat_pengguna.py",
-    title="Riwayat Pengguna",
-    icon=":material/summarize:"
-)
-
-halaman_log_out = st.Page(
-    page="pages_admin/8_log_out.py",
-    title="Log Out",
-    icon=":material/logout:"
-)
-
 
 
 
@@ -151,15 +96,12 @@ if "masuk_website" not in st.session_state:
 
 if st.session_state.masuk_website == None:
     st.session_state.pg = st.navigation(pages=[home_website, informasi_sistem,
-                                               artikel, bantuan, login_pengguna, admin])
+                                               artikel, bantuan, login_pengguna])
     
     
     st.session_state.pg.run()
     
-if st.session_state.masuk_website == "Admin":
-    st.session_state.pg = st.navigation(pages=[home_website_admin, halaman_penyakit, halaman_gejala, halaman_relasi_dan_gejala, 
-                                               halaman_pengguna, halaman_riwayat_pengguna, halaman_artikel, halaman_log_out])
-    st.session_state.pg.run()
+
     
 
 if st.session_state.masuk_website == "Pengguna":
