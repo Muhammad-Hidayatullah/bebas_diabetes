@@ -191,7 +191,7 @@ if df_pengguna is not None:
 
         if st.button("Update"):
             cek_update_data_pengguna = db.check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat)
-            username, password, nama, email, tanggal_lahir, alamat
+            
             if cek_update_data_pengguna == True:
                 st.success("Update Data Berhasil.")
                 enkripsi_password = db.enkripsi_password(password)
