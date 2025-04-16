@@ -1020,8 +1020,7 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
 def check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat):
     validation_errors = []
                 
-    
-    if cek_username(username) == True and username != username:
+    if cek_username(username) == True:
         validation_errors.append("Username sudah terdaftar")
 
     if not username:
