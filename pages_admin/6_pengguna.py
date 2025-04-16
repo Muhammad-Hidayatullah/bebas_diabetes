@@ -190,7 +190,7 @@ if df_pengguna is not None:
         tanggal_lahir = st.date_input("Masukkan tanggal lahir: (y-m-d)", min_value=datetime.date(1900, 1, 1), max_value=datetime.datetime.now(), value=tanggal_lahir_default)
 
         if st.button("Update"):
-            cek_update_data_pengguna = db.check_update_data_pengguna(username, password, nama, email, tanggal_lahir, alamat)
+            cek_update_data_pengguna = db.check_update_data_pengguna(username_default, username, password, nama, email_default, email, tanggal_lahir, alamat)
             
             if cek_update_data_pengguna == True:
                 st.success("Update Data Berhasil.")
