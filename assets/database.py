@@ -4,7 +4,7 @@ import pandas as pd
 from fpdf import FPDF
 import io
 import re
-
+from datetime import date
 
 
 import os
@@ -1000,8 +1000,6 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
     if hitung_usia(tanggal_lahir) < 10:
         validation_errors.append("Usia minimal 10 tahun!")
 
-   
-    
 
     # Check if address is provided
     if not alamat:
