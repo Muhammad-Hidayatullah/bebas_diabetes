@@ -131,28 +131,44 @@ if "logged_in_pengguna" not in st.session_state:
     st.session_state.username = ""
     fungsi_pemeriksaan.variabel_awal_pengguna()
     
+
+    
     
 with st.form("login-pengguna"):
     if not st.session_state.logged_in_pengguna:
         st.title("Login Pengguna")
-        
+        berhasil_login = 0
         # Input username dan password hanya terlihat jika belum login
         st.session_state.username_pengguna = st.text_input("Masukkan username:", placeholder="username")
         input_password = st.text_input("Masukkan password:", type="password", placeholder="password")
         
-        if st.form_submit_button(label="Login"):
-            # Validasi login
-            
-            if db.check_pengguna(st.session_state.username_pengguna, input_password) == True:
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.form_submit_button(label="Login"):
+                # Validasi login
                 
-                st.session_state.logged_in_pengguna = True
-                st.session_state.masuk_website = "Pengguna"
-                st.success(f"Login berhasil! Selamat datang, {st.session_state.username_pengguna}.")
-                time.sleep(2)
+                if db.check_pengguna(st.session_state.username_pengguna, input_password) == True:
+                    berhasil_login = 1
+                    
+                    
+                else:
+                    berhasil_login = 2
+                    
+        if berhasil_login == 1:
+            st.session_state.logged_in_pengguna = True
+            st.session_state.masuk_website = "Pengguna"
+            st.success(f"Login berhasil! Selamat datang, {st.session_state.username_pengguna}.")
+            time.sleep(2)
+            st.rerun()
+        if berhasil_login == 2:
+            st.error("Username atau password salah.")
+                    
+        with col3:
+            if st.form_submit_button(label="Reset Password"):
+                st.session_state.logged_in_pengguna = "Reset Password"
                 st.rerun()
                 
-            else:
-                st.error("Username atau password salah.")
             
         st.write("")
         st.write("")
@@ -171,6 +187,63 @@ def validasi_email_regex(email):
 
 def validasi_password(password):
     return len(password) >= 7  # Minimum length of 6 characters
+
+
+
+
+
+with st.form("reset-password"):
+    if st.session_state.logged_in_pengguna == "Reset Password":
+        st.title("Lupa Password")
+        st.session_state.input_username = st.text_input("Masukkan username Anda: ")
+        st.session_state.input_email = st.text_input("Masukkan email Anda:")
+        
+        validitas_email = 0
+        
+        
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            if st.form_submit_button("Lanjut"):
+                cek_username_email_pengguna = db.cek_lupa_password_pengguna(st.session_state.input_username, st.session_state.input_email)
+                
+                if not validasi_email_regex(st.session_state.input_email):
+                    validitas_email = 1
+                   
+                else:
+                    validitas_email = 2
+                    
+        if validitas_email == 1:
+            st.error("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com)!")
+        
+        if validitas_email == 2:
+            if cek_username_email_pengguna == True:
+                st.session_state.logged_in_pengguna = "Ganti Password"
+                st.success("Username dan Email Pengguna Ditemukan")
+                time.sleep(2)
+                st.rerun()
+            else:
+                st.error("Username dan Email tersebut tidak ditemukan!")
+                
+with st.form("Ganti Password"):
+    if st.session_state.logged_in_pengguna == "Ganti Password":
+       
+        st.title("Ganti Password Pengguna")
+        input_password_baru = st.text_input("Masukkan password baru: ", type="password")
+        input_password_baru_ulang = st.text_input("Ulangi password baru: ", type="password")
+        if st.form_submit_button("Ganti Password"):
+            if input_password_baru == input_password_baru_ulang:
+                db.reset_password_pengguna(input_password_baru, st.session_state.input_username, st.session_state.input_email)
+                st.success("Password Berhasil Diganti Dengan Password Baru")
+                time.sleep(2)
+                st.session_state.logged_in_pengguna = False
+                st.rerun()
+            else:
+                st.error("Password Baru dan Password Baru Ulang Tidak Sama!")
+        
+
+
+
+
 
 with st.form("registrasi-pengguna"):
     if st.session_state.logged_in_pengguna == "Registrasi":
