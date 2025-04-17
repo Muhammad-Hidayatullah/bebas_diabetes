@@ -223,6 +223,13 @@ with st.form("reset-password"):
                 st.rerun()
             else:
                 st.error("Username dan Email tersebut tidak ditemukan!")
+
+        st.write("")
+        st.write("")
+        st.write("Sudah Ingat Passwordnya?")
+        if st.form_submit_button("Kembali"):
+            st.session_state.logged_in_pengguna = False
+            st.rerun()
                 
 with st.form("Ganti Password"):
     if st.session_state.logged_in_pengguna == "Ganti Password":
