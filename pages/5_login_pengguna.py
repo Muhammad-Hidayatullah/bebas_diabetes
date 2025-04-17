@@ -195,8 +195,8 @@ def validasi_password(password):
 with st.form("reset-password"):
     if st.session_state.logged_in_pengguna == "Reset Password":
         st.title("Lupa Password")
-        st.session_state.input_username = st.text_input("Masukkan username Anda: ")
-        st.session_state.input_email = st.text_input("Masukkan email Anda:")
+        st.session_state.input_username = st.text_input("Masukkan username Anda: ", placeholder = "username")
+        st.session_state.input_email = st.text_input("Masukkan email Anda:", placeholder = "email")
         
         validitas_email = 0
         
@@ -228,8 +228,8 @@ with st.form("Ganti Password"):
     if st.session_state.logged_in_pengguna == "Ganti Password":
        
         st.title("Ganti Password Pengguna")
-        input_password_baru = st.text_input("Masukkan password baru: ", type="password")
-        input_password_baru_ulang = st.text_input("Ulangi password baru: ", type="password")
+        input_password_baru = st.text_input("Masukkan password baru: ", type="password", placeholder="password baru")
+        input_password_baru_ulang = st.text_input("Ulangi password baru: ", type="password", placeholder="ulangi password baru")
         if st.form_submit_button("Ganti Password"):
             if input_password_baru == input_password_baru_ulang:
                 db.reset_password_pengguna(input_password_baru, st.session_state.input_username, st.session_state.input_email)
