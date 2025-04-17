@@ -1147,6 +1147,8 @@ def check_pengguna(username, password):
             cursor.close()
         if connection:
             connection.close()
+
+
             
 def cek_username(username):
     try:
@@ -1205,8 +1207,61 @@ def cek_email(email):
             connection.close()
 
 
+
+def cek_lupa_password_pengguna(username, email):
+    try:
+        connection = connect_to_db()
+        cursor = connection.cursor()
+
+        # SQL query to check user credentials
+        query = "SELECT username, email FROM pengguna WHERE username = %s AND jenis_pengguna='PENGGUNA'"
+
+        cursor.execute(query, (username,))
+
+        # Fetch one result
+        result = cursor.fetchone()
+        if result:
+            if result[0] == username and result[1] == email:
+                return True # User is found
+            
+        if result is None:
+            return False
+        else:
+            return False # User not found
+
+    except mysql.connector.Error as err:
+        st.error(f"Database error: {err}")  # Show the error
+        return False  # Indicate failure
+
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close() 
         
+
+def reset_password_pengguna(password, username, email):
+    try:
+        conn = connect_to_db()
+        cursor = conn.cursor()
+        
+        query = "UPDATE pengguna SET password = %s WHERE username = %s AND email = %s AND jenis_pengguna='PENGGUNA'"
+        
+        password = enkripsi_password(password)
+        cursor.execute(query, (password, username, email,))
+        conn.commit()
     
+        
+    except mysql.connector.Error as err:
+        err = "Password Admin Gagal Diupdate"
+        st.error(f"{err}")
+
+    finally:
+        if cursor:
+            cursor.close()
+            conn.close()
+
+
 # Function to insert data into the database
 def insert_admin(username, name, password):
     try:
