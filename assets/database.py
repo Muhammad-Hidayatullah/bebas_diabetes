@@ -976,7 +976,16 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
     if cek_username(username_pengguna) == True:
         validation_errors.append("Username sudah terdaftar!")
 
+        
+    if cek_email(email) == True:
+        validation_errors.append("Email Sudah Terdaftar!")
 
+    if email == None:
+        validation_errors.append("Email Tidak Boleh Kosong!")
+
+    if not email or not validasi_email_regex(email):
+        validation_errors.append("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com)!")
+   
     if not username_pengguna:
         validation_errors.append("Username tidak boleh kosong!")
 
@@ -984,30 +993,17 @@ def check_data_registrasi_pengguna(username_pengguna, email, password_pengguna, 
     if not password_pengguna or not validasi_password(password_pengguna):
         validation_errors.append("Password harus lebih dari 6 karakter!")
 
+   
     if not nama:
         validation_errors.append("Nama lengkap tidak boleh kosong!")
-
-    
-    if not alamat:
-        validation_errors.append("Alamat tidak boleh kosong!")
-        
-    if cek_email(email) == True:
-        validation_errors.append("Email Sudah Terdaftar!")
-
-    if not email:
-        validation_errors.append("Email Tidak Boleh Kosong!")
-
-    if not email or not validasi_email_regex(email):
-        validation_errors.append("Email tidak valid. Pastikan menggunakan format yang benar (@gmail.com)!")
-   
-    
 
     if hitung_usia(tanggal_lahir) < 10:
         validation_errors.append("Usia minimal 10 tahun!")
 
 
     # Check if address is provided
-    
+    if not alamat:
+        validation_errors.append("Alamat tidak boleh kosong!")
 
     # Display validation errors
     if validation_errors:
