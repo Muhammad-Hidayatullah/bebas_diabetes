@@ -223,7 +223,7 @@ def buat_laporan():
         ["HDL : ", str(st.session_state.HDL)+" mg/dL", " >50 mg/dL"],
         ["LDL : ", str(st.session_state.LDL)+" mg/dL", " <100 mg/dL"],
         ["Trigliserida : ", str(st.session_state.trigliserida)+" mg/dL", " <150 mg/dL"],
-        ["Total Kolestrol Darah: ", str(st.session_state.total_kolestrol_darah)+" mg/dL", " <200 mg/dL"],
+        ["Total Kolestrol Darah: ", str(st.session_state.total_kolestrol)+" mg/dL", " <200 mg/dL"],
     ]
    
     
@@ -616,7 +616,9 @@ if st.session_state.lanjut_pemeriksaan == 3:
         st.session_state.gula_darah_sewaktu = 0.0
         st.session_state.gula_darah_puasa = 0.0
         st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+        
         st.subheader("Pemeriksaan Gula Darah")
+        st.write(st.session_state.total_kolestrol)
         st.session_state.gula_darah_sewaktu = st.number_input("Gula Darah Sewaktu (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_sewaktu)
         st.session_state.gula_darah_puasa = st.number_input("Gula Darah Puasa (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_puasa)
         st.session_state.gula_darah_2_jam_setelah_makan = st.number_input("Gula Darah 2 Jam Setelah Makan (mg/dL): ", min_value=0.0, max_value=1000.0, value=st.session_state.gula_darah_2_jam_setelah_makan)
@@ -1078,7 +1080,7 @@ if st.session_state.lanjut_pemeriksaan == 7:
     st.write("HDL: " + str(st.session_state.HDL) + " mg/dL")
     st.write("LDL: " + str(st.session_state.LDL) + " mg/dL")
     st.write("Trigliserida: " + str(st.session_state.trigliserida) + " mg/dL")
-    st.write("Total Kolesterol Darah: " + str(st.session_state.total_kolestrol_darah) + " mg/dL")
+    st.write("Total Kolesterol Darah: " + str(st.session_state.total_kolestrol) + " mg/dL")
 
     # Display "Hasil Laboratorium"
     st.subheader("Hasil Laboratorium")
