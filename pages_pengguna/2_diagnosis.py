@@ -772,7 +772,7 @@ if st.session_state.lanjut_pemeriksaan == 4:
             st.warning("Anda memiliki banyak faktor risiko dan gula sudah masuk ke dalam level prediabetes. Disarankan untuk segera menerapkan pola hidup sehat dan ikuti saran di bawah ini")     
             st.session_state.tingkat_gula_darah = "PREDIABETES"
         elif (st.session_state.gula_darah_sewaktu < 140.0 or st.session_state.gula_darah_puasa < 100.0 or st.session_state.gula_darah_2_jam_setelah_makan < 140.0) and st.session_state.total_faktor_risiko >= 3:
-            st.warning("Gula darah normal namun banyak faktor risiko yang dapat menyebabkan Diabetes Mellitus 2 Tipe di masa yang akan datang")
+            st.warning("Gula darah normal namun Anda memiliki banyak faktor risiko yang dapat menyebabkan Diabetes Mellitus Tipe 2 di masa yang akan datang")
             st.session_state.tingkat_gula_darah = "NORMAL"
         
         st.write("")
