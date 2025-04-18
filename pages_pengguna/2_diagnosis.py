@@ -998,7 +998,7 @@ if st.session_state.lanjut_pemeriksaan == 6:
                 st.session_state.cek = 1
         if st.session_state.cek == 1:
             if st.session_state.tanggal_pemeriksaan == db.get_tanggal_terkini(st.session_state.kode_pengguna):
-                st.warning("Anda sudah melakukan pemeriksaan hari ini, apakah Anda ingin menggantinya dengan yang terbaru?")
+                st.warning("Anda sudah melakukan pemeriksaan pada tanggal tersebut, apakah Anda ingin menggantinya dengan yang terbaru?")
                 if st.form_submit_button("Ya"):
                     st.session_state.cek = 2
                     st.success("Tunggu Sebentar!")
