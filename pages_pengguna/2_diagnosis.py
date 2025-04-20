@@ -613,9 +613,7 @@ if st.session_state.lanjut_pemeriksaan == 3:
         
         
     with st.form(key="form_pemeriksaan_gula_darah"):
-        st.session_state.gula_darah_sewaktu = 0.0
-        st.session_state.gula_darah_puasa = 0.0
-        st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+        st.session_state.sudah_diisi = 0
         
         st.subheader("Pemeriksaan Gula Darah")
         
@@ -628,6 +626,13 @@ if st.session_state.lanjut_pemeriksaan == 3:
             if (st.session_state.gula_darah_sewaktu is None and st.session_state.gula_darah_puasa is None and st.session_state.gula_darah_2_jam_setelah_makan is None) or (st.session_state.gula_darah_sewaktu == 0.0 and st.session_state.gula_darah_puasa == 0.0 and st.session_state.gula_darah_2_jam_setelah_makan == 0.0):
                 st.error("Salah satu Gula darah harus diisi untuk lanjut!")
             else:
+                if st.session_state.gula_darah_sewaktu is None:
+                    st.session_state.gula_darah_sewaktu = 0.0
+                if st.session_state.gula_darah_puasa is None:
+                    st.session_state.gula_darah_puasa = 0.0
+                if st.session_state.gula_darah_2_jam_setelah_makan is None:
+                    st.session_state.gula_darah_2_jam_setelah_makan = 0.0
+
                 st.session_state.skip_gula_darah = 0
                 st.session_state.lanjut_pemeriksaan = 4
                 st.rerun()
@@ -857,6 +862,14 @@ if st.session_state.lanjut_pemeriksaan == 4:
                 
                 
         if st.form_submit_button("Kembali"):
+
+            if st.session_state.gula_darah_sewaktu == 0.0:
+                st.session_state.gula_darah_sewaktu = None
+            if st.session_state.gula_darah_puasa == 0.0:
+                st.session_state.gula_darah_puasa = None
+            if st.session_state.gula_darah_2_jam_setelah_makan == 0:
+                st.session_state.gula_darah_2_jam_setelah_makan = None
+            
             st.session_state.lanjut_pemeriksaan = 3
             st.rerun()
             
@@ -891,6 +904,14 @@ if st.session_state.lanjut_pemeriksaan == 5:
                 if st.session_state.skip_gula_darah == 1:
                     st.session_state.lanjut_pemeriksaan = 3
                     st.session_state.tingkat_gula_darah = "-"
+
+                    if st.session_state.gula_darah_sewaktu == 0.0:
+                        st.session_state.gula_darah_sewaktu = None
+                    if st.session_state.gula_darah_puasa == 0.0:
+                        st.session_state.gula_darah_puasa = None
+                    if st.session_state.gula_darah_2_jam_setelah_makan == 0.0:
+                        st.session_state.gula_darah_2_jam_setelah_makan = None
+                
                 else:
                     st.session_state.lanjut_pemeriksaan = 4
                 st.rerun()
