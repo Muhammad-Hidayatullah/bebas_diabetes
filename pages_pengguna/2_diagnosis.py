@@ -617,9 +617,9 @@ if st.session_state.lanjut_pemeriksaan == 3:
         
         st.subheader("Pemeriksaan Gula Darah")
         
-        st.session_state.gula_darah_sewaktu = st.number_input("Gula Darah Sewaktu (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_sewaktu)
-        st.session_state.gula_darah_puasa = st.number_input("Gula Darah Puasa (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_puasa)
-        st.session_state.gula_darah_2_jam_setelah_makan = st.number_input("Gula Darah 2 Jam Setelah Makan (mg/dL): ", min_value=0.0, max_value=1000.0, value=st.session_state.gula_darah_2_jam_setelah_makan)
+        st.session_state.gula_darah_sewaktu = st.number_input("Gula Darah Sewaktu (mg/dL): ", placeholder="➔ Gula Darah Sewaktu (GDS)", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_sewaktu)
+        st.session_state.gula_darah_puasa = st.number_input("Gula Darah Puasa (mg/dL): ", placeholder="➔ Gula Darah Puasa (GDP)", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_puasa)
+        st.session_state.gula_darah_2_jam_setelah_makan = st.number_input("Gula Darah 2 Jam Setelah Makan (mg/dL): ", placeholder= "➔ Gula Darah 2 Jam Setelah Makan (GD2PP)", min_value=0.0, max_value=1000.0, value=st.session_state.gula_darah_2_jam_setelah_makan)
 
         
         if st.form_submit_button("Lanjut"):
