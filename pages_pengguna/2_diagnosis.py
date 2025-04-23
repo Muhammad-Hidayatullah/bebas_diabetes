@@ -381,7 +381,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
         
         st.markdown("---")
         
-        st.subheader("Kolestrol Darah")
+        st.subheader("Kolestrol Darah (Opsional)")
 
         st.session_state.HDL = st.number_input("HDL (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.HDL, placeholder="➔ HDL")
         
