@@ -615,7 +615,7 @@ if st.session_state.lanjut_pemeriksaan == 3:
     with st.form(key="form_pemeriksaan_gula_darah"):
         st.session_state.sudah_diisi = 0
         
-        st.subheader("Pemeriksaan Gula Darah (Dapat Pilih Salah Satu Lalu Lanjut")
+        st.subheader("Pemeriksaan Gula Darah (Dapat Pilih Salah Satu")
         
         st.session_state.gula_darah_sewaktu = st.number_input("Gula Darah Sewaktu (mg/dL): ", placeholder="➔ Gula Darah Sewaktu (GDS)", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_sewaktu)
         st.session_state.gula_darah_puasa = st.number_input("Gula Darah Puasa (mg/dL): ", placeholder="➔ Gula Darah Puasa (GDP)", min_value=0.0, max_value=999.0, value=st.session_state.gula_darah_puasa)
