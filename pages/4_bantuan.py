@@ -37,12 +37,10 @@ form_kontak = """
 with col2:
     st.markdown(
     """
-        📞 (021)- 0123 4567
+        📞 (081)- 819 0522 1487
         
-        📧 test@gmail.com
-        
-        🌐 www.example.com
-
+        📧 admbebasdiabetes@gmail.com
+      
     """
     )
 
