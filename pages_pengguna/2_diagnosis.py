@@ -39,7 +39,7 @@ if st.session_state.lanjut_pemeriksaan == 0:
             st.session_state.riwayat_diabetes_gestasional = "TIDAK"
             st.session_state.riwayat_sindrom_ovariaum_polikistik = "TIDAK"
             
-        st.session_state.riwayat_lahir_berat_badan_lahir_rendah = st.radio("Riwayat Lahir <2,5 kg atau terlahir prematur", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.riwayat_lahir_berat_badan_lahir_rendah))
+        st.session_state.riwayat_lahir_berat_badan_lahir_rendah = st.radio("Riwayat Lahir <2,5 kg atau Terlahir Prematur", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.riwayat_lahir_berat_badan_lahir_rendah))
         
         st.session_state.riwayat_penyakit_kardiovaskular = st.radio("Riwayat Penyakit Kardiovaskular", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.riwayat_penyakit_kardiovaskular))
         
@@ -363,7 +363,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
         st.session_state.kurang_aktivitas = st.radio("Kurang Aktivitas Fisik (< 150 menit/minggu)", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.kurang_aktivitas))
         st.session_state.merokok = st.radio("Kebiasaan Merokok", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.merokok))
         st.session_state.pola_makan_buruk = st.radio("Pola Makan Buruk (Tinggi gula, garam, dan lemak; rendah serat; serta jarang makan sayur dan buah)", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.pola_makan_buruk))
-        st.session_state.kurang_tidur = st.radio("Kurang tidur/gangguan tidur/tidur tidak berkualitas < 6 jam", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.kurang_tidur))
+        st.session_state.kurang_tidur = st.radio("Kurang Tidur/Gangguan Tidur/Tidur Tidak Berkualitas dengan Waktu Tidur <6 jam", ("TIDAK", "YA"), horizontal=True, index=("TIDAK", "YA").index(st.session_state.kurang_tidur))
         
         
         
