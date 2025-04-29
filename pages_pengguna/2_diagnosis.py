@@ -370,9 +370,9 @@ if st.session_state.lanjut_pemeriksaan == 1:
         st.markdown("---")
         
         st.subheader("Pemeriksaan Fisik")
-        st.session_state.tinggi_badan = st.number_input("Tinggi Badan (cm): ", min_value=0.0, max_value=999.0, value=st.session_state.tinggi_badan, placeholder="➔ tinggi badan")
-        st.session_state.berat_badan = st.number_input("Berat Badan (kg): ", min_value=0.0, max_value=999.0, value=st.session_state.berat_badan, placeholder="➔ berat badan")
-        st.session_state.lingkar_perut = st.number_input("Lingkar perut (cm): ", min_value=0.0, max_value=240.0, step=None, value=st.session_state.lingkar_perut, placeholder="➔ lingkar perut")
+        st.session_state.tinggi_badan = st.number_input("Tinggi Badan (cm): ", min_value=0.0, max_value=999.0, value=st.session_state.tinggi_badan, placeholder="➔ Tinggi Badan")
+        st.session_state.berat_badan = st.number_input("Berat Badan (kg): ", min_value=0.0, max_value=999.0, value=st.session_state.berat_badan, placeholder="➔ Berat Badan")
+        st.session_state.lingkar_perut = st.number_input("Lingkar perut (cm): ", min_value=0.0, max_value=240.0, step=None, value=st.session_state.lingkar_perut, placeholder="➔ Lingkar perut")
         st.session_state.tekanan_darah = st.text_input("Tekanan Darah (mmHg) (opsional): ", value=st.session_state.tekanan_darah)
         cek_tekanan_darah = 0
         
@@ -389,7 +389,7 @@ if st.session_state.lanjut_pemeriksaan == 1:
         
         st.session_state.trigliserida = st.number_input("Trigliserida (mg/dL): ", min_value=0.0, max_value=999.0, value=st.session_state.trigliserida, placeholder="➔ Trigliserida")
         
-        st.session_state.total_kolestrol = st.number_input("Total Kolestrol Darah (mg/dL) (Kosongkan saja apabila HDL, LDL, dan trigliserida terisi): ", min_value=0.0, max_value=999.0, value=st.session_state.total_kolestrol, placeholder="➔ total kolestrol")
+        st.session_state.total_kolestrol = st.number_input("Total Kolestrol Darah (mg/dL) (Kosongkan saja apabila HDL, LDL, dan trigliserida terisi): ", min_value=0.0, max_value=999.0, value=st.session_state.total_kolestrol, placeholder="➔ Total Kolestrol")
 
         col1, col2, col3 = st.columns(3)
 
