@@ -37,7 +37,7 @@ form_kontak = """
 with col2:
     st.markdown(
     """
-        📞 (081)- 819 0522 1487
+        📞 0819-0522-1487
         
         📧 admbebasdiabetes@gmail.com
       
