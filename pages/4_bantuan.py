@@ -25,7 +25,7 @@ st.title("Kirim Pesan Anda")
 col1, col2= st.columns(2)
 
 form_kontak = """
-    <form action="https://formsubmit.co/el/valosa" method="POST">
+    <form action="https://formsubmit.co/admbebasdiabetes@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="text" name="name" required placeholder="Nama anda">
         <input type="email" name="email" required placeholder="Email anda">
