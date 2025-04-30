@@ -141,7 +141,7 @@ def buat_laporan():
         
         if row[0] == "Tingkat Gula Darah: ":
             if row[1] == "PREDIABETES":
-                pdf.set_text_color(255, 255, 0)  # Kuning
+                pdf.set_text_color(139, 128, 0)  # Kuning
             elif row[1] == "DIABETES":
                 pdf.set_text_color(255, 0, 0)  # Merah
             elif row[1] == "NORMAL":
