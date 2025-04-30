@@ -2,7 +2,7 @@ import streamlit as st
 
 st.title("Bantuan Penggunaan Aplikasi")
 
-
+st.write("Helo")
 st.header("Cara Menggunakan Aplikasi")
 st.write("""   
 1. Melakukan registrasi dan login dengan memasukkan data Anda serta membuat username dan password.
