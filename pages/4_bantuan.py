@@ -24,7 +24,7 @@ st.markdown("---")
 
 st.title("Kirim Pesan Anda")
 col1, col2= st.columns(2)
-st.write("Hello")
+
 form_kontak = """
     <form action="https://formsubmit.co/el/valosa" method="POST">
         <input type="hidden" name="_captcha" value="false">
