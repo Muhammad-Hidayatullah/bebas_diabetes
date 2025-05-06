@@ -925,8 +925,8 @@ if st.session_state.lanjut_pemeriksaan == 5:
 
             
 if st.session_state.lanjut_pemeriksaan == 6:
-    if "hasil_diagnosis" not in st.session_state:
-        st.session_state.hasil_diagnosis = {}
+    #if "hasil_diagnosis" not in st.session_state:
+    st.session_state.hasil_diagnosis = {}
         
    
     catatan = False
@@ -1165,7 +1165,7 @@ if st.session_state.lanjut_pemeriksaan == 7:
     
     if st.button("Kembali ke Awal"):
         st.session_state.lanjut_pemeriksaan = 0
-        st.session_state.hasil_diagnosis = {}
+        #st.session_state.hasil_diagnosis = {}
         fungsi_pemeriksaan.awal_pemeriksaan()
         st.success("Kembali ke Awal Lagi!")
         time.sleep(1)
