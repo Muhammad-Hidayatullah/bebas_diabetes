@@ -29,9 +29,17 @@ st.session_state.style_tabel_aturan = """
     }
 </style>
 """
-st.title("Informasi Sistem")
 
+col1, col2 = st.columns([9, 3])
 
+with col1:
+    st.title("Informasi Sistem")
+
+with col2:
+    st.markdown(
+        '<a href="https://bebas-diabetes.streamlit.app/login_pengguna" target="_self" style="font-size:20px;">Login Disini</a>',
+        unsafe_allow_html=True
+    )
 
 
 pg_bg_img = """
