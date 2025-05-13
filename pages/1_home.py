@@ -71,7 +71,7 @@ with col1:
 with col2:
     text = """
     <div style="text-align: justify;">
-        Selamat datang di Website Sistem Pakar Penyakit Diabetes Mellitus Tipe 2 Kami! Situs ini dibuat agar
+        Selamat datang di Website Sistem Pakar Untuk Memprediksi Penyakit Diabetes Mellitus Tipe 2 (Studi Kasus: Puskesmas Kecamatan Taman Sari) ! Situs ini dibuat agar
         Anda memeriksa kesehatan dengan sistem diagnosis dini penyakit diabetes tipe 2. Mari bersama-sama menjaga kesehatan dan
         menerapkan pola hidup sehat untuk mencegah penyakit, demi kebahagiaan Anda dan pribadi. 
     </div>
