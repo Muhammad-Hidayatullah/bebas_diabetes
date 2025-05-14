@@ -1075,7 +1075,7 @@ if st.session_state.lanjut_pemeriksaan == 6:
 
 if st.session_state.lanjut_pemeriksaan == 7:
 
-    # Display "Faktor Tidak Bisa Diubah"
+    # Menampilkan "Faktor Tidak Bisa Diubah"
     st.subheader("Faktor Tidak Bisa Diubah")
     st.write("Usia di atas 40 tahun: " + st.session_state.usia_di_atas_40_tahun)
     st.write("Riwayat Keluarga Diabetes: " + st.session_state.riwayat_keluarga_diabetes)
@@ -1084,7 +1084,7 @@ if st.session_state.lanjut_pemeriksaan == 7:
     st.write("Riwayat Lahir <2,5 kg atau Prematur: " + st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
     st.write("Riwayat Penyakit Kardiovaskular: "+st.session_state.riwayat_penyakit_kardiovaskular)
     
-    # Display "Pola Gaya Hidup"
+    # Menampilkan "Pola Gaya Hidup"
     st.subheader("Pola Gaya Hidup")
     st.write("Konsumsi Alkohol: " + st.session_state.konsumsi_alkohol)
     st.write("Kurang Aktivitas Fisik: " + st.session_state.kurang_aktivitas)
@@ -1092,7 +1092,7 @@ if st.session_state.lanjut_pemeriksaan == 7:
     st.write("Pola Makan Buruk: " + st.session_state.pola_makan_buruk)
     st.write("Tidur Tidak Berkualitas: " + st.session_state.kurang_tidur)
 
-    # Display "Pemeriksaan Fisik"
+    # Menampilkan "Pemeriksaan Fisik"
     st.subheader("Pemeriksaan Fisik")
     st.write("Tinggi Badan: " + str(st.session_state.tinggi_badan) + " cm")
     st.write("Berat Badan: " + str(st.session_state.berat_badan) + " kg")
@@ -1100,20 +1100,20 @@ if st.session_state.lanjut_pemeriksaan == 7:
     st.write("Indeks Massa Tubuh: " + str(st.session_state.indeks_massa_tubuh) + " kg/m²")
     st.write("Tekanan Darah: " + str(st.session_state.tekanan_darah) + " mmHg")
 
-    # Display "Hasil Tekanan Darah dan Kolesterol Darah"
+    # Menampilkan "Hasil Tekanan Darah dan Kolesterol Darah"
     st.subheader("Kolesterol Darah")
     st.write("HDL: " + str(st.session_state.HDL) + " mg/dL")
     st.write("LDL: " + str(st.session_state.LDL) + " mg/dL")
     st.write("Trigliserida: " + str(st.session_state.trigliserida) + " mg/dL")
     st.write("Total Kolesterol Darah: " + str(st.session_state.total_kolestrol) + " mg/dL")
 
-    # Display "Hasil Laboratorium"
+    # Menampilkan "Hasil Laboratorium"
     st.subheader("Hasil Laboratorium")
     st.write("Gula Darah Sewaktu (GDS): " + str(st.session_state.gula_darah_sewaktu) + " mg/dL")
     st.write("Gula Darah Puasa (GDP): " + str(st.session_state.gula_darah_puasa) + " mg/dL")
     st.write("Gula Darah 2 Jam Setelah Makan (GD2PP): " + str(st.session_state.gula_darah_2_jam_setelah_makan) + " mg/dL")
 
-    # Display "Diagnosis Penyakit"
+    # Menampilkan "Diagnosis Penyakit"
     st.subheader("Diagnosis Penyakit")
     st.write("**Gejala-Gejala Terpilih:** ")
     if st.session_state.gejala_terpilih:
@@ -1155,8 +1155,8 @@ if st.session_state.lanjut_pemeriksaan == 7:
     file_pdf = buat_laporan()
     
     #base64_pdf = b64encode(buat_laporan()).decode("utf-8")
-    #pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
-    #st.markdown(pdf_display, unsafe_allow_html=True)
+    #pdf_Menampilkan = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="700" height="400" type="application/pdf">'
+    #st.markdown(pdf_Menampilkan, unsafe_allow_html=True)
     
     st.download_button(
         label="Download PDF",
