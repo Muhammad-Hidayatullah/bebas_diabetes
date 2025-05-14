@@ -1067,7 +1067,7 @@ if st.session_state.lanjut_pemeriksaan == 6:
                     db.insert_diagnosis_penyakit(db.menambah_id_diagnosis_default(), st.session_state.data_pengguna[0], None, None, None, st.session_state.tanggal_pemeriksaan)
                 
                 
-                st.success("Diagnosis Berhasil dan Telah Tersimpan!")
+                st.success("Data Telah Tersimpan!")
 
                 time.sleep(2)
                 
