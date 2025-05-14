@@ -1080,8 +1080,10 @@ if st.session_state.lanjut_pemeriksaan == 7:
     st.write("Usia di atas 40 tahun: " + st.session_state.usia_di_atas_40_tahun)
     st.write("Riwayat Keluarga Diabetes: " + st.session_state.riwayat_keluarga_diabetes)
     st.write("Riwayat Diabetes Gestasional: " + st.session_state.riwayat_diabetes_gestasional)
+    st.write("Sindrom Ovarium Polikistik: "+st.session_state.riwayat_sindrom_ovariaum_polikistik)
     st.write("Riwayat Lahir <2,5 kg atau Prematur: " + st.session_state.riwayat_lahir_berat_badan_lahir_rendah)
-
+    st.write("Riwayat Penyakit Kardiovaskular: "+st.session_state.riwayat_penyakit_kardiovaskular)
+    
     # Display "Pola Gaya Hidup"
     st.subheader("Pola Gaya Hidup")
     st.write("Konsumsi Alkohol: " + st.session_state.konsumsi_alkohol)
