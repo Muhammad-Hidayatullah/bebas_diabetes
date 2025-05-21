@@ -564,6 +564,7 @@ def add_analisa_hasil(id_analisa, id_pasien, id_penyakit, tanggal_analisa, gejal
     cursor = conn.cursor()
     query = "INSERT INTO analisa_hasil (id_analisa, id_pasien, id_penyakit, tanggal_analisa, gejala-gejala) VALUES (%s, %s, %s, %s, %s);"
     cursor.execute(query, (id_analisa, id_pasien, id_penyakit, tanggal_analisa, gejala_gejala))
+    conn.close()
 
 
 
@@ -798,18 +799,21 @@ def fetch_pemeriksaan_kesehatan():
     conn = connect_to_db()
     query = "SELECT * FROM pemeriksaan_kesehatan"
     df = pd.read_sql(query, conn)
+    conn.close()
     return df
 
 def fetch_pemeriksaan_fisik():
     conn = connect_to_db()
     query = "SELECT * FROM pemeriksaan_fisik"
     df = pd.read_sql(query, conn)
+    conn.close()
     return df
 
 def fetch_pemeriksaan_faktor_permanen():
     conn = connect_to_db()
     query = "SELECT * FROM pemeriksaan_faktor_permanen"
     df = pd.read_sql(query, conn)
+    conn.close()
     return df
 
 
@@ -818,12 +822,14 @@ def fetch_pemeriksaan_laboratorium():
     conn = connect_to_db()
     query = "SELECT * FROM pemeriksaan_laboratorium;"
     df = pd.read_sql(query, conn)
+    conn.close()
     return df
 
 def fetch_kebiasaan_hidup():
     conn = connect_to_db()
     query = "SELECT * FROM kebiasaan_hidup"
     df = pd.read_sql(query, conn)
+    conn.close()
     return df
 
 
@@ -850,13 +856,8 @@ def fetch_analisa_hasil():
     conn = connect_to_db()
     query = "SELECT analisa_hasil.id_analisa, analisa_hasil.id_pasien, pasien.nama_pasien, analisa_hasil.id_penyakit, penyakit.nama_penyakit, analisa_hasil.tanggal_analisa, analisa_hasil.`gejala-gejala` FROM analisa_hasil JOIN pasien ON analisa_hasil.id_pasien = pasien.id_pasien JOIN penyakit ON analisa_hasil.id_penyakit = penyakit.id_penyakit;"
     df = pd.read_sql(query, conn)
+    conn.close()
     return df
-
-
-
-
-
-
 
 
 
