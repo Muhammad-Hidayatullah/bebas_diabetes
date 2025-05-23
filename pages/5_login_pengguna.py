@@ -238,14 +238,18 @@ with st.form("Ganti Password"):
         input_password_baru = st.text_input("Masukkan password baru: ", type="password", placeholder="password baru")
         input_password_baru_ulang = st.text_input("Ulangi password baru: ", type="password", placeholder="ulangi password baru")
         if st.form_submit_button("Ganti Password"):
-            if input_password_baru == input_password_baru_ulang:
-                db.reset_password_pengguna(input_password_baru, st.session_state.input_username, st.session_state.input_email)
-                st.success("Password Berhasil Diganti Dengan Password Baru")
-                time.sleep(2)
-                st.session_state.logged_in_pengguna = False
-                st.rerun()
-            else:
-                st.error("Password Baru dan Password Baru Ulang Tidak Sama!")
+            if input_password_baru and input_password_baru_ulang:
+                if input_password_baru == input_password_baru_ulang:
+                    db.reset_password_pengguna(input_password_baru, st.session_state.input_username, st.session_state.input_email)
+                    st.success("Password Berhasil Diganti Dengan Password Baru")
+                    time.sleep(2)
+                    st.session_state.logged_in_pengguna = False
+                    st.rerun()
+                else:
+                    st.error("Password Baru dan Password Baru Ulang Tidak Sama!")
+        else:
+            st.error("Password Baru tidak boleh kosong!")
+
         
 
 
