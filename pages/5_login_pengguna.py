@@ -247,8 +247,8 @@ with st.form("Ganti Password"):
                     st.rerun()
                 else:
                     st.error("Password Baru dan Password Baru Ulang Tidak Sama!")
-        else:
-            st.error("Password Baru tidak boleh kosong!")
+            else:
+                st.error("Password Baru tidak boleh kosong!")
 
         
 
